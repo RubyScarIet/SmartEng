@@ -103,16 +103,16 @@ GO
 -- ============================================================
 SET IDENTITY_INSERT tblDailyMission ON;
 INSERT INTO tblDailyMission (ID, title, description, targetValue, reward) VALUES
-(1,  'First Step',         'Hoàn thành 1 bài học trong ngày',               1,   20),
-(2,  'Word Collector',     'Học 10 từ vựng mới trong ngày',                 10,  30),
-(3,  'Practice Master',    'Làm 3 bài luyện tập trong ngày',                3,   50),
-(4,  'Streak Keeper',      'Duy trì chuỗi ngày học ít nhất 7 ngày',         7,  100),
-(5,  'Perfect Score',      'Đạt điểm tuyệt đối trong 1 bài kiểm tra',       1,   80),
-(6,  'Speed Learner',      'Hoàn thành 1 bài học trong vòng 5 phút',        1,   40),
-(7,  'Question Champion',  'Trả lời đúng 20 câu hỏi liên tiếp',            20,   60),
-(8,  'Daily Goal',         'Đạt mục tiêu thời gian học trong ngày',         1,   25),
-(9,  'Alphabet Hero',      'Ôn tập toàn bộ bảng chữ cái phát âm',          26,   35),
-(10, 'Social Learner',     'Hoàn thành bài học trong top 10 bảng xếp hạng', 1,   70);
+(1,  'First Step',         N'Hoàn thành 1 bài học trong ngày',               1,   20),
+(2,  'Word Collector',     N'Học 10 từ vựng mới trong ngày',                 10,  30),
+(3,  'Practice Master',    N'Làm 3 bài luyện tập trong ngày',                3,   50),
+(4,  'Streak Keeper',      N'Duy trì chuỗi ngày học ít nhất 7 ngày',         7,  100),
+(5,  'Perfect Score',      N'Đạt điểm tuyệt đối trong 1 bài kiểm tra',       1,   80),
+(6,  'Speed Learner',      N'Hoàn thành 1 bài học trong vòng 5 phút',        1,   40),
+(7,  'Question Champion',  N'Trả lời đúng 20 câu hỏi liên tiếp',            20,   60),
+(8,  'Daily Goal',         N'Đạt mục tiêu thời gian học trong ngày',         1,   25),
+(9,  'Alphabet Hero',      N'Ôn tập toàn bộ bảng chữ cái phát âm',          26,   35),
+(10, 'Social Learner',     N'Hoàn thành bài học trong top 10 bảng xếp hạng', 1,   70);
 SET IDENTITY_INSERT tblDailyMission OFF;
 GO
 
@@ -135,32 +135,32 @@ GO
 -- ============================================================
 SET IDENTITY_INSERT tblTopic ON;
 INSERT INTO tblTopic (ID, name, description, orderIndex, tblLanguageID) VALUES
-(1,  'Greetings',       'Học cách chào hỏi và giới thiệu bản thân',       1,  1),
-(2,  'Numbers',         'Học các con số và đếm số trong tiếng Anh',        2,  1),
-(3,  'Food & Drink',    'Từ vựng về ẩm thực và thức uống',                3,  1),
-(4,  'Travel',          'Từ vựng và hội thoại liên quan đến du lịch',      4,  1),
-(5,  'Family',          'Từ vựng về gia đình và các mối quan hệ',         5,  1),
-(6,  'Hiragana Basics', 'Học bảng chữ Hiragana cơ bản',                   1,  2),
-(7,  'Katakana',        'Học bảng chữ Katakana cơ bản',                   2,  2),
-(8,  'K-Greetings',     'Chào hỏi và giao tiếp cơ bản tiếng Hàn',        1,  3),
-(9,  'Les Couleurs',    'Học các màu sắc trong tiếng Pháp',                1,  4),
-(10, 'Zahlen',          'Học số đếm trong tiếng Đức',                      1,  5);
+(1,  'Greetings',       N'Học cách chào hỏi và giới thiệu bản thân',       1,  1),
+(2,  'Numbers',         N'Học các con số và đếm số trong tiếng Anh',        2,  1),
+(3,  'Food & Drink',    N'Từ vựng về ẩm thực và thức uống',                3,  1),
+(4,  'Travel',          N'Từ vựng và hội thoại liên quan đến du lịch',      4,  1),
+(5,  'Family',          N'Từ vựng về gia đình và các mối quan hệ',         5,  1),
+(6,  'Animals',         N'Tên các loài động vật quen thuộc',               6,  1),
+(7,  'Colors',          N'Học các màu sắc trong tiếng Anh',                7,  1),
+(8,  'Jobs',            N'Từ vựng về nghề nghiệp',                         8,  1),
+(9,  'Weather',         N'Cách miêu tả thời tiết',                         9,  1),
+(10, 'Hobbies',         N'Sở thích và hoạt động giải trí',                 10, 1);
 SET IDENTITY_INSERT tblTopic OFF;
 GO
 
 -- ============================================================
 SET IDENTITY_INSERT tblLesson ON;
 INSERT INTO tblLesson (ID, name, code, description, des, tblTopicID) VALUES
-(1,  'Hello & Goodbye',          'EN-GR-01', 'Chào hỏi cơ bản',             'Học cách nói Hello, Hi, Good morning, Goodbye...', 1),
-(2,  'Introducing Yourself',     'EN-GR-02', 'Tự giới thiệu bản thân',      'My name is..., I am from..., Nice to meet you', 1),
-(3,  'Numbers 1–10',             'EN-NB-01', 'Số từ 1 đến 10',              'One, Two, Three... Ten với phát âm chuẩn',    2),
-(4,  'Numbers 11–100',           'EN-NB-02', 'Số từ 11 đến 100',            'Eleven, Twelve... Twenty, Thirty... Hundred', 2),
-(5,  'Ordering Food',            'EN-FD-01', 'Gọi món ăn',                  'I would like..., Can I have..., The bill please', 3),
-(6,  'Fruits & Vegetables',      'EN-FD-02', 'Rau củ quả',                  'Apple, Banana, Carrot, Broccoli...',          3),
-(7,  'At the Airport',           'EN-TV-01', 'Tại sân bay',                 'Check-in, Boarding pass, Gate, Departure...',  4),
-(8,  'Booking a Hotel',          'EN-TV-02', 'Đặt phòng khách sạn',         'Reservation, Room type, Check-out date...',    4),
-(9,  'あいさつ (Aisatsu)',        'JA-HG-01', 'Chào hỏi tiếng Nhật',        'おはようございます、こんにちは、さようなら',   6),
-(10, '가족 (Gajok - Family)',    'KO-GR-01', 'Gia đình tiếng Hàn',          '아버지, 어머니, 형, 동생, 누나...',            8);
+(1,  'Hello & Goodbye',          'EN-GR-01', N'Chào hỏi cơ bản',             N'Học cách nói Hello, Hi, Good morning, Goodbye...', 1),
+(2,  'Introducing Yourself',     'EN-GR-02', N'Tự giới thiệu bản thân',      'My name is..., I am from..., Nice to meet you', 1),
+(3,  N'Numbers 1–10',             'EN-NB-01', N'Số từ 1 đến 10',              N'One, Two, Three... Ten với phát âm chuẩn',    2),
+(4,  N'Numbers 11–100',           'EN-NB-02', N'Số từ 11 đến 100',            'Eleven, Twelve... Twenty, Thirty... Hundred', 2),
+(5,  'Ordering Food',            'EN-FD-01', N'Gọi món ăn',                  'I would like..., Can I have..., The bill please', 3),
+(6,  'Fruits & Vegetables',      'EN-FD-02', N'Rau củ quả',                  'Apple, Banana, Carrot, Broccoli...',          3),
+(7,  'At the Airport',           'EN-TV-01', N'Tại sân bay',                 'Check-in, Boarding pass, Gate, Departure...',  4),
+(8,  'Booking a Hotel',          'EN-TV-02', N'Đặt phòng khách sạn',         'Reservation, Room type, Check-out date...',    4),
+(9,  'Farm Animals',     'EN-AN-01', N'Động vật nông trại',      'Cow, Pig, Chicken, Horse...', 6),
+(10, 'Basic Colors',     'EN-CL-01', N'Màu sắc cơ bản',          'Red, Blue, Green, Yellow...', 7);
 SET IDENTITY_INSERT tblLesson OFF;
 GO
 
@@ -170,29 +170,45 @@ INSERT INTO tblLetter (ID, character, type, audioURL, exampleWord, exampleAudioU
 (1,  'A', 'vowel',     'https://cdn.smarteng.io/audio/en/a.mp3',         'Apple',      'https://cdn.smarteng.io/audio/en/apple.mp3',      1),
 (2,  'B', 'consonant', 'https://cdn.smarteng.io/audio/en/b.mp3',         'Ball',       'https://cdn.smarteng.io/audio/en/ball.mp3',       1),
 (3,  'C', 'consonant', 'https://cdn.smarteng.io/audio/en/c.mp3',         'Cat',        'https://cdn.smarteng.io/audio/en/cat.mp3',        1),
-(4,  'あ', 'hiragana', 'https://cdn.smarteng.io/audio/ja/a.mp3',         'あめ (ame)', 'https://cdn.smarteng.io/audio/ja/ame.mp3',        2),
-(5,  'い', 'hiragana', 'https://cdn.smarteng.io/audio/ja/i.mp3',         'いぬ (inu)', 'https://cdn.smarteng.io/audio/ja/inu.mp3',        2),
-(6,  'ㄱ', 'consonant','https://cdn.smarteng.io/audio/ko/g.mp3',         '가방 (gabang)','https://cdn.smarteng.io/audio/ko/gabang.mp3',   3),
-(7,  'ㅏ', 'vowel',    'https://cdn.smarteng.io/audio/ko/a.mp3',         '아버지 (abeoji)','https://cdn.smarteng.io/audio/ko/abeoji.mp3', 3),
-(8,  'A', 'vowel',     'https://cdn.smarteng.io/audio/fr/a.mp3',         'Avion',      'https://cdn.smarteng.io/audio/fr/avion.mp3',      4),
-(9,  'D', 'consonant', 'https://cdn.smarteng.io/audio/en/d.mp3',         'Dog',        'https://cdn.smarteng.io/audio/en/dog.mp3',        1),
-(10, 'E', 'vowel',     'https://cdn.smarteng.io/audio/en/e.mp3',         'Elephant',   'https://cdn.smarteng.io/audio/en/elephant.mp3',   1);
+(4,  'D', 'consonant', 'https://cdn.smarteng.io/audio/en/d.mp3',         'Dog', 'https://cdn.smarteng.io/audio/en/dog.mp3',        1),
+(5,  'E', 'vowel', 'https://cdn.smarteng.io/audio/en/e.mp3',         'Elephant', 'https://cdn.smarteng.io/audio/en/elephant.mp3',        1),
+(6,  'F', 'consonant','https://cdn.smarteng.io/audio/en/f.mp3',         'Fish','https://cdn.smarteng.io/audio/en/fish.mp3',   1),
+(7,  'G', 'consonant',    'https://cdn.smarteng.io/audio/en/g.mp3',         'Goat','https://cdn.smarteng.io/audio/en/goat.mp3', 1),
+(8,  'H', 'consonant',     'https://cdn.smarteng.io/audio/en/h.mp3',         'Hat',      'https://cdn.smarteng.io/audio/en/hat.mp3',      1),
+(9,  'I', 'vowel', 'https://cdn.smarteng.io/audio/en/i.mp3',         'Ice',        'https://cdn.smarteng.io/audio/en/ice.mp3',        1),
+(10, 'J', 'consonant',     'https://cdn.smarteng.io/audio/en/j.mp3',         'Juice',   'https://cdn.smarteng.io/audio/en/juice.mp3',   1),
+(11, 'K', 'consonant', 'https://cdn.smarteng.io/audio/en/k.mp3', 'Kite', 'https://cdn.smarteng.io/audio/en/kite.mp3', 1),
+(12, 'L', 'consonant', 'https://cdn.smarteng.io/audio/en/l.mp3', 'Lion', 'https://cdn.smarteng.io/audio/en/lion.mp3', 1),
+(13, 'M', 'consonant', 'https://cdn.smarteng.io/audio/en/m.mp3', 'Monkey', 'https://cdn.smarteng.io/audio/en/monkey.mp3', 1),
+(14, 'N', 'consonant', 'https://cdn.smarteng.io/audio/en/n.mp3', 'Nest', 'https://cdn.smarteng.io/audio/en/nest.mp3', 1),
+(15, 'O', 'vowel', 'https://cdn.smarteng.io/audio/en/o.mp3', 'Orange', 'https://cdn.smarteng.io/audio/en/orange.mp3', 1),
+(16, 'P', 'consonant', 'https://cdn.smarteng.io/audio/en/p.mp3', 'Pig', 'https://cdn.smarteng.io/audio/en/pig.mp3', 1),
+(17, 'Q', 'consonant', 'https://cdn.smarteng.io/audio/en/q.mp3', 'Queen', 'https://cdn.smarteng.io/audio/en/queen.mp3', 1),
+(18, 'R', 'consonant', 'https://cdn.smarteng.io/audio/en/r.mp3', 'Rabbit', 'https://cdn.smarteng.io/audio/en/rabbit.mp3', 1),
+(19, 'S', 'consonant', 'https://cdn.smarteng.io/audio/en/s.mp3', 'Sun', 'https://cdn.smarteng.io/audio/en/sun.mp3', 1),
+(20, 'T', 'consonant', 'https://cdn.smarteng.io/audio/en/t.mp3', 'Tiger', 'https://cdn.smarteng.io/audio/en/tiger.mp3', 1),
+(21, 'U', 'vowel', 'https://cdn.smarteng.io/audio/en/u.mp3', 'Umbrella', 'https://cdn.smarteng.io/audio/en/umbrella.mp3', 1),
+(22, 'V', 'consonant', 'https://cdn.smarteng.io/audio/en/v.mp3', 'Van', 'https://cdn.smarteng.io/audio/en/van.mp3', 1),
+(23, 'W', 'consonant', 'https://cdn.smarteng.io/audio/en/w.mp3', 'Water', 'https://cdn.smarteng.io/audio/en/water.mp3', 1),
+(24, 'X', 'consonant', 'https://cdn.smarteng.io/audio/en/x.mp3', 'X-ray', 'https://cdn.smarteng.io/audio/en/x-ray.mp3', 1),
+(25, 'Y', 'consonant', 'https://cdn.smarteng.io/audio/en/y.mp3', 'Yellow', 'https://cdn.smarteng.io/audio/en/yellow.mp3', 1),
+(26, 'Z', 'consonant', 'https://cdn.smarteng.io/audio/en/z.mp3', 'Zebra', 'https://cdn.smarteng.io/audio/en/zebra.mp3', 1);
 SET IDENTITY_INSERT tblLetter OFF;
 GO
 
 -- ============================================================
 SET IDENTITY_INSERT tblVocabulary ON;
 INSERT INTO tblVocabulary (ID, word, meaning, pronunciation, tblLanguageID) VALUES
-(1,  'Hello',        'Xin chào',              '/həˈloʊ/',     1),
-(2,  'Goodbye',      'Tạm biệt',              '/ɡʊdˈbaɪ/',    1),
-(3,  'Thank you',    'Cảm ơn',                '/θæŋk juː/',   1),
-(4,  'Apple',        'Quả táo',               '/ˈæp.əl/',     1),
-(5,  'Water',        'Nước',                  '/ˈwɔː.tər/',   1),
-(6,  'こんにちは',    'Xin chào (ban ngày)',   '/kon.ni.chi.wa/', 2),
-(7,  'ありがとう',    'Cảm ơn',                '/a.ri.ga.to/', 2),
-(8,  '안녕하세요',    'Xin chào (lịch sự)',    '/an.njʌŋ.ha.se.jo/', 3),
-(9,  'Bonjour',      'Xin chào (tiếng Pháp)', '/bɔ̃.ʒuʁ/',    4),
-(10, 'Danke',        'Cảm ơn (tiếng Đức)',    '/ˈdaŋ.kə/',    5);
+(1,  'Hello',        N'Xin chào',              N'/həˈloʊ/',     1),
+(2,  'Goodbye',      N'Tạm biệt',              N'/ɡʊdˈbaɪ/',    1),
+(3,  'Thank you',    N'Cảm ơn',                N'/θæŋk juː/',   1),
+(4,  'Apple',        N'Quả táo',               N'/ˈæp.əl/',     1),
+(5,  'Water',        N'Nước',                  N'/ˈwɔː.tər/',   1),
+(6,  'Dog',          N'Con chó',               N'/dɒɡ/',        1),
+(7,  'Cat',          N'Con mèo',               N'/kæt/',        1),
+(8,  'Red',          N'Màu đỏ',                N'/rɛd/',        1),
+(9,  'Blue',         N'Màu xanh dương',        N'/bluː/',       1),
+(10, 'Teacher',      N'Giáo viên',             N'/ˈtiː.tʃər/',  1);
 SET IDENTITY_INSERT tblVocabulary OFF;
 GO
 
@@ -204,11 +220,11 @@ INSERT INTO tblLessonVocabulary (ID, orderIndex, isReview, context, tblLessonID,
 (3,  3, 1, 'Expressing gratitude in formal settings.',         1, 3),
 (4,  1, 0, 'Common fruit discussed in food lessons.',          5, 4),
 (5,  2, 0, 'Ordering water at a restaurant.',                  5, 5),
-(6,  1, 0, 'Standard daytime greeting in Japanese.',           9, 6),
-(7,  2, 1, 'Saying thank you after receiving something.',      9, 7),
-(8,  1, 0, 'Polite greeting used in Korean daily life.',      10, 8),
-(9,  1, 0, 'Common French morning greeting.',                  1, 9),
-(10, 1, 0, 'Used to thank someone in German context.',         1, 10);
+(6,  1, 0, 'A common pet that barks.',                         9, 6),
+(7,  2, 1, 'A common pet that meows.',                         9, 7),
+(8,  1, 0, 'The color of an apple.',                          10, 8),
+(9,  1, 0, 'The color of the sky.',                           10, 9),
+(10, 1, 0, 'A person who teaches in a school.',               10, 10);
 SET IDENTITY_INSERT tblLessonVocabulary OFF;
 GO
 
@@ -217,8 +233,8 @@ SET IDENTITY_INSERT tblQuestion ON;
 INSERT INTO tblQuestion (ID, content, questionType, difficulty, options, correctAnswer, tblLessonID, tblLanguageID) VALUES
 (1,  'What does "Hello" mean in Vietnamese?',
      'MULTIPLE_CHOICE', 'easy',
-     '["Tạm biệt","Xin chào","Cảm ơn","Xin lỗi"]',
-     'Xin chào', 1, 1),
+     N'["Tạm biệt","Xin chào","Cảm ơn","Xin lỗi"]',
+     N'Xin chào', 1, 1),
 (2,  'Fill in the blank: "Good ___, how are you?"',
      'FILL_IN', 'easy',
      '[]',
@@ -247,14 +263,14 @@ INSERT INTO tblQuestion (ID, content, questionType, difficulty, options, correct
      'MULTIPLE_CHOICE', 'medium',
      '["Passport only","Boarding pass","Driver license","Hotel booking"]',
      'Boarding pass', 7, 1),
-(9,  'こんにちは means:',
+(9,  'What animal says "meow"?',
      'MULTIPLE_CHOICE', 'easy',
-     '["Good night","Good morning","Hello","Goodbye"]',
-     'Hello', 9, 2),
-(10, '안녕하세요 is used when:',
+     '["Dog","Cow","Cat","Horse"]',
+     'Cat', 9, 1),
+(10, 'What is the color of the sky?',
      'MULTIPLE_CHOICE', 'easy',
-     '["Saying goodbye","Asking for help","Greeting someone politely","Ordering food"]',
-     'Greeting someone politely', 10, 3);
+     '["Red","Green","Blue","Yellow"]',
+     'Blue', 10, 1);
 SET IDENTITY_INSERT tblQuestion OFF;
 GO
 
@@ -263,14 +279,14 @@ SET IDENTITY_INSERT tblTest ON;
 INSERT INTO tblTest (ID, title, type, timeLimit, rewardEXP, totalQuestions, tblLessonID) VALUES
 (1,  'Greetings Quiz 1',          'LESSON_TEST', '00:10:00', 50,  5,  1),
 (2,  'Introduction Test',         'LESSON_TEST', '00:08:00', 50,  4,  2),
-(3,  'Numbers 1–10 Quiz',         'LESSON_TEST', '00:05:00', 30,  5,  3),
-(4,  'Numbers 11–100 Quiz',       'LESSON_TEST', '00:07:00', 40,  5,  4),
+(3,  N'Numbers 1–10 Quiz',         'LESSON_TEST', '00:05:00', 30,  5,  3),
+(4,  N'Numbers 11–100 Quiz',       'LESSON_TEST', '00:07:00', 40,  5,  4),
 (5,  'Food Ordering Test',        'LESSON_TEST', '00:10:00', 60,  6,  5),
 (6,  'Fruits & Vegetables Quiz',  'LESSON_TEST', '00:08:00', 40,  5,  6),
 (7,  'Airport Vocabulary Test',   'LESSON_TEST', '00:12:00', 70,  7,  7),
 (8,  'Hotel Booking Quiz',        'LESSON_TEST', '00:10:00', 60,  6,  8),
-(9,  'Japanese Greeting Test',    'LESSON_TEST', '00:06:00', 40,  4,  9),
-(10, 'Korean Family Words Test',  'LESSON_TEST', '00:08:00', 50,  5, 10);
+(9,  'Animals Quiz',            'LESSON_TEST', '00:06:00', 40,  4,  9),
+(10, 'Colors Test',             'LESSON_TEST', '00:08:00', 50,  5, 10);
 SET IDENTITY_INSERT tblTest OFF;
 GO
 

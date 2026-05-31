@@ -1,125 +1,115 @@
 package view.user;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class LoginFrm extends JFrame {
-    private JTextField txtUsername;
-    private JPasswordField txtPassword;
-    private JButton btnLogin;
-
     public LoginFrm() {
         super("SmartEng - Log In");
-        setSize(700, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
         setLayout(new BorderLayout());
 
-        // --- Left Panel (Sidebar) ---
-        JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(Color.WHITE);
-        leftPanel.setPreferredSize(new Dimension(200, 500));
-        leftPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
-        leftPanel.setLayout(null);
-
-        JLabel lblLogo = new JLabel("SmartEng");
-        lblLogo.setFont(new Font("SansSerif", Font.BOLD, 22));
-        lblLogo.setBounds(20, 30, 150, 30);
-        lblLogo.setForeground(Color.DARK_GRAY);
-        leftPanel.add(lblLogo);
-
-        add(leftPanel, BorderLayout.WEST);
-
-        // --- Right Panel (Main Content) ---
-        JPanel rightPanel = new JPanel();
-        rightPanel.setBackground(Color.WHITE);
-        rightPanel.setLayout(new GridBagLayout());
+        JPanel sidebar = new JPanel(new BorderLayout());
+        sidebar.setPreferredSize(new Dimension(220, 500));
+        sidebar.setBackground(Color.WHITE);
+        sidebar.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        JLabel lblLogo = new JLabel("SmartEng", SwingConstants.LEFT);
+        lblLogo.setFont(new Font("SansSerif", Font.BOLD, 22));
+        lblLogo.setBorder(new EmptyBorder(30, 20, 0, 0));
+        sidebar.add(lblLogo, BorderLayout.NORTH);
+
+        JPanel mainArea = new JPanel(new GridBagLayout());
+        mainArea.setBackground(Color.WHITE);
+
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setBackground(Color.WHITE);
 
         JLabel lblTitle = new JLabel("Log In", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblTitle.setForeground(Color.DARK_GRAY);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(10, 10, 40, 10);
-        rightPanel.add(lblTitle, gbc);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 26));
+        lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Username field
-        txtUsername = new JTextField(20);
-        txtUsername.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        txtUsername.setPreferredSize(new Dimension(250, 40));
-        txtUsername.setBorder(BorderFactory.createTitledBorder("Username"));
-        gbc.gridy = 1;
-        gbc.insets = new Insets(5, 10, 10, 10);
-        rightPanel.add(txtUsername, gbc);
+        JTextField txtUser = new JTextField();
+        txtUser.setMaximumSize(new Dimension(280, 40));
+        txtUser.setPreferredSize(new Dimension(280, 40));
+        txtUser.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        txtUser.setHorizontalAlignment(JTextField.CENTER);
+        txtUser.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.DARK_GRAY, 1, true),
+            new EmptyBorder(5, 5, 5, 5)
+        ));
 
-        // Password field
-        txtPassword = new JPasswordField(20);
-        txtPassword.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        txtPassword.setPreferredSize(new Dimension(250, 40));
-        txtPassword.setBorder(BorderFactory.createTitledBorder("Password"));
-        gbc.gridy = 2;
-        gbc.insets = new Insets(5, 10, 30, 10);
-        rightPanel.add(txtPassword, gbc);
+        JPasswordField txtPass = new JPasswordField();
+        txtPass.setMaximumSize(new Dimension(280, 40));
+        txtPass.setPreferredSize(new Dimension(280, 40));
+        txtPass.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        txtPass.setHorizontalAlignment(JTextField.CENTER);
+        txtPass.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.DARK_GRAY, 1, true),
+            new EmptyBorder(5, 5, 5, 5)
+        ));
 
-        // Login Button
-        btnLogin = new JButton("Log In");
-        btnLogin.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLogin.setBackground(Color.DARK_GRAY);
-        btnLogin.setForeground(Color.WHITE);
+        JButton btnLogin = new JButton("Log In");
+        btnLogin.setMaximumSize(new Dimension(150, 40));
+        btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnLogin.setBackground(Color.WHITE);
         btnLogin.setFocusPainted(false);
-        btnLogin.setPreferredSize(new Dimension(250, 45));
-        
-        // Login Action
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = txtUsername.getText().trim();
-                
-                if (username.equalsIgnoreCase("admin")) {
-                    JOptionPane.showMessageDialog(LoginFrm.this, "Đăng nhập thành công với quyền Admin!");
-                    // new AdminHomeFrm().setVisible(true);
-                    // dispose();
-                } else if (!username.isEmpty()) {
-                    JOptionPane.showMessageDialog(LoginFrm.this, "Đăng nhập thành công với quyền Learner!");
-                    // new LearnerHomeFrm().setVisible(true);
-                    // dispose();
+        btnLogin.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+        btnLogin.addActionListener(e -> {
+            String uname = txtUser.getText().trim();
+            String pass = new String(txtPass.getPassword());
+            
+            model.User user = new model.User();
+            user.setUsername(uname);
+            user.setPassword(pass);
+            
+            dao.UserDAO userDAO = new dao.UserDAO();
+            if (userDAO.checkLogin(user)) {
+                if ("Admin".equalsIgnoreCase(user.getPosition()) || "admin".equalsIgnoreCase(uname)) {
+                    new AdminHomeFrm().setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(LoginFrm.this, "Vui lòng nhập Username!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    new LearnerHomeFrm().setVisible(true);
                 }
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!");
             }
         });
 
-        gbc.gridy = 3;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        rightPanel.add(btnLogin, gbc);
+        formPanel.add(lblTitle);
+        formPanel.add(Box.createVerticalStrut(40));
+        
+        JLabel lblU = new JLabel("Username");
+        lblU.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblU.setForeground(Color.GRAY);
+        formPanel.add(lblU);
+        formPanel.add(Box.createVerticalStrut(5));
+        formPanel.add(txtUser);
+        
+        formPanel.add(Box.createVerticalStrut(20));
+        
+        JLabel lblP = new JLabel("Password");
+        lblP.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblP.setForeground(Color.GRAY);
+        formPanel.add(lblP);
+        formPanel.add(Box.createVerticalStrut(5));
+        formPanel.add(txtPass);
+        
+        formPanel.add(Box.createVerticalStrut(40));
+        formPanel.add(btnLogin);
 
-        add(rightPanel, BorderLayout.CENTER);
+        mainArea.add(formPanel);
+
+        add(sidebar, BorderLayout.WEST);
+        add(mainArea, BorderLayout.CENTER);
     }
-    
-    // Hàm main để bạn có thể Run trực tiếp file này và xem thử giao diện
+
     public static void main(String[] args) {
-        new LoginFrm().setVisible(true);
+        SwingUtilities.invokeLater(() -> new LoginFrm().setVisible(true));
     }
 }

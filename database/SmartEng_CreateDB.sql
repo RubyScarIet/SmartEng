@@ -26,9 +26,9 @@ GO
 -- ============================================================
 CREATE TABLE tblLanguage (
     ID          INT          NOT NULL IDENTITY(1,1),
-    code        VARCHAR(25)  NULL,
-    name        VARCHAR(50)  NULL,
-    iconURL     VARCHAR(200) NULL,
+    code        NVARCHAR(25)  NULL,
+    name        NVARCHAR(50)  NULL,
+    iconURL     NVARCHAR(200) NULL,
     CONSTRAINT PK_tblLanguage PRIMARY KEY (ID)
 );
 GO
@@ -39,9 +39,9 @@ GO
 -- ============================================================
 CREATE TABLE tblUser (
     ID          INT          NOT NULL IDENTITY(1,1),
-    username    VARCHAR(25)  NULL,
-    password    VARCHAR(25)  NULL,
-    position    VARCHAR(25)  NULL,
+    username    NVARCHAR(25)  NULL,
+    password    NVARCHAR(25)  NULL,
+    position    NVARCHAR(25)  NULL,
     CONSTRAINT PK_tblUser PRIMARY KEY (ID)
 );
 GO
@@ -52,8 +52,8 @@ GO
 -- ============================================================
 CREATE TABLE tblLeague (
     ID          INT          NOT NULL IDENTITY(1,1),
-    name        VARCHAR(100) NULL,
-    iconURL     VARCHAR(255) NULL,
+    name        NVARCHAR(100) NULL,
+    iconURL     NVARCHAR(255) NULL,
     CONSTRAINT PK_tblLeague PRIMARY KEY (ID)
 );
 GO
@@ -64,8 +64,8 @@ GO
 -- ============================================================
 CREATE TABLE tblDailyMission (
     ID          INT          NOT NULL IDENTITY(1,1),
-    title       VARCHAR(100) NULL,
-    description VARCHAR(500) NULL,
+    title       NVARCHAR(100) NULL,
+    description NVARCHAR(500) NULL,
     targetValue BIGINT       NULL,
     reward      INT          NULL,
     CONSTRAINT PK_tblDailyMission PRIMARY KEY (ID)
@@ -78,7 +78,7 @@ GO
 -- ============================================================
 CREATE TABLE tblPersonalSetting (
     ID                    INT          NOT NULL IDENTITY(1,1),
-    dailyTimeGoal         VARCHAR(50)  NULL,
+    dailyTimeGoal         NVARCHAR(50)  NULL,
     isNotificationEnabled BIT          NULL,
     isDarkMode            BIT          NULL,
     isSoundEnabled        BIT          NULL,
@@ -97,13 +97,13 @@ GO
 -- ============================================================
 CREATE TABLE tblProfile (
     ID            INT          NOT NULL IDENTITY(1,1),
-    displayName   VARCHAR(50)  NULL,
-    avatarURL     VARCHAR(250) NULL,
+    displayName   NVARCHAR(50)  NULL,
+    avatarURL     NVARCHAR(250) NULL,
     level         BIGINT       NULL,
     totalEXP      INT          NULL,
     currentStreak INT          NULL,
     heartCount    INT          NULL,
-    prizes        VARCHAR(500) NULL,
+    prizes        NVARCHAR(500) NULL,
     userID        INT          NULL,
     tblLeagueID   INT          NULL,
     tblLanguageID INT          NULL,
@@ -124,9 +124,9 @@ GO
 CREATE TABLE tblAccessHistory (
     ID          INT          NOT NULL IDENTITY(1,1),
     accessTime  INT          NULL,
-    IpAddress   VARCHAR(50)  NULL,
-    deviceInfo  VARCHAR(50)  NULL,
-    actionType  VARCHAR(50)  NULL,
+    IpAddress   NVARCHAR(50)  NULL,
+    deviceInfo  NVARCHAR(50)  NULL,
+    actionType  NVARCHAR(50)  NULL,
     timeStamp   DATETIME     NULL,
     duration    INT          NULL,
     tblUserID   INT          NULL,   -- INT to match tblUser.ID (PK)
@@ -144,7 +144,7 @@ GO
 CREATE TABLE tblPersonsMission (
     ID                INT          NOT NULL IDENTITY(1,1),
     assignedDate      DATE         NULL,
-    currentProgress   VARCHAR(50)  NULL,
+    currentProgress   NVARCHAR(50)  NULL,
     isCompleted       BIT          NULL,
     isRewardClaimed   BIT          NULL,
     tblDailyMissionID INT          NULL,
@@ -163,8 +163,8 @@ GO
 -- ============================================================
 CREATE TABLE tblTopic (
     ID            INT          NOT NULL IDENTITY(1,1),
-    name          VARCHAR(25)  NULL,
-    description   VARCHAR(500) NULL,
+    name          NVARCHAR(25)  NULL,
+    description   NVARCHAR(500) NULL,
     orderIndex    INT          NULL,
     tblLanguageID INT          NULL,
     CONSTRAINT PK_tblTopic PRIMARY KEY (ID),
@@ -179,11 +179,11 @@ GO
 -- ============================================================
 CREATE TABLE tblLetter (
     ID              INT          NOT NULL IDENTITY(1,1),
-    character       VARCHAR(50)  NULL,
-    type            VARCHAR(50)  NULL,
-    audioURL        VARCHAR(255) NULL,
-    exampleWord     VARCHAR(100) NULL,
-    exampleAudioURL VARCHAR(255) NULL,
+    character       NVARCHAR(50)  NULL,
+    type            NVARCHAR(50)  NULL,
+    audioURL        NVARCHAR(255) NULL,
+    exampleWord     NVARCHAR(100) NULL,
+    exampleAudioURL NVARCHAR(255) NULL,
     tblLanguageID   INT          NULL,
     CONSTRAINT PK_tblLetter PRIMARY KEY (ID),
     CONSTRAINT FK_Letter_Language FOREIGN KEY (tblLanguageID)
@@ -197,9 +197,9 @@ GO
 -- ============================================================
 CREATE TABLE tblVocabulary (
     ID            INT          NOT NULL IDENTITY(1,1),
-    word          VARCHAR(100) NULL,
-    meaning       VARCHAR(250) NULL,
-    pronunciation VARCHAR(100) NULL,
+    word          NVARCHAR(100) NULL,
+    meaning       NVARCHAR(250) NULL,
+    pronunciation NVARCHAR(100) NULL,
     tblLanguageID INT          NULL,
     CONSTRAINT PK_tblVocabulary PRIMARY KEY (ID),
     CONSTRAINT FK_Vocabulary_Language FOREIGN KEY (tblLanguageID)
@@ -213,10 +213,10 @@ GO
 -- ============================================================
 CREATE TABLE tblLesson (
     ID          INT          NOT NULL IDENTITY(1,1),
-    name        VARCHAR(50)  NULL,
-    code        VARCHAR(50)  NULL,
-    description VARCHAR(250) NULL,
-    des         VARCHAR(500) NULL,
+    name        NVARCHAR(50)  NULL,
+    code        NVARCHAR(50)  NULL,
+    description NVARCHAR(250) NULL,
+    des         NVARCHAR(500) NULL,
     tblTopicID  INT          NULL,
     CONSTRAINT PK_tblLesson PRIMARY KEY (ID),
     CONSTRAINT FK_Lesson_Topic FOREIGN KEY (tblTopicID)
@@ -230,8 +230,8 @@ GO
 -- ============================================================
 CREATE TABLE tblTest (
     ID             INT           NOT NULL IDENTITY(1,1),
-    title          VARCHAR(100)  NULL,
-    type           VARCHAR(50)   NULL,
+    title          NVARCHAR(100)  NULL,
+    type           NVARCHAR(50)   NULL,
     timeLimit      TIME(7)       NULL,
     rewardEXP      BIGINT        NULL,
     totalQuestions INT           NULL,
@@ -249,11 +249,11 @@ GO
 -- ============================================================
 CREATE TABLE tblQuestion (
     ID            INT           NOT NULL IDENTITY(1,1),
-    content       VARCHAR(500)  NULL,
-    questionType  VARCHAR(50)   NULL,
-    difficulty    VARCHAR(20)   NULL,
-    options       VARCHAR(2000) NULL,
-    correctAnswer VARCHAR(250)  NULL,
+    content       NVARCHAR(500)  NULL,
+    questionType  NVARCHAR(50)   NULL,
+    difficulty    NVARCHAR(20)   NULL,
+    options       NVARCHAR(2000) NULL,
+    correctAnswer NVARCHAR(250)  NULL,
     tblLessonID   INT           NULL,
     tblLanguageID INT           NULL,
     CONSTRAINT PK_tblQuestion PRIMARY KEY (ID),
@@ -295,7 +295,7 @@ CREATE TABLE tblStudyProgress (
     ID                   INT         NOT NULL IDENTITY(1,1),
     status               BIT         NULL,
     lastAccessed         TIME(7)     NULL,
-    completionPercentage VARCHAR(10) NULL,
+    completionPercentage NVARCHAR(10) NULL,
     completedAt          TIME(7)     NULL,
     tblLessonID          INT         NULL,
     tblProfileID         INT         NULL,
@@ -316,7 +316,7 @@ CREATE TABLE tblLessonVocabulary (
     ID              INT          NOT NULL IDENTITY(1,1),
     orderIndex      INT          NULL,
     isReview        BIT          NULL,
-    context         VARCHAR(250) NULL,
+    context         NVARCHAR(250) NULL,
     tblLessonID     INT          NULL,
     tblVocabularyID INT          NULL,
     CONSTRAINT PK_tblLessonVocabulary PRIMARY KEY (ID),

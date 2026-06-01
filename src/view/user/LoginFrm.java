@@ -73,7 +73,7 @@ public class LoginFrm extends JFrame {
                 if ("Admin".equalsIgnoreCase(user.getPosition()) || "admin".equalsIgnoreCase(uname)) {
                     new AdminHomeFrm().setVisible(true);
                 } else {
-                    new LearnerHomeFrm().setVisible(true);
+                    new LearnerHomeFrm(user).setVisible(true);
                 }
                 dispose();
             } else {

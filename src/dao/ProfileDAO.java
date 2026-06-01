@@ -27,4 +27,30 @@ public class ProfileDAO extends DAO {
         }
         return null;
     }
+
+    public boolean updateProfile(int userId, String displayName, String avatarURL) {
+        if (con == null) return false;
+        try {
+            // Check if name already exists for another user (duplicate check for TC_UC1_04)
+            String checkSql = "SELECT ID FROM tblProfile WHERE displayName = ? AND userID != ?";
+            PreparedStatement psCheck = con.prepareStatement(checkSql);
+            psCheck.setString(1, displayName);
+            psCheck.setInt(2, userId);
+            ResultSet rs = psCheck.executeQuery();
+            if (rs.next()) {
+                return false; // Name already exists
+            }
+
+            String sql = "UPDATE tblProfile SET displayName = ?, avatarURL = ? WHERE userID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, displayName);
+            ps.setString(2, avatarURL);
+            ps.setInt(3, userId);
+            int affected = ps.executeUpdate();
+            return affected > 0;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

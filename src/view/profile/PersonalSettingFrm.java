@@ -7,7 +7,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class PersonalSettingFrm extends JPanel {
-    public PersonalSettingFrm() {
+    private JComboBox<String> cbxLanguage;
+    private JComboBox<String> cbxTimeGoal;
+    private int userId;
+
+    public PersonalSettingFrm(int userId) {
+        this.userId = userId;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
@@ -22,13 +27,39 @@ public class PersonalSettingFrm extends JPanel {
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setBorder(new EmptyBorder(0, 50, 50, 50));
 
-        centerPanel.add(createSettingRow("Ngôn ngữ:", new String[]{"Tiếng Thanh Hóa", "Tiếng Anh", "Tiếng Việt"}));
+        JPanel pnlLang = createSettingRow("Ngôn ngữ:", new String[]{"Tiếng Thanh Hóa", "Tiếng Anh", "Tiếng Việt"});
+        cbxLanguage = (JComboBox<String>) ((JPanel) ((JPanel) pnlLang.getComponent(0)).getComponent(1)).getComponent(0);
+        centerPanel.add(pnlLang);
+        
         centerPanel.add(Box.createVerticalStrut(20));
-        centerPanel.add(createSettingRow("Thời gian học mỗi ngày:", new String[]{"10 phút", "20 phút", "30 phút", "45 phút", "60 phút"}));
+        
+        JPanel pnlTime = createSettingRow("Thời gian học mỗi ngày:", new String[]{"10 phút", "20 phút", "30 phút", "45 phút", "60 phút"});
+        cbxTimeGoal = (JComboBox<String>) ((JPanel) ((JPanel) pnlTime.getComponent(0)).getComponent(1)).getComponent(0);
+        centerPanel.add(pnlTime);
+        
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(createSettingRow("Dark Mode:", new String[]{"Tắt", "Bật"}));
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(createSettingRow("Thông báo:", new String[]{"Tắt", "Bật"}));
+
+        // Load existing settings from DB
+        dao.PersonalSettingDAO dao = new dao.PersonalSettingDAO();
+        Object[] existingSettings = dao.getSettingByUserId(userId);
+        if (existingSettings != null) {
+            String timeGoalStr = (String) existingSettings[0];
+            int timeGoal = 10;
+            if (timeGoalStr != null) {
+                try {
+                    timeGoal = Integer.parseInt(timeGoalStr.replace(" minutes", "").trim());
+                } catch(Exception e){}
+            }
+            int langId = (Integer) existingSettings[1];
+            // Simple mapping back to UI index
+            cbxTimeGoal.setSelectedItem(timeGoal + " phút");
+            if (langId == 1) cbxLanguage.setSelectedItem("Tiếng Anh");
+            else if (langId == 2) cbxLanguage.setSelectedItem("Tiếng Việt");
+            else cbxLanguage.setSelectedItem("Tiếng Thanh Hóa");
+        }
 
         add(centerPanel, BorderLayout.CENTER);
 
@@ -47,7 +78,29 @@ public class PersonalSettingFrm extends JPanel {
         btnSave.setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
         btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSave.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Cài đặt đã được lưu thành công!");
+            try {
+                String timeStr = cbxTimeGoal.getSelectedItem().toString().replace(" phút", "");
+                int timeGoal = Integer.parseInt(timeStr);
+                
+                String langStr = cbxLanguage.getSelectedItem().toString();
+                int langId = langStr.equals("Tiếng Anh") ? 1 : (langStr.equals("Tiếng Việt") ? 2 : 3);
+                
+                if (timeGoal < 0) {
+                    JOptionPane.showMessageDialog(this, "Thời gian không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                dao.PersonalSettingDAO updateDao = new dao.PersonalSettingDAO();
+                boolean success = updateDao.updateSettings(userId, timeGoal, langId);
+                
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Cài đặt đã được lưu thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi cập nhật cài đặt! Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         });
         
         bottomPanel.add(btnSave);

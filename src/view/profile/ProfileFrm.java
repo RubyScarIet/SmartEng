@@ -10,7 +10,10 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 public class ProfileFrm extends JPanel {
     private JLabel lblName;
 
-    public ProfileFrm() {
+    private int userId;
+
+    public ProfileFrm(int userId) {
+        this.userId = userId;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
@@ -30,7 +33,7 @@ public class ProfileFrm extends JPanel {
         int dStreak = 36;
         
         dao.ProfileDAO dao = new dao.ProfileDAO();
-        Object[] dbProfile = dao.getProfileByUserId(1); 
+        Object[] dbProfile = dao.getProfileByUserId(userId); 
         if (dbProfile != null) {
             dName = (String) dbProfile[0];
             dLevel = (Integer) dbProfile[2];
@@ -133,11 +136,26 @@ public class ProfileFrm extends JPanel {
             JPanel editPanel = new JPanel(new GridLayout(3, 1, 10, 10));
             JTextField txtName = new JTextField(lblName.getText());
             JButton btnUpload = new JButton("Upload Avatar...");
+            String[] selectedAvatar = new String[]{"ava.jpg"}; // Default or existing
             btnUpload.addActionListener(ev -> {
                 JFileChooser fileChooser = new JFileChooser();
                 int res = fileChooser.showOpenDialog(this);
                 if (res == JFileChooser.APPROVE_OPTION) {
-                    JOptionPane.showMessageDialog(this, "Selected file: " + fileChooser.getSelectedFile().getName());
+                    java.io.File file = fileChooser.getSelectedFile();
+                    String fileName = file.getName().toLowerCase();
+                    // Check Extension
+                    if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
+                        JOptionPane.showMessageDialog(this, "Chỉ chấp nhận định dạng ảnh .jpg, .jpeg, .png", "Lỗi định dạng", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    // Check Size (e.g. max 5MB)
+                    long sizeInMB = file.length() / (1024 * 1024);
+                    if (sizeInMB > 5) {
+                        JOptionPane.showMessageDialog(this, "Dung lượng ảnh không được vượt quá 5MB", "Lỗi dung lượng", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    selectedAvatar[0] = file.getName();
+                    JOptionPane.showMessageDialog(this, "Đã tải lên ảnh hợp lệ: " + file.getName());
                 }
             });
             
@@ -147,8 +165,21 @@ public class ProfileFrm extends JPanel {
             
             int result = JOptionPane.showConfirmDialog(this, editPanel, "Edit Profile", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                lblName.setText(txtName.getText());
-                JOptionPane.showMessageDialog(this, "Profile updated!");
+                String newName = txtName.getText().trim();
+                if (newName.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Tên hiển thị không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else if (newName.length() > 50) {
+                    JOptionPane.showMessageDialog(this, "Tên hiển thị không được vượt quá 50 ký tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    dao.ProfileDAO updateDao = new dao.ProfileDAO();
+                    boolean success = updateDao.updateProfile(userId, newName, selectedAvatar[0]);
+                    if (success) {
+                        lblName.setText(newName);
+                        JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Tên hiển thị này đã tồn tại hoặc có lỗi xảy ra", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
 

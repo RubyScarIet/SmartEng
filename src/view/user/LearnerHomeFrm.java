@@ -20,9 +20,11 @@ public class LearnerHomeFrm extends JFrame {
     private JPanel sidebar;
     private Map<String, JButton> tabButtons;
     private String currentTab = "";
+    private model.User loggedInUser;
 
-    public LearnerHomeFrm() {
+    public LearnerHomeFrm(model.User user) {
         super("SmartEng");
+        this.loggedInUser = user;
         setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -124,8 +126,8 @@ public class LearnerHomeFrm extends JFrame {
             case "Practice": viewPanel = new PracticeSetupFrm(); break;
             case "Daily Mission": viewPanel = new DailyMissionFrm(); break;
             case "Leaderboard": viewPanel = new LeaderboardFrm(); break;
-            case "Profile": viewPanel = new ProfileFrm(); break;
-            case "Personal Setting": viewPanel = new PersonalSettingFrm(); break;
+            case "Profile": viewPanel = new ProfileFrm(loggedInUser.getId()); break;
+            case "Personal Setting": viewPanel = new PersonalSettingFrm(loggedInUser.getId()); break;
             default: viewPanel = new JPanel(); break;
         }
         centerPanel.add(viewPanel, BorderLayout.CENTER);

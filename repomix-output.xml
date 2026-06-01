@@ -1,0 +1,5086 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+SmartEng-main/.gitignore
+SmartEng-main/database/SmartEng_CreateDB.sql
+SmartEng-main/database/SmartEng_SeedData.sql
+SmartEng-main/lib/mssql-jdbc.jar
+SmartEng-main/README.md
+SmartEng-main/run.bat
+SmartEng-main/src/dao/AccessHistoryDAO.java
+SmartEng-main/src/dao/AlphabetDAO.java
+SmartEng-main/src/dao/DailyMissionDAO.java
+SmartEng-main/src/dao/DAO.java
+SmartEng-main/src/dao/LeaderboardDAO.java
+SmartEng-main/src/dao/LessonDAO.java
+SmartEng-main/src/dao/PersonalSettingDAO.java
+SmartEng-main/src/dao/ProfileDAO.java
+SmartEng-main/src/dao/QuestionDAO.java
+SmartEng-main/src/dao/StudyProgressDAO.java
+SmartEng-main/src/dao/TestDAO.java
+SmartEng-main/src/dao/TopicDAO.java
+SmartEng-main/src/dao/UserDAO.java
+SmartEng-main/src/model/AccessHistory.java
+SmartEng-main/src/model/DailyMission.java
+SmartEng-main/src/model/Language.java
+SmartEng-main/src/model/League.java
+SmartEng-main/src/model/Lesson.java
+SmartEng-main/src/model/LessonVocabulary.java
+SmartEng-main/src/model/Letter.java
+SmartEng-main/src/model/PersonalMission.java
+SmartEng-main/src/model/PersonalSetting.java
+SmartEng-main/src/model/Profile.java
+SmartEng-main/src/model/Question.java
+SmartEng-main/src/model/StudyProgress.java
+SmartEng-main/src/model/Test.java
+SmartEng-main/src/model/TestQuestion.java
+SmartEng-main/src/model/TestResult.java
+SmartEng-main/src/model/Topic.java
+SmartEng-main/src/model/User.java
+SmartEng-main/src/model/Vocabulary.java
+SmartEng-main/src/view/admin/LessonAdminFrm.java
+SmartEng-main/src/view/admin/QuestionBankAdminFrm.java
+SmartEng-main/src/view/admin/RoundedBorder.java
+SmartEng-main/src/view/admin/StatisticAdminFrm.java
+SmartEng-main/src/view/admin/VocabularyAdminFrm.java
+SmartEng-main/src/view/leaderboard/LeaderboardFrm.java
+SmartEng-main/src/view/leaderboard/RankDetailFrm.java
+SmartEng-main/src/view/leaderboard/UserStatsFrm.java
+SmartEng-main/src/view/practice/PracticeSetupFrm.java
+SmartEng-main/src/view/practice/QuizMultipleChoiceFrm.java
+SmartEng-main/src/view/practice/QuizOpenEndedFrm.java
+SmartEng-main/src/view/profile/DailyMissionFrm.java
+SmartEng-main/src/view/profile/PersonalSettingFrm.java
+SmartEng-main/src/view/profile/ProfileFrm.java
+SmartEng-main/src/view/study/AlphabetFrm.java
+SmartEng-main/src/view/study/LessonQuizFrm.java
+SmartEng-main/src/view/study/StudyFrm.java
+SmartEng-main/src/view/user/AdminHomeFrm.java
+SmartEng-main/src/view/user/LearnerHomeFrm.java
+SmartEng-main/src/view/user/LoginFrm.java
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="SmartEng-main/.gitignore">
+*.class
+*.log
+*.pyc
+__pycache__/
+*.py
+</file>
+
+<file path="SmartEng-main/database/SmartEng_CreateDB.sql">
+-- ============================================================
+-- SmartEng Database - SQL Server Creation Script
+-- Generated from ERD Diagram
+-- ============================================================
+
+USE master;
+GO
+
+-- Drop database if exists and recreate
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'SmartEngDB')
+BEGIN
+    ALTER DATABASE SmartEngDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE SmartEngDB;
+END
+GO
+
+CREATE DATABASE SmartEngDB;
+GO
+
+USE SmartEngDB;
+GO
+
+-- ============================================================
+-- TABLE: tblLanguage
+-- (No FK dependencies)
+-- ============================================================
+CREATE TABLE tblLanguage (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    code        NVARCHAR(25)  NULL,
+    name        NVARCHAR(50)  NULL,
+    iconURL     NVARCHAR(200) NULL,
+    CONSTRAINT PK_tblLanguage PRIMARY KEY (ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblUser
+-- (No FK dependencies)
+-- ============================================================
+CREATE TABLE tblUser (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    username    NVARCHAR(25)  NULL,
+    password    NVARCHAR(25)  NULL,
+    position    NVARCHAR(25)  NULL,
+    CONSTRAINT PK_tblUser PRIMARY KEY (ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblLeague
+-- (No FK dependencies)
+-- ============================================================
+CREATE TABLE tblLeague (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    name        NVARCHAR(100) NULL,
+    iconURL     NVARCHAR(255) NULL,
+    CONSTRAINT PK_tblLeague PRIMARY KEY (ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblDailyMission
+-- (No FK dependencies)
+-- ============================================================
+CREATE TABLE tblDailyMission (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    title       NVARCHAR(100) NULL,
+    description NVARCHAR(500) NULL,
+    targetValue BIGINT       NULL,
+    reward      INT          NULL,
+    CONSTRAINT PK_tblDailyMission PRIMARY KEY (ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblPersonalSetting
+-- FK: tblUserID -> tblUser(ID)
+-- ============================================================
+CREATE TABLE tblPersonalSetting (
+    ID                    INT          NOT NULL IDENTITY(1,1),
+    dailyTimeGoal         NVARCHAR(50)  NULL,
+    isNotificationEnabled BIT          NULL,
+    isDarkMode            BIT          NULL,
+    isSoundEnabled        BIT          NULL,
+    tblUserID             INT          NULL,
+    CONSTRAINT PK_tblPersonalSetting PRIMARY KEY (ID),
+    CONSTRAINT FK_PersonalSetting_User FOREIGN KEY (tblUserID)
+        REFERENCES tblUser(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblProfile
+-- FK: userID -> tblUser(ID)
+--     tblLeagueID -> tblLeague(ID)
+--     tblLanguageID -> tblLanguage(ID)
+-- ============================================================
+CREATE TABLE tblProfile (
+    ID            INT          NOT NULL IDENTITY(1,1),
+    displayName   NVARCHAR(50)  NULL,
+    avatarURL     NVARCHAR(250) NULL,
+    level         BIGINT       NULL,
+    totalEXP      INT          NULL,
+    currentStreak INT          NULL,
+    heartCount    INT          NULL,
+    prizes        NVARCHAR(500) NULL,
+    userID        INT          NULL,
+    tblLeagueID   INT          NULL,
+    tblLanguageID INT          NULL,
+    CONSTRAINT PK_tblProfile PRIMARY KEY (ID),
+    CONSTRAINT FK_Profile_User FOREIGN KEY (userID)
+        REFERENCES tblUser(ID),
+    CONSTRAINT FK_Profile_League FOREIGN KEY (tblLeagueID)
+        REFERENCES tblLeague(ID),
+    CONSTRAINT FK_Profile_Language FOREIGN KEY (tblLanguageID)
+        REFERENCES tblLanguage(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblAccessHistory
+-- FK: tblUserID -> tblUser(ID)
+-- ============================================================
+CREATE TABLE tblAccessHistory (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    accessTime  INT          NULL,
+    IpAddress   NVARCHAR(50)  NULL,
+    deviceInfo  NVARCHAR(50)  NULL,
+    actionType  NVARCHAR(50)  NULL,
+    timeStamp   DATETIME     NULL,
+    duration    INT          NULL,
+    tblUserID   INT          NULL,   -- INT to match tblUser.ID (PK)
+    CONSTRAINT PK_tblAccessHistory PRIMARY KEY (ID),
+    CONSTRAINT FK_AccessHistory_User FOREIGN KEY (tblUserID)
+        REFERENCES tblUser(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblPersonsMission
+-- FK: tblDailyMissionID -> tblDailyMission(ID)
+--     tblProfileID -> tblProfile(ID)
+-- ============================================================
+CREATE TABLE tblPersonsMission (
+    ID                INT          NOT NULL IDENTITY(1,1),
+    assignedDate      DATE         NULL,
+    currentProgress   NVARCHAR(50)  NULL,
+    isCompleted       BIT          NULL,
+    isRewardClaimed   BIT          NULL,
+    tblDailyMissionID INT          NULL,
+    tblProfileID      INT          NULL,
+    CONSTRAINT PK_tblPersonsMission PRIMARY KEY (ID),
+    CONSTRAINT FK_PersonsMission_DailyMission FOREIGN KEY (tblDailyMissionID)
+        REFERENCES tblDailyMission(ID),
+    CONSTRAINT FK_PersonsMission_Profile FOREIGN KEY (tblProfileID)
+        REFERENCES tblProfile(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblTopic
+-- FK: tblLanguageID -> tblLanguage(ID)
+-- ============================================================
+CREATE TABLE tblTopic (
+    ID            INT          NOT NULL IDENTITY(1,1),
+    name          NVARCHAR(25)  NULL,
+    description   NVARCHAR(500) NULL,
+    orderIndex    INT          NULL,
+    tblLanguageID INT          NULL,
+    CONSTRAINT PK_tblTopic PRIMARY KEY (ID),
+    CONSTRAINT FK_Topic_Language FOREIGN KEY (tblLanguageID)
+        REFERENCES tblLanguage(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblLetter
+-- FK: tblLanguageID -> tblLanguage(ID)
+-- ============================================================
+CREATE TABLE tblLetter (
+    ID              INT          NOT NULL IDENTITY(1,1),
+    character       NVARCHAR(50)  NULL,
+    type            NVARCHAR(50)  NULL,
+    audioURL        NVARCHAR(255) NULL,
+    exampleWord     NVARCHAR(100) NULL,
+    exampleAudioURL NVARCHAR(255) NULL,
+    tblLanguageID   INT          NULL,
+    CONSTRAINT PK_tblLetter PRIMARY KEY (ID),
+    CONSTRAINT FK_Letter_Language FOREIGN KEY (tblLanguageID)
+        REFERENCES tblLanguage(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblVocabulary
+-- FK: tblLanguageID -> tblLanguage(ID)
+-- ============================================================
+CREATE TABLE tblVocabulary (
+    ID            INT          NOT NULL IDENTITY(1,1),
+    word          NVARCHAR(100) NULL,
+    meaning       NVARCHAR(250) NULL,
+    pronunciation NVARCHAR(100) NULL,
+    tblLanguageID INT          NULL,
+    CONSTRAINT PK_tblVocabulary PRIMARY KEY (ID),
+    CONSTRAINT FK_Vocabulary_Language FOREIGN KEY (tblLanguageID)
+        REFERENCES tblLanguage(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblLesson
+-- FK: tblTopicID -> tblTopic(ID)
+-- ============================================================
+CREATE TABLE tblLesson (
+    ID          INT          NOT NULL IDENTITY(1,1),
+    name        NVARCHAR(50)  NULL,
+    code        NVARCHAR(50)  NULL,
+    description NVARCHAR(250) NULL,
+    des         NVARCHAR(500) NULL,
+    tblTopicID  INT          NULL,
+    CONSTRAINT PK_tblLesson PRIMARY KEY (ID),
+    CONSTRAINT FK_Lesson_Topic FOREIGN KEY (tblTopicID)
+        REFERENCES tblTopic(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblTest
+-- FK: tblLessonID -> tblLesson(ID)
+-- ============================================================
+CREATE TABLE tblTest (
+    ID             INT           NOT NULL IDENTITY(1,1),
+    title          NVARCHAR(100)  NULL,
+    type           NVARCHAR(50)   NULL,
+    timeLimit      TIME(7)       NULL,
+    rewardEXP      BIGINT        NULL,
+    totalQuestions INT           NULL,
+    tblLessonID    INT           NULL,
+    CONSTRAINT PK_tblTest PRIMARY KEY (ID),
+    CONSTRAINT FK_Test_Lesson FOREIGN KEY (tblLessonID)
+        REFERENCES tblLesson(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblQuestion
+-- FK: tblLessonID -> tblLesson(ID)
+--     tblLanguageID -> tblLanguage(ID)
+-- ============================================================
+CREATE TABLE tblQuestion (
+    ID            INT           NOT NULL IDENTITY(1,1),
+    content       NVARCHAR(500)  NULL,
+    questionType  NVARCHAR(50)   NULL,
+    difficulty    NVARCHAR(20)   NULL,
+    options       NVARCHAR(2000) NULL,
+    correctAnswer NVARCHAR(250)  NULL,
+    tblLessonID   INT           NULL,
+    tblLanguageID INT           NULL,
+    CONSTRAINT PK_tblQuestion PRIMARY KEY (ID),
+    CONSTRAINT FK_Question_Lesson FOREIGN KEY (tblLessonID)
+        REFERENCES tblLesson(ID),
+    CONSTRAINT FK_Question_Language FOREIGN KEY (tblLanguageID)
+        REFERENCES tblLanguage(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblTestResult
+-- FK: tblTestID -> tblTest(ID)
+--     tblProfileID -> tblProfile(ID)
+-- ============================================================
+CREATE TABLE tblTestResult (
+    ID                   INT        NOT NULL IDENTITY(1,1),
+    score                FLOAT      NULL,
+    isPassed             BIT        NULL,
+    lastAccessed         TIME(7)    NULL,
+    completionPercentage INT        NULL,
+    itemsNumber          INT        NULL,
+    tblTestID            INT        NULL,
+    tblProfileID         INT        NULL,
+    CONSTRAINT PK_tblTestResult PRIMARY KEY (ID),
+    CONSTRAINT FK_TestResult_Test FOREIGN KEY (tblTestID)
+        REFERENCES tblTest(ID),
+    CONSTRAINT FK_TestResult_Profile FOREIGN KEY (tblProfileID)
+        REFERENCES tblProfile(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblStudyProgress
+-- FK: tblLessonID -> tblLesson(ID)
+--     tblProfileID -> tblProfile(ID)
+-- ============================================================
+CREATE TABLE tblStudyProgress (
+    ID                   INT         NOT NULL IDENTITY(1,1),
+    status               BIT         NULL,
+    lastAccessed         TIME(7)     NULL,
+    completionPercentage NVARCHAR(10) NULL,
+    completedAt          TIME(7)     NULL,
+    tblLessonID          INT         NULL,
+    tblProfileID         INT         NULL,
+    CONSTRAINT PK_tblStudyProgress PRIMARY KEY (ID),
+    CONSTRAINT FK_StudyProgress_Lesson FOREIGN KEY (tblLessonID)
+        REFERENCES tblLesson(ID),
+    CONSTRAINT FK_StudyProgress_Profile FOREIGN KEY (tblProfileID)
+        REFERENCES tblProfile(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblLessonVocabulary  (junction: Lesson <-> Vocabulary)
+-- FK: tblLessonID -> tblLesson(ID)
+--     tblVocabularyID -> tblVocabulary(ID)
+-- ============================================================
+CREATE TABLE tblLessonVocabulary (
+    ID              INT          NOT NULL IDENTITY(1,1),
+    orderIndex      INT          NULL,
+    isReview        BIT          NULL,
+    context         NVARCHAR(250) NULL,
+    tblLessonID     INT          NULL,
+    tblVocabularyID INT          NULL,
+    CONSTRAINT PK_tblLessonVocabulary PRIMARY KEY (ID),
+    CONSTRAINT FK_LessonVocabulary_Lesson FOREIGN KEY (tblLessonID)
+        REFERENCES tblLesson(ID),
+    CONSTRAINT FK_LessonVocabulary_Vocabulary FOREIGN KEY (tblVocabularyID)
+        REFERENCES tblVocabulary(ID)
+);
+GO
+
+-- ============================================================
+-- TABLE: tblTestQuestion  (junction: Test <-> Question)
+-- FK: tblTestID -> tblTest(ID)
+--     tblQuestionID -> tblQuestion(ID)
+-- ============================================================
+CREATE TABLE tblTestQuestion (
+    ID            INT   NOT NULL IDENTITY(1,1),
+    orderIndex    INT   NULL,
+    point         FLOAT NULL,
+    tblTestID     INT   NULL,
+    tblQuestionID INT   NULL,
+    CONSTRAINT PK_tblTestQuestion PRIMARY KEY (ID),
+    CONSTRAINT FK_TestQuestion_Test FOREIGN KEY (tblTestID)
+        REFERENCES tblTest(ID),
+    CONSTRAINT FK_TestQuestion_Question FOREIGN KEY (tblQuestionID)
+        REFERENCES tblQuestion(ID)
+);
+GO
+
+-- ============================================================
+-- DONE
+-- ============================================================
+PRINT 'SmartEng Database created successfully!';
+GO
+</file>
+
+<file path="SmartEng-main/database/SmartEng_SeedData.sql">
+-- ============================================================
+-- SmartEng Database - Seed Data (10 records per table)
+-- ============================================================
+
+USE SmartEngDB;
+GO
+
+SET IDENTITY_INSERT tblLanguage ON;
+INSERT INTO tblLanguage (ID, code, name, iconURL) VALUES
+(1,  'en', 'English',    'https://cdn.smarteng.io/flags/en.png'),
+(2,  'ja', 'Japanese',   'https://cdn.smarteng.io/flags/ja.png'),
+(3,  'ko', 'Korean',     'https://cdn.smarteng.io/flags/ko.png'),
+(4,  'fr', 'French',     'https://cdn.smarteng.io/flags/fr.png'),
+(5,  'de', 'German',     'https://cdn.smarteng.io/flags/de.png'),
+(6,  'zh', 'Chinese',    'https://cdn.smarteng.io/flags/zh.png'),
+(7,  'es', 'Spanish',    'https://cdn.smarteng.io/flags/es.png'),
+(8,  'it', 'Italian',    'https://cdn.smarteng.io/flags/it.png'),
+(9,  'pt', 'Portuguese', 'https://cdn.smarteng.io/flags/pt.png'),
+(10, 'ru', 'Russian',    'https://cdn.smarteng.io/flags/ru.png');
+SET IDENTITY_INSERT tblLanguage OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblUser ON;
+INSERT INTO tblUser (ID, username, password, position) VALUES
+(1,  'learner01',  'Pass@1234',  'learner'),
+(2,  'learner02',  'Pass@5678',  'learner'),
+(3,  'learner03',  'Pass@abcd',  'learner'),
+(4,  'learner04',  'Pass@efgh',  'learner'),
+(5,  'learner05',  'Pass@ijkl',  'learner'),
+(6,  'learner06',  'Pass@mnop',  'learner'),
+(7,  'learner07',  'Pass@qrst',  'learner'),
+(8,  'learner08',  'Pass@uvwx',  'learner'),
+(9,  'admin01',    'Admin@2024', 'admin'),
+(10, 'admin02',    'Admin@2025', 'admin');
+SET IDENTITY_INSERT tblUser OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblLeague ON;
+INSERT INTO tblLeague (ID, name, iconURL) VALUES
+(1,  'Bronze',   'https://cdn.smarteng.io/leagues/bronze.png'),
+(2,  'Silver',   'https://cdn.smarteng.io/leagues/silver.png'),
+(3,  'Gold',     'https://cdn.smarteng.io/leagues/gold.png'),
+(4,  'Sapphire', 'https://cdn.smarteng.io/leagues/sapphire.png'),
+(5,  'Ruby',     'https://cdn.smarteng.io/leagues/ruby.png'),
+(6,  'Emerald',  'https://cdn.smarteng.io/leagues/emerald.png'),
+(7,  'Amethyst', 'https://cdn.smarteng.io/leagues/amethyst.png'),
+(8,  'Pearl',    'https://cdn.smarteng.io/leagues/pearl.png'),
+(9,  'Diamond',  'https://cdn.smarteng.io/leagues/diamond.png'),
+(10, 'Obsidian', 'https://cdn.smarteng.io/leagues/obsidian.png');
+SET IDENTITY_INSERT tblLeague OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblProfile ON;
+INSERT INTO tblProfile (ID, displayName, avatarURL, level, totalEXP, currentStreak, heartCount, prizes, userID, tblLeagueID, tblLanguageID) VALUES
+(1,  'StarLearner',   'https://cdn.smarteng.io/avatars/star.png',    5,  12500, 30, 5, 'streak_shield,double_exp',       1, 3, 1),
+(2,  'NightOwl',      'https://cdn.smarteng.io/avatars/owl.png',     3,   7800, 12, 3, 'streak_shield',                  2, 2, 2),
+(3,  'SakuraChan',    'https://cdn.smarteng.io/avatars/sakura.png',  7,  22000, 60, 5, 'golden_trophy,double_exp',       3, 5, 2),
+(4,  'DragonKing',    'https://cdn.smarteng.io/avatars/dragon.png',  9,  45000, 90, 5, 'legendary_badge,golden_trophy',  4, 7, 6),
+(5,  'QuickFox',      'https://cdn.smarteng.io/avatars/fox.png',     2,   3200, 5,  4, '',                               5, 1, 4),
+(6,  'MoonWalker',    'https://cdn.smarteng.io/avatars/moon.png',    6,  18500, 45, 5, 'double_exp,streak_shield',       6, 4, 3),
+(7,  'PandaMaster',   'https://cdn.smarteng.io/avatars/panda.png',   4,   9900, 20, 2, 'streak_shield',                  7, 3, 6),
+(8,  'FlameRunner',   'https://cdn.smarteng.io/avatars/flame.png',   8,  33000, 75, 5, 'golden_trophy,legendary_badge',  8, 6, 1),
+(9,  'AdminAlpha',    'https://cdn.smarteng.io/avatars/admin1.png',  1,       0, 0,  5, '',                               9, 1, 1),
+(10, 'AdminBeta',     'https://cdn.smarteng.io/avatars/admin2.png',  1,       0, 0,  5, '',                              10, 1, 1);
+SET IDENTITY_INSERT tblProfile OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblPersonalSetting ON;
+INSERT INTO tblPersonalSetting (ID, dailyTimeGoal, isNotificationEnabled, isDarkMode, isSoundEnabled, tblUserID) VALUES
+(1,  '15 minutes', 1, 0, 1, 1),
+(2,  '10 minutes', 1, 1, 0, 2),
+(3,  '20 minutes', 0, 1, 1, 3),
+(4,  '30 minutes', 1, 0, 1, 4),
+(5,  '5 minutes',  0, 0, 0, 5),
+(6,  '25 minutes', 1, 1, 1, 6),
+(7,  '15 minutes', 1, 0, 0, 7),
+(8,  '45 minutes', 1, 1, 1, 8),
+(9,  '60 minutes', 0, 1, 1, 9),
+(10, '30 minutes', 1, 0, 1, 10);
+SET IDENTITY_INSERT tblPersonalSetting OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblAccessHistory ON;
+INSERT INTO tblAccessHistory (ID, accessTime, IpAddress, deviceInfo, actionType, timeStamp, duration, tblUserID) VALUES
+(1,  830,  '192.168.1.101', 'Chrome/Windows 11',      'LOGIN',    '2026-05-28 08:30:00', 1800, 1),
+(2,  1400, '192.168.1.102', 'Safari/macOS',            'STUDY',    '2026-05-28 14:00:00', 3600, 2),
+(3,  2100, '10.0.0.15',     'Firefox/Ubuntu',          'PRACTICE', '2026-05-29 21:00:00', 900,  3),
+(4,  730,  '172.16.5.200',  'Edge/Windows 10',         'LOGIN',    '2026-05-29 07:30:00', 2700, 4),
+(5,  1230, '192.168.2.50',  'Chrome/Android',          'LOGOUT',   '2026-05-30 12:30:00', 120,  5),
+(6,  1800, '10.10.1.88',    'Samsung Browser/Android', 'STUDY',    '2026-05-30 18:00:00', 4500, 6),
+(7,  900,  '192.168.0.99',  'Chrome/iOS',              'PRACTICE', '2026-05-31 09:00:00', 600,  7),
+(8,  2000, '172.20.10.3',   'Firefox/Windows 11',      'LOGIN',    '2026-05-31 20:00:00', 5400, 8),
+(9,  1100, '192.168.1.1',   'Chrome/Windows 11',       'MANAGE',   '2026-05-27 11:00:00', 7200, 9),
+(10, 1500, '10.0.0.1',      'Edge/Windows Server',     'STATS',    '2026-05-27 15:00:00', 3000, 10);
+SET IDENTITY_INSERT tblAccessHistory OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblDailyMission ON;
+INSERT INTO tblDailyMission (ID, title, description, targetValue, reward) VALUES
+(1,  'First Step',         N'Hoàn thành 1 bài học trong ngày',               1,   20),
+(2,  'Word Collector',     N'Học 10 từ vựng mới trong ngày',                 10,  30),
+(3,  'Practice Master',    N'Làm 3 bài luyện tập trong ngày',                3,   50),
+(4,  'Streak Keeper',      N'Duy trì chuỗi ngày học ít nhất 7 ngày',         7,  100),
+(5,  'Perfect Score',      N'Đạt điểm tuyệt đối trong 1 bài kiểm tra',       1,   80),
+(6,  'Speed Learner',      N'Hoàn thành 1 bài học trong vòng 5 phút',        1,   40),
+(7,  'Question Champion',  N'Trả lời đúng 20 câu hỏi liên tiếp',            20,   60),
+(8,  'Daily Goal',         N'Đạt mục tiêu thời gian học trong ngày',         1,   25),
+(9,  'Alphabet Hero',      N'Ôn tập toàn bộ bảng chữ cái phát âm',          26,   35),
+(10, 'Social Learner',     N'Hoàn thành bài học trong top 10 bảng xếp hạng', 1,   70);
+SET IDENTITY_INSERT tblDailyMission OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblPersonsMission ON;
+INSERT INTO tblPersonsMission (ID, assignedDate, currentProgress, isCompleted, isRewardClaimed, tblDailyMissionID, tblProfileID) VALUES
+(1,  '2026-05-31', '1',  1, 1, 1, 1),
+(2,  '2026-05-31', '7',  0, 0, 2, 2),
+(3,  '2026-05-31', '3',  1, 1, 3, 3),
+(4,  '2026-05-31', '7',  1, 0, 4, 4),
+(5,  '2026-05-31', '0',  0, 0, 5, 5),
+(6,  '2026-05-31', '1',  1, 1, 6, 6),
+(7,  '2026-05-31', '15', 0, 0, 7, 7),
+(8,  '2026-05-31', '1',  1, 1, 8, 8),
+(9,  '2026-05-30', '26', 1, 1, 9, 3),
+(10, '2026-05-30', '1',  1, 1, 10, 1);
+SET IDENTITY_INSERT tblPersonsMission OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblTopic ON;
+INSERT INTO tblTopic (ID, name, description, orderIndex, tblLanguageID) VALUES
+(1,  'Greetings',       N'Học cách chào hỏi và giới thiệu bản thân',       1,  1),
+(2,  'Numbers',         N'Học các con số và đếm số trong tiếng Anh',        2,  1),
+(3,  'Food & Drink',    N'Từ vựng về ẩm thực và thức uống',                3,  1),
+(4,  'Travel',          N'Từ vựng và hội thoại liên quan đến du lịch',      4,  1),
+(5,  'Family',          N'Từ vựng về gia đình và các mối quan hệ',         5,  1),
+(6,  'Animals',         N'Tên các loài động vật quen thuộc',               6,  1),
+(7,  'Colors',          N'Học các màu sắc trong tiếng Anh',                7,  1),
+(8,  'Jobs',            N'Từ vựng về nghề nghiệp',                         8,  1),
+(9,  'Weather',         N'Cách miêu tả thời tiết',                         9,  1),
+(10, 'Hobbies',         N'Sở thích và hoạt động giải trí',                 10, 1);
+SET IDENTITY_INSERT tblTopic OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblLesson ON;
+INSERT INTO tblLesson (ID, name, code, description, des, tblTopicID) VALUES
+(1,  'Hello & Goodbye',          'EN-GR-01', N'Chào hỏi cơ bản',             N'Học cách nói Hello, Hi, Good morning, Goodbye...', 1),
+(2,  'Introducing Yourself',     'EN-GR-02', N'Tự giới thiệu bản thân',      'My name is..., I am from..., Nice to meet you', 1),
+(3,  N'Numbers 1–10',             'EN-NB-01', N'Số từ 1 đến 10',              N'One, Two, Three... Ten với phát âm chuẩn',    2),
+(4,  N'Numbers 11–100',           'EN-NB-02', N'Số từ 11 đến 100',            'Eleven, Twelve... Twenty, Thirty... Hundred', 2),
+(5,  'Ordering Food',            'EN-FD-01', N'Gọi món ăn',                  'I would like..., Can I have..., The bill please', 3),
+(6,  'Fruits & Vegetables',      'EN-FD-02', N'Rau củ quả',                  'Apple, Banana, Carrot, Broccoli...',          3),
+(7,  'At the Airport',           'EN-TV-01', N'Tại sân bay',                 'Check-in, Boarding pass, Gate, Departure...',  4),
+(8,  'Booking a Hotel',          'EN-TV-02', N'Đặt phòng khách sạn',         'Reservation, Room type, Check-out date...',    4),
+(9,  'Farm Animals',     'EN-AN-01', N'Động vật nông trại',      'Cow, Pig, Chicken, Horse...', 6),
+(10, 'Basic Colors',     'EN-CL-01', N'Màu sắc cơ bản',          'Red, Blue, Green, Yellow...', 7);
+SET IDENTITY_INSERT tblLesson OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblLetter ON;
+INSERT INTO tblLetter (ID, character, type, audioURL, exampleWord, exampleAudioURL, tblLanguageID) VALUES
+(1,  'A', 'vowel',     'https://cdn.smarteng.io/audio/en/a.mp3',         'Apple',      'https://cdn.smarteng.io/audio/en/apple.mp3',      1),
+(2,  'B', 'consonant', 'https://cdn.smarteng.io/audio/en/b.mp3',         'Ball',       'https://cdn.smarteng.io/audio/en/ball.mp3',       1),
+(3,  'C', 'consonant', 'https://cdn.smarteng.io/audio/en/c.mp3',         'Cat',        'https://cdn.smarteng.io/audio/en/cat.mp3',        1),
+(4,  'D', 'consonant', 'https://cdn.smarteng.io/audio/en/d.mp3',         'Dog', 'https://cdn.smarteng.io/audio/en/dog.mp3',        1),
+(5,  'E', 'vowel', 'https://cdn.smarteng.io/audio/en/e.mp3',         'Elephant', 'https://cdn.smarteng.io/audio/en/elephant.mp3',        1),
+(6,  'F', 'consonant','https://cdn.smarteng.io/audio/en/f.mp3',         'Fish','https://cdn.smarteng.io/audio/en/fish.mp3',   1),
+(7,  'G', 'consonant',    'https://cdn.smarteng.io/audio/en/g.mp3',         'Goat','https://cdn.smarteng.io/audio/en/goat.mp3', 1),
+(8,  'H', 'consonant',     'https://cdn.smarteng.io/audio/en/h.mp3',         'Hat',      'https://cdn.smarteng.io/audio/en/hat.mp3',      1),
+(9,  'I', 'vowel', 'https://cdn.smarteng.io/audio/en/i.mp3',         'Ice',        'https://cdn.smarteng.io/audio/en/ice.mp3',        1),
+(10, 'J', 'consonant',     'https://cdn.smarteng.io/audio/en/j.mp3',         'Juice',   'https://cdn.smarteng.io/audio/en/juice.mp3',   1),
+(11, 'K', 'consonant', 'https://cdn.smarteng.io/audio/en/k.mp3', 'Kite', 'https://cdn.smarteng.io/audio/en/kite.mp3', 1),
+(12, 'L', 'consonant', 'https://cdn.smarteng.io/audio/en/l.mp3', 'Lion', 'https://cdn.smarteng.io/audio/en/lion.mp3', 1),
+(13, 'M', 'consonant', 'https://cdn.smarteng.io/audio/en/m.mp3', 'Monkey', 'https://cdn.smarteng.io/audio/en/monkey.mp3', 1),
+(14, 'N', 'consonant', 'https://cdn.smarteng.io/audio/en/n.mp3', 'Nest', 'https://cdn.smarteng.io/audio/en/nest.mp3', 1),
+(15, 'O', 'vowel', 'https://cdn.smarteng.io/audio/en/o.mp3', 'Orange', 'https://cdn.smarteng.io/audio/en/orange.mp3', 1),
+(16, 'P', 'consonant', 'https://cdn.smarteng.io/audio/en/p.mp3', 'Pig', 'https://cdn.smarteng.io/audio/en/pig.mp3', 1),
+(17, 'Q', 'consonant', 'https://cdn.smarteng.io/audio/en/q.mp3', 'Queen', 'https://cdn.smarteng.io/audio/en/queen.mp3', 1),
+(18, 'R', 'consonant', 'https://cdn.smarteng.io/audio/en/r.mp3', 'Rabbit', 'https://cdn.smarteng.io/audio/en/rabbit.mp3', 1),
+(19, 'S', 'consonant', 'https://cdn.smarteng.io/audio/en/s.mp3', 'Sun', 'https://cdn.smarteng.io/audio/en/sun.mp3', 1),
+(20, 'T', 'consonant', 'https://cdn.smarteng.io/audio/en/t.mp3', 'Tiger', 'https://cdn.smarteng.io/audio/en/tiger.mp3', 1),
+(21, 'U', 'vowel', 'https://cdn.smarteng.io/audio/en/u.mp3', 'Umbrella', 'https://cdn.smarteng.io/audio/en/umbrella.mp3', 1),
+(22, 'V', 'consonant', 'https://cdn.smarteng.io/audio/en/v.mp3', 'Van', 'https://cdn.smarteng.io/audio/en/van.mp3', 1),
+(23, 'W', 'consonant', 'https://cdn.smarteng.io/audio/en/w.mp3', 'Water', 'https://cdn.smarteng.io/audio/en/water.mp3', 1),
+(24, 'X', 'consonant', 'https://cdn.smarteng.io/audio/en/x.mp3', 'X-ray', 'https://cdn.smarteng.io/audio/en/x-ray.mp3', 1),
+(25, 'Y', 'consonant', 'https://cdn.smarteng.io/audio/en/y.mp3', 'Yellow', 'https://cdn.smarteng.io/audio/en/yellow.mp3', 1),
+(26, 'Z', 'consonant', 'https://cdn.smarteng.io/audio/en/z.mp3', 'Zebra', 'https://cdn.smarteng.io/audio/en/zebra.mp3', 1);
+SET IDENTITY_INSERT tblLetter OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblVocabulary ON;
+INSERT INTO tblVocabulary (ID, word, meaning, pronunciation, tblLanguageID) VALUES
+(1,  'Hello',        N'Xin chào',              N'/həˈloʊ/',     1),
+(2,  'Goodbye',      N'Tạm biệt',              N'/ɡʊdˈbaɪ/',    1),
+(3,  'Thank you',    N'Cảm ơn',                N'/θæŋk juː/',   1),
+(4,  'Apple',        N'Quả táo',               N'/ˈæp.əl/',     1),
+(5,  'Water',        N'Nước',                  N'/ˈwɔː.tər/',   1),
+(6,  'Dog',          N'Con chó',               N'/dɒɡ/',        1),
+(7,  'Cat',          N'Con mèo',               N'/kæt/',        1),
+(8,  'Red',          N'Màu đỏ',                N'/rɛd/',        1),
+(9,  'Blue',         N'Màu xanh dương',        N'/bluː/',       1),
+(10, 'Teacher',      N'Giáo viên',             N'/ˈtiː.tʃər/',  1);
+SET IDENTITY_INSERT tblVocabulary OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblLessonVocabulary ON;
+INSERT INTO tblLessonVocabulary (ID, orderIndex, isReview, context, tblLessonID, tblVocabularyID) VALUES
+(1,  1, 0, 'Used when meeting someone for the first time.',    1, 1),
+(2,  2, 0, 'Used when parting from someone.',                  1, 2),
+(3,  3, 1, 'Expressing gratitude in formal settings.',         1, 3),
+(4,  1, 0, 'Common fruit discussed in food lessons.',          5, 4),
+(5,  2, 0, 'Ordering water at a restaurant.',                  5, 5),
+(6,  1, 0, 'A common pet that barks.',                         9, 6),
+(7,  2, 1, 'A common pet that meows.',                         9, 7),
+(8,  1, 0, 'The color of an apple.',                          10, 8),
+(9,  1, 0, 'The color of the sky.',                           10, 9),
+(10, 1, 0, 'A person who teaches in a school.',               10, 10);
+SET IDENTITY_INSERT tblLessonVocabulary OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblQuestion ON;
+INSERT INTO tblQuestion (ID, content, questionType, difficulty, options, correctAnswer, tblLessonID, tblLanguageID) VALUES
+(1,  'What does "Hello" mean in Vietnamese?',
+     'MULTIPLE_CHOICE', 'easy',
+     N'["Tạm biệt","Xin chào","Cảm ơn","Xin lỗi"]',
+     N'Xin chào', 1, 1),
+(2,  'Fill in the blank: "Good ___, how are you?"',
+     'FILL_IN', 'easy',
+     '[]',
+     'morning', 1, 1),
+(3,  'Arrange the words: [my / is / name / John]',
+     'WORD_ORDER', 'medium',
+     '["my","is","name","John"]',
+     'My name is John', 2, 1),
+(4,  'How do you say 7 in English?',
+     'MULTIPLE_CHOICE', 'easy',
+     '["Five","Six","Seven","Eight"]',
+     'Seven', 3, 1),
+(5,  'What number comes after eleven?',
+     'MULTIPLE_CHOICE', 'easy',
+     '["Ten","Twelve","Thirteen","Twenty"]',
+     'Twelve', 4, 1),
+(6,  '"I would like a ___ of water, please." (glass/cup/bowl)',
+     'FILL_IN', 'medium',
+     '[]',
+     'glass', 5, 1),
+(7,  'Which of these is a vegetable?',
+     'MULTIPLE_CHOICE', 'easy',
+     '["Apple","Mango","Carrot","Grape"]',
+     'Carrot', 6, 1),
+(8,  'At the airport, what document do you need to board?',
+     'MULTIPLE_CHOICE', 'medium',
+     '["Passport only","Boarding pass","Driver license","Hotel booking"]',
+     'Boarding pass', 7, 1),
+(9,  'What animal says "meow"?',
+     'MULTIPLE_CHOICE', 'easy',
+     '["Dog","Cow","Cat","Horse"]',
+     'Cat', 9, 1),
+(10, 'What is the color of the sky?',
+     'MULTIPLE_CHOICE', 'easy',
+     '["Red","Green","Blue","Yellow"]',
+     'Blue', 10, 1);
+SET IDENTITY_INSERT tblQuestion OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblTest ON;
+INSERT INTO tblTest (ID, title, type, timeLimit, rewardEXP, totalQuestions, tblLessonID) VALUES
+(1,  'Greetings Quiz 1',          'LESSON_TEST', '00:10:00', 50,  5,  1),
+(2,  'Introduction Test',         'LESSON_TEST', '00:08:00', 50,  4,  2),
+(3,  N'Numbers 1–10 Quiz',         'LESSON_TEST', '00:05:00', 30,  5,  3),
+(4,  N'Numbers 11–100 Quiz',       'LESSON_TEST', '00:07:00', 40,  5,  4),
+(5,  'Food Ordering Test',        'LESSON_TEST', '00:10:00', 60,  6,  5),
+(6,  'Fruits & Vegetables Quiz',  'LESSON_TEST', '00:08:00', 40,  5,  6),
+(7,  'Airport Vocabulary Test',   'LESSON_TEST', '00:12:00', 70,  7,  7),
+(8,  'Hotel Booking Quiz',        'LESSON_TEST', '00:10:00', 60,  6,  8),
+(9,  'Animals Quiz',            'LESSON_TEST', '00:06:00', 40,  4,  9),
+(10, 'Colors Test',             'LESSON_TEST', '00:08:00', 50,  5, 10);
+SET IDENTITY_INSERT tblTest OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblTestQuestion ON;
+INSERT INTO tblTestQuestion (ID, orderIndex, point, tblTestID, tblQuestionID) VALUES
+(1,  1, 2.0, 1, 1),
+(2,  2, 2.0, 1, 2),
+(3,  1, 2.5, 2, 3),
+(4,  1, 2.0, 3, 4),
+(5,  2, 2.0, 4, 5),
+(6,  1, 2.5, 5, 6),
+(7,  1, 2.0, 6, 7),
+(8,  1, 2.5, 7, 8),
+(9,  1, 2.0, 9, 9),
+(10, 1, 2.0, 10, 10);
+SET IDENTITY_INSERT tblTestQuestion OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblTestResult ON;
+INSERT INTO tblTestResult (ID, score, isPassed, lastAccessed, completionPercentage, itemsNumber, tblTestID, tblProfileID) VALUES
+(1,  9.5, 1, '10:15:00', 100, 5, 1, 1),
+(2,  7.0, 1, '14:32:00', 100, 4, 2, 2),
+(3,  6.0, 1, '09:05:00', 100, 5, 3, 3),
+(4,  10.0,1, '08:50:00', 100, 5, 4, 4),
+(5,  4.5, 0, '20:10:00', 80,  5, 5, 5),
+(6,  8.0, 1, '16:45:00', 100, 5, 6, 6),
+(7,  7.5, 1, '11:30:00', 100, 7, 7, 7),
+(8,  9.0, 1, '13:00:00', 100, 6, 8, 8),
+(9,  5.0, 0, '17:20:00', 75,  4, 9, 1),
+(10, 8.5, 1, '19:00:00', 100, 5, 10, 3);
+SET IDENTITY_INSERT tblTestResult OFF;
+GO
+
+-- ============================================================
+SET IDENTITY_INSERT tblStudyProgress ON;
+INSERT INTO tblStudyProgress (ID, status, lastAccessed, completionPercentage, completedAt, tblLessonID, tblProfileID) VALUES
+(1,  1, '10:00:00', '100%', '10:10:00', 1,  1),
+(2,  1, '14:00:00', '100%', '14:08:00', 2,  2),
+(3,  0, '09:00:00', '60%',  NULL,        3,  3),
+(4,  1, '08:30:00', '100%', '08:45:00', 4,  4),
+(5,  0, '20:00:00', '20%',  NULL,        5,  5),
+(6,  1, '16:30:00', '100%', '16:42:00', 6,  6),
+(7,  0, '11:00:00', '80%',  NULL,        7,  7),
+(8,  1, '12:45:00', '100%', '12:58:00', 8,  8),
+(9,  1, '17:00:00', '100%', '17:06:00', 9,  3),
+(10, 0, '18:30:00', '40%',  NULL,        10, 1);
+SET IDENTITY_INSERT tblStudyProgress OFF;
+GO
+
+-- ============================================================
+PRINT 'Seed data inserted successfully! (10 records per table)';
+GO
+</file>
+
+<file path="SmartEng-main/README.md">
+# SmartEng
+
+## Tài khoản truy cập
+
+Dưới đây là danh sách các tài khoản và mật khẩu mặc định (từ database) để đăng nhập vào ứng dụng:
+
+### 🎓 Dành cho Học viên (Learner)
+- **Tài khoản:** `learner01` - **Mật khẩu:** `Pass@1234`
+- **Tài khoản:** `learner02` - **Mật khẩu:** `Pass@5678`
+- **Tài khoản:** `learner03` - **Mật khẩu:** `Pass@abcd`
+- **Tài khoản:** `learner04` - **Mật khẩu:** `Pass@efgh`
+- **Tài khoản:** `learner05` - **Mật khẩu:** `Pass@ijkl`
+- **Tài khoản:** `learner06` - **Mật khẩu:** `Pass@mnop`
+- **Tài khoản:** `learner07` - **Mật khẩu:** `Pass@qrst`
+- **Tài khoản:** `learner08` - **Mật khẩu:** `Pass@uvwx`
+
+### ⚙️ Dành cho Quản trị viên (Admin)
+- **Tài khoản:** `admin01` - **Mật khẩu:** `Admin@2024`
+- **Tài khoản:** `admin02` - **Mật khẩu:** `Admin@2025`
+- Hoặc bạn có thể gõ `admin` vào ô Username (với bất kỳ mật khẩu nào) để bypass và vào quyền Admin.
+</file>
+
+<file path="SmartEng-main/run.bat">
+@echo off
+echo Compiling...
+javac -cp "lib/mssql-jdbc.jar;src" src/dao/*.java src/view/user/*.java src/view/admin/*.java src/view/study/*.java src/view/profile/*.java src/view/leaderboard/*.java src/view/practice/*.java
+if %ERRORLEVEL% NEQ 0 (
+    echo Compile failed!
+    pause
+    exit /b %ERRORLEVEL%
+)
+
+echo Running...
+java -cp "lib/mssql-jdbc.jar;src" view.user.LoginFrm
+pause
+</file>
+
+<file path="SmartEng-main/src/dao/AccessHistoryDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AccessHistoryDAO extends DAO {
+    public AccessHistoryDAO() { super(); }
+
+    public List<Object[]> searchByTime(String timeString) {
+        List<Object[]> list = new ArrayList<>();
+        if(con == null) return list;
+        try {
+            // "gg:pp" format is expected (HH:mm)
+            // SQL Server CONVERT(VARCHAR(5), timeStamp, 108) returns HH:mm
+            String sql = "SELECT ID, tblUserID, timeStamp, IpAddress, deviceInfo, actionType, duration " +
+                         "FROM tblAccessHistory WHERE CONVERT(VARCHAR(5), timeStamp, 108) = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, timeString);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                // Formatting duration from seconds to HH:mm:ss
+                int dur = rs.getInt("duration");
+                String durStr = String.format("%02d:%02d:%02d", dur / 3600, (dur % 3600) / 60, dur % 60);
+                
+                // Format timeStamp to HH:mm:ss
+                java.sql.Timestamp ts = rs.getTimestamp("timeStamp");
+                String timeFormatted = ts != null ? new java.text.SimpleDateFormat("HH:mm:ss").format(ts) : "";
+
+                list.add(new Object[]{ 
+                    rs.getInt("ID"), 
+                    rs.getInt("tblUserID"),
+                    timeFormatted, // access Time
+                    rs.getString("IpAddress"),
+                    rs.getString("deviceInfo"),
+                    rs.getString("actionType"),
+                    timeFormatted, // timeStamp
+                    durStr // duration
+                });
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi searchByTime: " + e.getMessage());
+        }
+        return list;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/AlphabetDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AlphabetDAO extends DAO {
+    public AlphabetDAO() { super(); }
+
+    public List<Object[]> getAllLetters() {
+        List<Object[]> letters = new ArrayList<>();
+        if (con == null) return letters;
+        try {
+            String sql = "SELECT character, type, exampleWord FROM tblLetter WHERE tblLanguageID = 1 ORDER BY character ASC";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                letters.add(new Object[] {
+                    rs.getString("character"),
+                    rs.getString("type"), // could be pronunciation
+                    rs.getString("exampleWord")
+                });
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return letters;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/DailyMissionDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DailyMissionDAO extends DAO {
+    public DailyMissionDAO() { super(); }
+
+    public List<Object[]> getMissions() {
+        List<Object[]> missions = new ArrayList<>();
+        if (con == null) return missions;
+        try {
+            String sql = "SELECT title, reward, description, targetValue FROM tblDailyMission";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                missions.add(new Object[] {
+                    rs.getString("title"),
+                    rs.getInt("reward"),
+                    rs.getString("description"),
+                    rs.getInt("targetValue")
+                });
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return missions;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/DAO.java">
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DAO {
+    protected Connection con;
+
+    public DAO() {
+        String dbUrl = "jdbc:sqlserver://localhost:1433;databaseName=SmartEngDB;encrypt=false;trustServerCertificate=true;";
+        String dbClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        try {
+            Class.forName(dbClass);
+            con = DriverManager.getConnection(dbUrl, "sa", "000569"); // Sửa lại password sa của bạn tại đây
+        } catch (Exception e) {
+            System.out.println("Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): "
+                    + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/LeaderboardDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LeaderboardDAO extends DAO {
+    public LeaderboardDAO() { super(); }
+
+    public Object[][] getTopUsersByLeague(String leagueName) {
+        if(con == null) return null;
+        try {
+            String sql = "SELECT p.avatarURL, p.displayName, p.totalEXP " +
+                         "FROM tblProfile p " +
+                         "INNER JOIN tblUser u ON p.userID = u.ID " +
+                         "LEFT JOIN tblLeague l ON p.tblLeagueID = l.ID " +
+                         "WHERE u.position != 'admin' AND l.name = ? " +
+                         "ORDER BY p.totalEXP DESC";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, leagueName);
+            ResultSet rs = ps.executeQuery();
+            List<Object[]> rows = new ArrayList<>();
+            int rank = 1;
+            while(rs.next()) {
+                rows.add(new Object[] { rank++, rs.getString("avatarURL"), rs.getString("displayName"), rs.getInt("totalEXP") });
+            }
+            return rows.toArray(new Object[0][]);
+        } catch(Exception e) {
+            System.out.println("Lỗi truy vấn Leaderboard theo League: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<String> getAllLeagues() {
+        List<String> leagues = new ArrayList<>();
+        if (con == null) return leagues;
+        try {
+            String sql = "SELECT name FROM tblLeague ORDER BY ID ASC";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                leagues.add(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            System.out.println("Lỗi truy vấn League: " + e.getMessage());
+        }
+        return leagues;
+    }
+
+    public Object[] getUserStats(String displayName) {
+        if(con == null) return null;
+        try {
+            String sql = "SELECT p.avatarURL, p.displayName, p.totalEXP, p.currentStreak, p.prizes, l.name as leagueName " +
+                         "FROM tblProfile p " +
+                         "LEFT JOIN tblLeague l ON p.tblLeagueID = l.ID " +
+                         "WHERE p.displayName = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, displayName);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return new Object[] {
+                    rs.getString("avatarURL"),
+                    rs.getString("displayName"),
+                    rs.getInt("totalEXP"),
+                    rs.getInt("currentStreak"),
+                    rs.getString("prizes"),
+                    rs.getString("leagueName")
+                };
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi truy vấn UserStats: " + e.getMessage());
+        }
+        return null;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/LessonDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LessonDAO extends DAO {
+    public LessonDAO() { super(); }
+
+    public List<Object[]> getLessonsByTopic(int topicID) {
+        List<Object[]> list = new ArrayList<>();
+        if(con == null) return list;
+        try {
+            String sql = "SELECT ID, name FROM tblLesson WHERE tblTopicID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, topicID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                list.add(new Object[]{ rs.getInt("ID"), rs.getString("name") });
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi getLessonsByTopic: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public List<Object[]> searchLessons(String name, String code) {
+        List<Object[]> list = new ArrayList<>();
+        if(con == null) return list;
+        try {
+            String sql = "SELECT ID, name, code, description, des FROM tblLesson WHERE 1=1";
+            if(name != null && !name.trim().isEmpty()) {
+                sql += " AND name LIKE ?";
+            }
+            if(code != null && !code.trim().isEmpty()) {
+                sql += " AND code LIKE ?";
+            }
+            PreparedStatement ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+            if(name != null && !name.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + name.trim() + "%");
+            }
+            if(code != null && !code.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + code.trim() + "%");
+            }
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                list.add(new Object[]{ 
+                    rs.getInt("ID"), 
+                    rs.getString("name"),
+                    rs.getString("code"),
+                    rs.getString("description"),
+                    rs.getString("des")
+                });
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi searchLessons: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public boolean updateLesson(int id, String name, String code, String description, String des) {
+        if(con == null) return false;
+        try {
+            String sql = "UPDATE tblLesson SET name = ?, code = ?, description = ?, des = ? WHERE ID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, code);
+            ps.setString(3, description);
+            ps.setString(4, des);
+            ps.setInt(5, id);
+            int affected = ps.executeUpdate();
+            return affected > 0;
+        } catch(Exception e) {
+            System.out.println("Lỗi updateLesson: " + e.getMessage());
+            return false;
+        }
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/PersonalSettingDAO.java">
+package dao;
+public class PersonalSettingDAO extends DAO {
+    public PersonalSettingDAO() { super(); }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/ProfileDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class ProfileDAO extends DAO {
+    public ProfileDAO() { super(); }
+
+    // (Giữ nguyên hàm getProfileByUserId cũ của bạn ở đây...)
+    public Object[] getProfileByUserId(int userId) {
+        if(con == null) return null;
+        try {
+            String sql = "SELECT displayName, avatarURL, level, totalEXP, currentStreak FROM tblProfile WHERE userID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return new Object[] {
+                    rs.getString("displayName"),
+                    rs.getString("avatarURL"),
+                    rs.getInt("level"),
+                    rs.getInt("totalEXP"),
+                    rs.getInt("currentStreak")
+                };
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // THÊM MỚI HÀM NÀY: Cập nhật EXP và Tim sau khi học xong
+    public boolean updateLearningStats(int userId, int earnedExp, int heartsLost) {
+        if(con == null) return false;
+        try {
+            // Cộng totalEXP và trừ heartCount cho User đang học
+            String sql = "UPDATE tblProfile SET totalEXP = totalEXP + ?, heartCount = heartCount - ? WHERE userID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, earnedExp);
+            ps.setInt(2, heartsLost);
+            ps.setInt(3, userId);
+            return ps.executeUpdate() > 0;
+        } catch(Exception e) {
+            System.out.println("Lỗi updateLearningStats: " + e.getMessage());
+        }
+        return false;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/QuestionDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuestionDAO extends DAO {
+    public QuestionDAO() { super(); }
+
+    public List<Object[]> getQuestionsByLesson(int lessonID) {
+        List<Object[]> list = new ArrayList<>();
+        if(con == null) return list;
+        try {
+            String sql = "SELECT ID, content, questionType, options, correctAnswer FROM tblQuestion WHERE tblLessonID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, lessonID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                list.add(new Object[]{ 
+                    rs.getInt("ID"), 
+                    rs.getString("content"),
+                    rs.getString("questionType"),
+                    rs.getString("options"),
+                    rs.getString("correctAnswer")
+                });
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi getQuestionsByLesson: " + e.getMessage());
+        }
+        return list;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/StudyProgressDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+
+public class StudyProgressDAO extends DAO {
+    public StudyProgressDAO() { super(); }
+
+    // Lưu tiến trình khi hoàn thành bài học
+    public boolean saveProgress(int profileId, int lessonId) {
+        if(con == null) return false;
+        try {
+            String sql = "INSERT INTO tblStudyProgress (status, completionPercentage, tblLessonID, tblProfileID) VALUES (1, '100%', ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, lessonId);
+            ps.setInt(2, profileId);
+            return ps.executeUpdate() > 0;
+        } catch(Exception e) {
+            System.out.println("Lỗi saveProgress: " + e.getMessage());
+            return false;
+        }
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/TestDAO.java">
+package dao;
+public class TestDAO extends DAO {
+    public TestDAO() { super(); }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/TopicDAO.java">
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import model.Topic;
+
+public class TopicDAO extends DAO {
+    public TopicDAO() { super(); }
+
+    public List<Object[]> getAllTopics() {
+        List<Object[]> list = new ArrayList<>();
+        if(con == null) return list;
+        try {
+            String sql = "SELECT ID, name FROM tblTopic WHERE tblLanguageID = 1 ORDER BY orderIndex ASC";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                list.add(new Object[]{ rs.getInt("ID"), rs.getString("name") });
+            }
+        } catch(Exception e) {
+            System.out.println("Lỗi getAllTopics: " + e.getMessage());
+        }
+        return list;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/dao/UserDAO.java">
+package dao;
+
+import model.User;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class UserDAO extends DAO {
+    public UserDAO() { 
+        super(); 
+    }
+
+    public boolean checkLogin(User user) {
+        boolean result = false;
+        
+        // Nếu DB chưa chạy, dùng logic giả định (Mock) để bạn vẫn test được App
+        if(con == null) {
+            System.out.println("Connection is null, using mock login!");
+            user.setPosition(user.getUsername().equalsIgnoreCase("admin") ? "Admin" : "Learner");
+            return true; 
+        }
+
+        String sql = "SELECT * FROM tblUser WHERE Username = ? AND Password = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Đọc thông tin từ DB, xử lý lỗi cột linh hoạt tùy cấu trúc DB của bạn
+                try { user.setId(rs.getInt("ID")); } catch (Exception e) {}
+                try { user.setPosition(rs.getString("Role")); } catch (Exception e) {
+                    try { user.setPosition(rs.getString("Position")); } catch (Exception ex) {}
+                }
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/model/AccessHistory.java">
+package model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class AccessHistory implements Serializable {
+    private int id;
+    private Date accessTime;
+    private String ipAddress;
+    private String deviceInfo;
+    private String actionType;
+    private Date timeStamp;
+    private int duration;
+    private User user;
+
+    public AccessHistory() {
+        super();
+    }
+
+    public AccessHistory(Date accessTime, String ipAddress, String deviceInfo, String actionType, Date timeStamp, int duration, User user) {
+        super();
+        this.accessTime = accessTime;
+        this.ipAddress = ipAddress;
+        this.deviceInfo = deviceInfo;
+        this.actionType = actionType;
+        this.timeStamp = timeStamp;
+        this.duration = duration;
+        this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getAccessTime() {
+        return accessTime;
+    }
+
+    public void setAccessTime(Date accessTime) {
+        this.accessTime = accessTime;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getDeviceInfo() {
+        return deviceInfo;
+    }
+
+    public void setDeviceInfo(String deviceInfo) {
+        this.deviceInfo = deviceInfo;
+    }
+
+    public String getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/DailyMission.java">
+package model;
+
+import java.io.Serializable;
+
+public class DailyMission implements Serializable {
+    private int id;
+    private String title;
+    private String description;
+    private long targetValue;
+    private int reward;
+
+    public DailyMission() {
+        super();
+    }
+
+    public DailyMission(String title, String description, long targetValue, int reward) {
+        super();
+        this.title = title;
+        this.description = description;
+        this.targetValue = targetValue;
+        this.reward = reward;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getTargetValue() {
+        return targetValue;
+    }
+
+    public void setTargetValue(long targetValue) {
+        this.targetValue = targetValue;
+    }
+
+    public int getReward() {
+        return reward;
+    }
+
+    public void setReward(int reward) {
+        this.reward = reward;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Language.java">
+package model;
+
+import java.io.Serializable;
+
+public class Language implements Serializable {
+    private int id;
+    private String code;
+    private String name;
+    private String iconURL;
+
+    public Language() {
+        super();
+    }
+
+    public Language(String code, String name, String iconURL) {
+        super();
+        this.code = code;
+        this.name = name;
+        this.iconURL = iconURL;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIconURL() {
+        return iconURL;
+    }
+
+    public void setIconURL(String iconURL) {
+        this.iconURL = iconURL;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/League.java">
+package model;
+
+import java.io.Serializable;
+
+public class League implements Serializable {
+    private int id;
+    private String name;
+    private String iconURL;
+
+    public League() {
+        super();
+    }
+
+    public League(String name, String iconURL) {
+        super();
+        this.name = name;
+        this.iconURL = iconURL;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIconURL() {
+        return iconURL;
+    }
+
+    public void setIconURL(String iconURL) {
+        this.iconURL = iconURL;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Lesson.java">
+package model;
+
+import java.io.Serializable;
+
+public class Lesson implements Serializable {
+    private int id;
+    private String name;
+    private String code;
+    private String context;
+    private String des;
+    private Test test;
+    private LessonVocabulary lessonVocabulary;
+    private Question question;
+
+    public Lesson() {
+        super();
+    }
+
+    public Lesson(String name, String code, String context, String des, Test test, LessonVocabulary lessonVocabulary, Question question) {
+        super();
+        this.name = name;
+        this.code = code;
+        this.context = context;
+        this.des = des;
+        this.test = test;
+        this.lessonVocabulary = lessonVocabulary;
+        this.question = question;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public LessonVocabulary getLessonVocabulary() {
+        return lessonVocabulary;
+    }
+
+    public void setLessonVocabulary(LessonVocabulary lessonVocabulary) {
+        this.lessonVocabulary = lessonVocabulary;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/LessonVocabulary.java">
+package model;
+
+import java.io.Serializable;
+
+public class LessonVocabulary implements Serializable {
+    private int id;
+    private int orderIndex;
+    private boolean isReview;
+    private Vocabulary vocabulary;
+
+    public LessonVocabulary() {
+        super();
+    }
+
+    public LessonVocabulary(int orderIndex, boolean isReview, Vocabulary vocabulary) {
+        super();
+        this.orderIndex = orderIndex;
+        this.isReview = isReview;
+        this.vocabulary = vocabulary;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
+    public boolean isReview() {
+        return isReview;
+    }
+
+    public void setReview(boolean isReview) {
+        this.isReview = isReview;
+    }
+
+    public Vocabulary getVocabulary() {
+        return vocabulary;
+    }
+
+    public void setVocabulary(Vocabulary vocabulary) {
+        this.vocabulary = vocabulary;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Letter.java">
+package model;
+
+import java.io.Serializable;
+
+public class Letter implements Serializable {
+    private int id;
+    private String character;
+    private String type;
+    private String audioURL;
+    private String exampleWord;
+    private String exampleAudioURL;
+
+    public Letter() {
+        super();
+    }
+
+    public Letter(String character, String type, String audioURL, String exampleWord, String exampleAudioURL) {
+        super();
+        this.character = character;
+        this.type = type;
+        this.audioURL = audioURL;
+        this.exampleWord = exampleWord;
+        this.exampleAudioURL = exampleAudioURL;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAudioURL() {
+        return audioURL;
+    }
+
+    public void setAudioURL(String audioURL) {
+        this.audioURL = audioURL;
+    }
+
+    public String getExampleWord() {
+        return exampleWord;
+    }
+
+    public void setExampleWord(String exampleWord) {
+        this.exampleWord = exampleWord;
+    }
+
+    public String getExampleAudioURL() {
+        return exampleAudioURL;
+    }
+
+    public void setExampleAudioURL(String exampleAudioURL) {
+        this.exampleAudioURL = exampleAudioURL;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/PersonalMission.java">
+package model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class PersonalMission implements Serializable {
+    private int id;
+    private Date assignedDate;
+    private String currentProgress;
+    private boolean isCompleted;
+    private boolean isRewardClaimed;
+    private DailyMission dailyMission;
+    private Profile profile;
+
+    public PersonalMission() {
+        super();
+    }
+
+    public PersonalMission(Date assignedDate, String currentProgress, boolean isCompleted, boolean isRewardClaimed, DailyMission dailyMission, Profile profile) {
+        super();
+        this.assignedDate = assignedDate;
+        this.currentProgress = currentProgress;
+        this.isCompleted = isCompleted;
+        this.isRewardClaimed = isRewardClaimed;
+        this.dailyMission = dailyMission;
+        this.profile = profile;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
+    public String getCurrentProgress() {
+        return currentProgress;
+    }
+
+    public void setCurrentProgress(String currentProgress) {
+        this.currentProgress = currentProgress;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public boolean isRewardClaimed() {
+        return isRewardClaimed;
+    }
+
+    public void setRewardClaimed(boolean isRewardClaimed) {
+        this.isRewardClaimed = isRewardClaimed;
+    }
+
+    public DailyMission getDailyMission() {
+        return dailyMission;
+    }
+
+    public void setDailyMission(DailyMission dailyMission) {
+        this.dailyMission = dailyMission;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/PersonalSetting.java">
+package model;
+
+import java.io.Serializable;
+
+public class PersonalSetting implements Serializable {
+    private int id;
+    private String dailyTimeGoal;
+    private boolean isNotificationEnabled;
+    private boolean isDarkMode;
+    private boolean isSoundEnabled;
+
+    public PersonalSetting() {
+        super();
+    }
+
+    public PersonalSetting(String dailyTimeGoal, boolean isNotificationEnabled, boolean isDarkMode, boolean isSoundEnabled) {
+        super();
+        this.dailyTimeGoal = dailyTimeGoal;
+        this.isNotificationEnabled = isNotificationEnabled;
+        this.isDarkMode = isDarkMode;
+        this.isSoundEnabled = isSoundEnabled;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDailyTimeGoal() {
+        return dailyTimeGoal;
+    }
+
+    public void setDailyTimeGoal(String dailyTimeGoal) {
+        this.dailyTimeGoal = dailyTimeGoal;
+    }
+
+    public boolean isNotificationEnabled() {
+        return isNotificationEnabled;
+    }
+
+    public void setNotificationEnabled(boolean isNotificationEnabled) {
+        this.isNotificationEnabled = isNotificationEnabled;
+    }
+
+    public boolean isDarkMode() {
+        return isDarkMode;
+    }
+
+    public void setDarkMode(boolean isDarkMode) {
+        this.isDarkMode = isDarkMode;
+    }
+
+    public boolean isSoundEnabled() {
+        return isSoundEnabled;
+    }
+
+    public void setSoundEnabled(boolean isSoundEnabled) {
+        this.isSoundEnabled = isSoundEnabled;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Profile.java">
+package model;
+
+import java.io.Serializable;
+
+public class Profile implements Serializable {
+    private int id;
+    private String displayName;
+    private String avatarURL;
+    private long totalEXP;
+    private int currentStreak;
+    private int heartCount;
+    private String prizes;
+    private Language language;
+    private League league;
+
+    public Profile() {
+        super();
+    }
+
+    public Profile(String displayName, String avatarURL, long totalEXP, int currentStreak, int heartCount, String prizes, Language language, League league) {
+        super();
+        this.displayName = displayName;
+        this.avatarURL = avatarURL;
+        this.totalEXP = totalEXP;
+        this.currentStreak = currentStreak;
+        this.heartCount = heartCount;
+        this.prizes = prizes;
+        this.language = language;
+        this.league = league;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
+    }
+
+    public long getTotalEXP() {
+        return totalEXP;
+    }
+
+    public void setTotalEXP(long totalEXP) {
+        this.totalEXP = totalEXP;
+    }
+
+    public int getCurrentStreak() {
+        return currentStreak;
+    }
+
+    public void setCurrentStreak(int currentStreak) {
+        this.currentStreak = currentStreak;
+    }
+
+    public int getHeartCount() {
+        return heartCount;
+    }
+
+    public void setHeartCount(int heartCount) {
+        this.heartCount = heartCount;
+    }
+
+    public String getPrizes() {
+        return prizes;
+    }
+
+    public void setPrizes(String prizes) {
+        this.prizes = prizes;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Question.java">
+package model;
+
+import java.io.Serializable;
+
+public class Question implements Serializable {
+    private int id;
+    private String content;
+    private String questionType;
+    private String difficulty;
+    private String options;
+    private String correctAnswer;
+    private Language language;
+
+    public Question() {
+        super();
+    }
+
+    public Question(String content, String questionType, String difficulty, String options, String correctAnswer, Language language) {
+        super();
+        this.content = content;
+        this.questionType = questionType;
+        this.difficulty = difficulty;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+        this.language = language;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/StudyProgress.java">
+package model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class StudyProgress implements Serializable {
+    private int id;
+    private boolean status;
+    private Date lastAccessed;
+    private String completionPercentage;
+    private Date completedAt;
+    private Lesson lesson;
+    private Profile profile;
+
+    public StudyProgress() {
+        super();
+    }
+
+    public StudyProgress(boolean status, Date lastAccessed, String completionPercentage, Date completedAt, Lesson lesson, Profile profile) {
+        super();
+        this.status = status;
+        this.lastAccessed = lastAccessed;
+        this.completionPercentage = completionPercentage;
+        this.completedAt = completedAt;
+        this.lesson = lesson;
+        this.profile = profile;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Date getLastAccessed() {
+        return lastAccessed;
+    }
+
+    public void setLastAccessed(Date lastAccessed) {
+        this.lastAccessed = lastAccessed;
+    }
+
+    public String getCompletionPercentage() {
+        return completionPercentage;
+    }
+
+    public void setCompletionPercentage(String completionPercentage) {
+        this.completionPercentage = completionPercentage;
+    }
+
+    public Date getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Test.java">
+package model;
+
+import java.io.Serializable;
+import java.sql.Time;
+
+public class Test implements Serializable {
+    private int id;
+    private String title;
+    private String type;
+    private Time timeLimit;
+    private long rewardExp;
+    private int totalQuestions;
+
+    public Test() {
+        super();
+    }
+
+    public Test(String title, String type, Time timeLimit, long rewardExp, int totalQuestions) {
+        super();
+        this.title = title;
+        this.type = type;
+        this.timeLimit = timeLimit;
+        this.rewardExp = rewardExp;
+        this.totalQuestions = totalQuestions;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Time getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(Time timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
+    public long getRewardExp() {
+        return rewardExp;
+    }
+
+    public void setRewardExp(long rewardExp) {
+        this.rewardExp = rewardExp;
+    }
+
+    public int getTotalQuestions() {
+        return totalQuestions;
+    }
+
+    public void setTotalQuestions(int totalQuestions) {
+        this.totalQuestions = totalQuestions;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/TestQuestion.java">
+package model;
+
+import java.io.Serializable;
+
+public class TestQuestion implements Serializable {
+    private int id;
+    private int orderIndex;
+    private float point;
+    private Question question;
+
+    public TestQuestion() {
+        super();
+    }
+
+    public TestQuestion(int orderIndex, float point, Question question) {
+        super();
+        this.orderIndex = orderIndex;
+        this.point = point;
+        this.question = question;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
+    public float getPoint() {
+        return point;
+    }
+
+    public void setPoint(float point) {
+        this.point = point;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/TestResult.java">
+package model;
+
+import java.io.Serializable;
+
+public class TestResult implements Serializable {
+    private int id;
+    private float score;
+    private boolean isPassed;
+    private int attemptNumber;
+    private Test test;
+    private Profile profile;
+
+    public TestResult() {
+        super();
+    }
+
+    public TestResult(float score, boolean isPassed, int attemptNumber, Test test, Profile profile) {
+        super();
+        this.score = score;
+        this.isPassed = isPassed;
+        this.attemptNumber = attemptNumber;
+        this.test = test;
+        this.profile = profile;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    public boolean isPassed() {
+        return isPassed;
+    }
+
+    public void setPassed(boolean isPassed) {
+        this.isPassed = isPassed;
+    }
+
+    public int getAttemptNumber() {
+        return attemptNumber;
+    }
+
+    public void setAttemptNumber(int attemptNumber) {
+        this.attemptNumber = attemptNumber;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Topic.java">
+package model;
+
+import java.io.Serializable;
+
+public class Topic implements Serializable {
+    private int id;
+    private String name;
+    private String description;
+    private int orderIndex;
+
+    public Topic() {
+        super();
+    }
+
+    public Topic(String name, String description, int orderIndex) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.orderIndex = orderIndex;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/User.java">
+package model;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private int id;
+    private String username;
+    private String password;
+    private String fullname;
+    private String position;
+    private Profile profile;
+    private PersonalSetting personalSetting;
+
+    public User() {
+        super();
+    }
+
+    public User(String username, String password, String fullname, String position, Profile profile, PersonalSetting personalSetting) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.position = position;
+        this.profile = profile;
+        this.personalSetting = personalSetting;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public PersonalSetting getPersonalSetting() {
+        return personalSetting;
+    }
+
+    public void setPersonalSetting(PersonalSetting personalSetting) {
+        this.personalSetting = personalSetting;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/model/Vocabulary.java">
+package model;
+
+import java.io.Serializable;
+
+public class Vocabulary implements Serializable {
+    private int id;
+    private String word;
+    private String meaning;
+    private String pronunciation;
+    private Language language;
+
+    public Vocabulary() {
+        super();
+    }
+
+    public Vocabulary(String word, String meaning, String pronunciation, Language language) {
+        super();
+        this.word = word;
+        this.meaning = meaning;
+        this.pronunciation = pronunciation;
+        this.language = language;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getMeaning() {
+        return meaning;
+    }
+
+    public void setMeaning(String meaning) {
+        this.meaning = meaning;
+    }
+
+    public String getPronunciation() {
+        return pronunciation;
+    }
+
+    public void setPronunciation(String pronunciation) {
+        this.pronunciation = pronunciation;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+}
+</file>
+
+<file path="SmartEng-main/src/view/admin/LessonAdminFrm.java">
+package view.admin;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
+import dao.LessonDAO;
+
+public class LessonAdminFrm extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    
+    // Search components
+    private JTextField txtName;
+    private JTextField txtCode;
+    private JButton btnSearch;
+    private JTable tblLessons;
+    private DefaultTableModel tableModel;
+
+    public LessonAdminFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        JPanel initialCard = createInitialCard();
+        JPanel searchCard = createSearchCard();
+
+        mainPanel.add(initialCard, "Initial");
+        mainPanel.add(searchCard, "Search");
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    private JPanel createInitialCard() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+
+        JButton btnAdd = createActionBtn("Add");
+        JButton btnEdit = createActionBtn("Edit");
+        JButton btnDelete = createActionBtn("Delete");
+        
+        btnEdit.addActionListener(e -> {
+            cardLayout.show(mainPanel, "Search");
+            // Do NOT load data automatically. User must search first.
+            tableModel.setRowCount(0);
+        });
+
+        buttonPanel.add(btnAdd);
+        buttonPanel.add(btnEdit);
+        buttonPanel.add(btnDelete);
+
+        p.add(buttonPanel, BorderLayout.SOUTH);
+        return p;
+    }
+
+    private JPanel createSearchCard() {
+        JPanel p = new JPanel(new BorderLayout(0, 20));
+        p.setBackground(Color.WHITE);
+        p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Top Search Panel
+        JPanel searchTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+        searchTop.setBackground(Color.WHITE);
+
+        txtName = new JTextField();
+        txtName.setPreferredSize(new Dimension(200, 40));
+        txtName.setBorder(BorderFactory.createCompoundBorder(
+            new view.admin.RoundedBorder(20, new Color(150, 150, 160), 1),
+            BorderFactory.createEmptyBorder(0, 10, 0, 10)
+        ));
+        
+        // Placeholder simulation
+        txtName.setText("Enter a name");
+        txtName.setForeground(Color.GRAY);
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtName.getText().equals("Enter a name")) {
+                    txtName.setText("");
+                    txtName.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtName.getText().isEmpty()) {
+                    txtName.setText("Enter a name");
+                    txtName.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        txtCode = new JTextField();
+        txtCode.setPreferredSize(new Dimension(200, 40));
+        txtCode.setBorder(BorderFactory.createCompoundBorder(
+            new view.admin.RoundedBorder(20, new Color(150, 150, 160), 1),
+            BorderFactory.createEmptyBorder(0, 10, 0, 10)
+        ));
+        
+        txtCode.setText("Enter a code");
+        txtCode.setForeground(Color.GRAY);
+        txtCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtCode.getText().equals("Enter a code")) {
+                    txtCode.setText("");
+                    txtCode.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtCode.getText().isEmpty()) {
+                    txtCode.setText("Enter a code");
+                    txtCode.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        btnSearch = createActionBtn("Search");
+        btnSearch.addActionListener(e -> {
+            String n = txtName.getText().equals("Enter a name") ? "" : txtName.getText().trim();
+            String c = txtCode.getText().equals("Enter a code") ? "" : txtCode.getText().trim();
+            
+            if (n.isEmpty() && c.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên hoặc mã để tìm kiếm!");
+                tableModel.setRowCount(0); // clear table if empty search
+                return;
+            }
+            
+            performSearch(n, c);
+        });
+
+        searchTop.add(txtName);
+        searchTop.add(txtCode);
+        searchTop.add(btnSearch);
+
+        p.add(searchTop, BorderLayout.NORTH);
+
+        // Center Table Panel
+        String[] columns = {"ID", "Name", "Code", "Content", "Describe"};
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column > 0; // All columns editable except ID
+            }
+        };
+        tblLessons = new JTable(tableModel);
+        tblLessons.setRowHeight(35);
+        tblLessons.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        tblLessons.getTableHeader().setBackground(new Color(245, 248, 250));
+        tblLessons.getTableHeader().setReorderingAllowed(false);
+        tblLessons.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        tblLessons.setGridColor(new Color(220, 220, 220));
+        
+        JScrollPane scrollPane = new JScrollPane(tblLessons);
+        scrollPane.setBorder(new view.admin.RoundedBorder(10, new Color(150, 150, 160), 1));
+        scrollPane.getViewport().setBackground(Color.WHITE);
+
+        p.add(scrollPane, BorderLayout.CENTER);
+
+        // Bottom right Update button
+        JPanel botPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        botPanel.setBackground(Color.WHITE);
+        JButton btnUpdate = createActionBtn("Update");
+        btnUpdate.addActionListener(e -> {
+            if (tblLessons.isEditing()) {
+                tblLessons.getCellEditor().stopCellEditing();
+            }
+            
+            LessonDAO dao = new LessonDAO();
+            boolean success = true;
+            for(int i = 0; i < tableModel.getRowCount(); i++) {
+                int id = (Integer)tableModel.getValueAt(i, 0);
+                String name = (String)tableModel.getValueAt(i, 1);
+                String code = (String)tableModel.getValueAt(i, 2);
+                String content = (String)tableModel.getValueAt(i, 3);
+                String describe = (String)tableModel.getValueAt(i, 4);
+                
+                if (!dao.updateLesson(id, name, code, content, describe)) {
+                    success = false;
+                }
+            }
+            
+            if(success) {
+                JOptionPane.showMessageDialog(this, "Cập nhật dữ liệu thành công!");
+                // Clear inputs
+                txtName.setText("Enter a name");
+                txtName.setForeground(Color.GRAY);
+                txtCode.setText("Enter a code");
+                txtCode.setForeground(Color.GRAY);
+                tableModel.setRowCount(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật!");
+            }
+        });
+        botPanel.add(btnUpdate);
+        p.add(botPanel, BorderLayout.SOUTH);
+
+        return p;
+    }
+
+    private void performSearch(String name, String code) {
+        LessonDAO dao = new LessonDAO();
+        List<Object[]> data = dao.searchLessons(name, code);
+        tableModel.setRowCount(0);
+        for(Object[] row : data) {
+            tableModel.addRow(row);
+        }
+    }
+
+    private JButton createActionBtn(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btn.setForeground(new Color(30, 40, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setPreferredSize(new Dimension(100, 40));
+        btn.setBorder(new view.admin.RoundedBorder(20, new Color(100, 100, 110), 1));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/admin/QuestionBankAdminFrm.java">
+package view.admin;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class QuestionBankAdminFrm extends JPanel {
+    public QuestionBankAdminFrm() {
+        setLayout(new GridBagLayout());
+        setBackground(Color.WHITE);
+
+        JLabel lbl = new JLabel("Welcome Admin");
+        lbl.setFont(new Font("SansSerif", Font.BOLD, 36));
+        lbl.setForeground(new Color(30, 40, 60));
+        add(lbl);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/admin/RoundedBorder.java">
+package view.admin;
+
+import javax.swing.border.AbstractBorder;
+import java.awt.*;
+
+public class RoundedBorder extends AbstractBorder {
+    private int radius;
+    private Color color;
+    private int thickness;
+
+    public RoundedBorder(int radius, Color color) {
+        this(radius, color, 1);
+    }
+
+    public RoundedBorder(int radius, Color color, int thickness) {
+        this.radius = radius;
+        this.color = color;
+        this.thickness = thickness;
+    }
+
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(thickness));
+        g2.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        g2.dispose();
+    }
+
+    public Insets getBorderInsets(Component c) {
+        return new Insets(10, 15, 10, 15);
+    }
+    public Insets getBorderInsets(Component c, Insets insets) {
+        insets.left = 15;
+        insets.top = 10;
+        insets.right = 15;
+        insets.bottom = 10;
+        return insets;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/admin/StatisticAdminFrm.java">
+package view.admin;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
+import dao.AccessHistoryDAO;
+
+public class StatisticAdminFrm extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    
+    // Access History Components
+    private JTextField txtTimeSearch;
+    private JButton btnSearch;
+    private JTable tblHistory;
+    private DefaultTableModel tableModel;
+
+    public StatisticAdminFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        JPanel menuCard = createMenuCard();
+        JPanel accessCard = createAccessHistoryCard();
+
+        mainPanel.add(menuCard, "Menu");
+        mainPanel.add(accessCard, "AccessHistory");
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    private JPanel createMenuCard() {
+        JPanel p = new JPanel(new GridBagLayout());
+        p.setBackground(Color.WHITE);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBackground(Color.WHITE);
+
+        JButton btnUsing = createStatisticBtn("Using & Accessing");
+        btnUsing.addActionListener(e -> {
+            txtTimeSearch.setText("Find by time");
+            txtTimeSearch.setForeground(Color.GRAY);
+            tableModel.setRowCount(0); // clear
+            cardLayout.show(mainPanel, "AccessHistory");
+        });
+
+        JButton btnStreak = createStatisticBtn("Activity Streak");
+        JButton btnHistory = createStatisticBtn("History");
+
+        JButton[] btns = {btnUsing, btnStreak, btnHistory};
+        for (JButton btn : btns) {
+            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            buttonPanel.add(btn);
+            buttonPanel.add(Box.createVerticalStrut(15));
+        }
+
+        p.add(buttonPanel);
+        return p;
+    }
+
+    private JPanel createAccessHistoryCard() {
+        JPanel p = new JPanel(new BorderLayout(0, 20));
+        p.setBackground(Color.WHITE);
+        p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Top panel
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        topPanel.setBackground(Color.WHITE);
+
+        JButton btnBack = createActionBtn("<- Back");
+        btnBack.setPreferredSize(new Dimension(80, 40));
+        btnBack.addActionListener(e -> cardLayout.show(mainPanel, "Menu"));
+
+        txtTimeSearch = new JTextField();
+        txtTimeSearch.setPreferredSize(new Dimension(300, 40));
+        txtTimeSearch.setBorder(BorderFactory.createCompoundBorder(
+            new view.admin.RoundedBorder(20, new Color(150, 150, 160), 1),
+            BorderFactory.createEmptyBorder(0, 15, 0, 15)
+        ));
+        txtTimeSearch.setText("Find by time");
+        txtTimeSearch.setForeground(Color.GRAY);
+        txtTimeSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtTimeSearch.getText().equals("Find by time")) {
+                    txtTimeSearch.setText("");
+                    txtTimeSearch.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtTimeSearch.getText().isEmpty()) {
+                    txtTimeSearch.setText("Find by time");
+                    txtTimeSearch.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        btnSearch = createActionBtn("Search");
+        btnSearch.addActionListener(e -> {
+            String timeStr = txtTimeSearch.getText().trim();
+            if(timeStr.equals("Find by time") || timeStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập giờ (vd: 08:30)!");
+                tableModel.setRowCount(0);
+                return;
+            }
+            // format validation
+            if(!timeStr.matches("\\d{2}:\\d{2}")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng gg:pp (vd: 08:30)!");
+                tableModel.setRowCount(0);
+                return;
+            }
+            
+            AccessHistoryDAO dao = new AccessHistoryDAO();
+            List<Object[]> data = dao.searchByTime(timeStr);
+            tableModel.setRowCount(0);
+            for(Object[] row : data) {
+                tableModel.addRow(row);
+            }
+            if(data.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu cho thời gian: " + timeStr);
+            }
+        });
+
+        topPanel.add(btnBack);
+        topPanel.add(txtTimeSearch);
+        topPanel.add(btnSearch);
+
+        p.add(topPanel, BorderLayout.NORTH);
+
+        // Center Table Panel
+        String[] columns = {"ID", "user_ID", "access Time", "ipAddress", "deviceInfo", "actionType", "timeStamp", "duration"};
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        tblHistory = new JTable(tableModel);
+        tblHistory.setRowHeight(35);
+        tblHistory.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        tblHistory.getTableHeader().setBackground(new Color(245, 248, 250));
+        tblHistory.getTableHeader().setReorderingAllowed(false);
+        tblHistory.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        tblHistory.setGridColor(new Color(220, 220, 220));
+        
+        JScrollPane scrollPane = new JScrollPane(tblHistory);
+        scrollPane.setBorder(new view.admin.RoundedBorder(10, new Color(150, 150, 160), 1));
+        scrollPane.getViewport().setBackground(Color.WHITE);
+
+        p.add(scrollPane, BorderLayout.CENTER);
+
+        return p;
+    }
+
+    private JButton createStatisticBtn(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btn.setForeground(new Color(30, 40, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setMaximumSize(new Dimension(250, 40));
+        btn.setPreferredSize(new Dimension(250, 40));
+        btn.setBorder(new view.admin.RoundedBorder(20, new Color(100, 100, 110), 1));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
+    }
+
+    private JButton createActionBtn(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btn.setForeground(new Color(30, 40, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setPreferredSize(new Dimension(100, 40));
+        btn.setBorder(new view.admin.RoundedBorder(20, new Color(100, 100, 110), 1));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/admin/VocabularyAdminFrm.java">
+package view.admin;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
+public class VocabularyAdminFrm extends JPanel {
+    public VocabularyAdminFrm() {
+        setLayout(new GridBagLayout());
+        setBackground(Color.WHITE);
+
+        JLabel lbl = new JLabel("Welcome Admin");
+        lbl.setFont(new Font("SansSerif", Font.BOLD, 36));
+        lbl.setForeground(new Color(30, 40, 60));
+        add(lbl);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/leaderboard/LeaderboardFrm.java">
+package view.leaderboard;
+
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+public class LeaderboardFrm extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private String selectedUserName = "";
+
+    public LeaderboardFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        mainPanel.setBackground(Color.WHITE);
+
+        mainPanel.add(createOverviewPanel(), "Overview");
+        mainPanel.add(createRankDetailPanel(), "RankDetail");
+        mainPanel.add(createUserStatsPanel(), "UserStats");
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    private JPanel createOverviewPanel() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setBorder(new EmptyBorder(20, 40, 20, 40));
+
+        JButton btnLeague = new JButton("League");
+        btnLeague.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btnLeague.setForeground(new Color(30, 40, 60));
+        btnLeague.setBackground(Color.WHITE);
+        btnLeague.setFocusPainted(false);
+        btnLeague.setContentAreaFilled(false);
+        btnLeague.setOpaque(true);
+        btnLeague.setPreferredSize(new Dimension(80, 35));
+        btnLeague.setBorder(new RoundedBorder(10, new Color(100, 100, 110), 1));
+        btnLeague.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        btnLeague.addActionListener(e -> {
+            dao.LeaderboardDAO dao = new dao.LeaderboardDAO();
+            java.util.List<String> leagues = dao.getAllLeagues();
+
+            JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Các Bậc Xếp Hạng (Leagues)",
+                    true);
+            dialog.setSize(300, 400);
+            dialog.setLocationRelativeTo(this);
+
+            JPanel listPanel = new JPanel();
+            listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+            listPanel.setBackground(Color.WHITE);
+
+            if (leagues == null || leagues.isEmpty()) {
+                leagues = java.util.Arrays.asList("Radiant", "Immortal", "Ascendant", "Diamond", "Platinum", "Gold",
+                        "Silver", "Bronze", "Iron");
+            }
+
+            for (String league : leagues) {
+                JLabel lbl = new JLabel(league, SwingConstants.CENTER);
+                lbl.setFont(new Font("SansSerif", Font.BOLD, 16));
+                lbl.setBorder(new EmptyBorder(15, 10, 15, 10));
+                lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+                listPanel.add(lbl);
+
+                JSeparator sep = new JSeparator();
+                sep.setMaximumSize(new Dimension(250, 1));
+                listPanel.add(sep);
+            }
+
+            JScrollPane scroll = new JScrollPane(listPanel);
+            dialog.add(scroll);
+            dialog.setVisible(true);
+        });
+
+        JPanel leftTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        leftTop.setBackground(Color.WHITE);
+        leftTop.add(btnLeague);
+        topPanel.add(leftTop, BorderLayout.WEST);
+
+        dao.LeaderboardDAO dao = new dao.LeaderboardDAO();
+        // Giả lập lấy thông tin tài khoản đang đăng nhập hiện tại
+        String loggedInUser = "StarLearner"; 
+        Object[] userStats = dao.getUserStats(loggedInUser);
+        String currentLeague = "Obsidian";
+        if (userStats != null && userStats[5] != null) {
+            currentLeague = (String) userStats[5];
+        }
+
+        JPanel centerTop = new JPanel();
+        centerTop.setLayout(new BoxLayout(centerTop, BoxLayout.Y_AXIS));
+        centerTop.setBackground(Color.WHITE);
+
+        JLabel lblRank = new JLabel(currentLeague, SwingConstants.CENTER);
+        lblRank.setFont(new Font("SansSerif", Font.BOLD, 16));
+        lblRank.setForeground(new Color(30, 40, 60));
+        lblRank.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerTop.add(lblRank);
+
+        // Simulating the diamond shape
+        JLabel lblDiamond = new JLabel("◇", SwingConstants.CENTER);
+        lblDiamond.setFont(new Font("SansSerif", Font.PLAIN, 40));
+        lblDiamond.setForeground(new Color(50, 60, 80));
+        lblDiamond.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerTop.add(lblDiamond);
+
+        topPanel.add(centerTop, BorderLayout.CENTER);
+
+        JButton btnViewRank = new JButton("Detail");
+        btnViewRank.setVisible(false); // Hide standard detail btn to match mockup
+        btnViewRank.addActionListener(e -> cardLayout.show(mainPanel, "RankDetail"));
+        topPanel.add(btnViewRank, BorderLayout.EAST);
+
+        p.add(topPanel, BorderLayout.NORTH);
+
+        String[] cols = { "No", "Avt", "Name", "Total EXP" };
+        Object[][] data = {
+                { 1, "URL1", "Jett", 424 },
+                { 2, "URL2", "Raze", 390 },
+                { 3, "URL3", "Omen", 310 },
+                { 4, "URL4", "Sage", 280 },
+                { 5, "URL5", "Reyna", 250 }
+        };
+
+        Object[][] dbData = dao.getTopUsersByLeague(currentLeague);
+        if (dbData != null && dbData.length > 0) {
+            data = dbData;
+        }
+
+        DefaultTableModel model = new DefaultTableModel(data, cols) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(model);
+        table.setRowHeight(50);
+        table.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        table.setForeground(new Color(50, 50, 60));
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+
+        table.getTableHeader().setBackground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        table.getTableHeader().setForeground(new Color(100, 100, 110));
+        table.getTableHeader().setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(200, 200, 200)));
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = table.rowAtPoint(e.getPoint());
+                if (row >= 0) {
+                    selectedUserName = (String) table.getValueAt(row, 2);
+                    mainPanel.add(createUserStatsPanel(), "UserStats");
+                    cardLayout.show(mainPanel, "UserStats");
+                }
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(null);
+        scrollPane.setBackground(Color.WHITE);
+        scrollPane.getViewport().setBackground(Color.WHITE);
+
+        JPanel tableWrapper = new JPanel(new BorderLayout());
+        tableWrapper.setBackground(Color.WHITE);
+        tableWrapper.setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+        tableWrapper.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel paddingPanel = new JPanel(new BorderLayout());
+        paddingPanel.setBackground(Color.WHITE);
+        paddingPanel.setBorder(new EmptyBorder(0, 40, 40, 40));
+        paddingPanel.add(tableWrapper, BorderLayout.CENTER);
+
+        p.add(paddingPanel, BorderLayout.CENTER);
+        return p;
+    }
+
+    private JPanel createRankDetailPanel() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+        JLabel lbl = new JLabel("Rank Detail: Radiant - Top 1% of players", SwingConstants.CENTER);
+        lbl.setFont(new Font("SansSerif", Font.BOLD, 24));
+        p.add(lbl, BorderLayout.CENTER);
+
+        JButton btnBack = new JButton("Back");
+        btnBack.addActionListener(e -> cardLayout.show(mainPanel, "Overview"));
+        JPanel bot = new JPanel();
+        bot.add(btnBack);
+        p.add(bot, BorderLayout.SOUTH);
+        return p;
+    }
+
+    private JPanel createUserStatsPanel() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+        String name = selectedUserName.isEmpty() ? "Jett" : selectedUserName;
+
+        dao.LeaderboardDAO dao = new dao.LeaderboardDAO();
+        Object[] stats = dao.getUserStats(name);
+
+        String avatar = "URL 1";
+        int exp = 0;
+        int streak = 0;
+        String prizes = "";
+        String league = "Obsidian";
+
+        if (stats != null) {
+            avatar = stats[0] != null ? (String) stats[0] : "URL 1";
+            exp = (Integer) stats[2];
+            streak = (Integer) stats[3];
+            prizes = stats[4] != null ? (String) stats[4] : "";
+            league = stats[5] != null ? (String) stats[5] : "Unknown";
+        }
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        topPanel.setBackground(Color.WHITE);
+        JButton btnBack = new JButton("Back");
+        btnBack.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btnBack.setForeground(new Color(30, 40, 60));
+        btnBack.setFocusPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setOpaque(true);
+        btnBack.setBackground(Color.WHITE);
+        btnBack.setBorder(new RoundedBorder(15, new Color(100, 100, 110), 1));
+        btnBack.setPreferredSize(new Dimension(80, 40));
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnBack.addActionListener(e -> cardLayout.show(mainPanel, "Overview"));
+        topPanel.add(btnBack);
+        p.add(topPanel, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBackground(Color.WHITE);
+
+        JPanel profileTop = new JPanel();
+        profileTop.setLayout(new BoxLayout(profileTop, BoxLayout.Y_AXIS));
+        profileTop.setBackground(Color.WHITE);
+
+        JLabel lblAvatar = new JLabel(avatar, SwingConstants.CENTER);
+        lblAvatar.setPreferredSize(new Dimension(100, 100));
+        lblAvatar.setMaximumSize(new Dimension(100, 100));
+        lblAvatar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblAvatar.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        lblAvatar.setForeground(new Color(30, 40, 60));
+        lblAvatar.setBorder(new RoundedBorder(50, new Color(100, 100, 110), 1));
+
+        JLabel lblName = new JLabel(name, SwingConstants.CENTER);
+        lblName.setFont(new Font("SansSerif", Font.PLAIN, 24));
+        lblName.setForeground(new Color(30, 40, 60));
+        lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        profileTop.add(lblAvatar);
+        profileTop.add(Box.createVerticalStrut(20));
+        profileTop.add(lblName);
+
+        JPanel statsGrid = new JPanel(new GridLayout(2, 2, 20, 20));
+        statsGrid.setBackground(Color.WHITE);
+        statsGrid.setMaximumSize(new Dimension(600, 200));
+
+        statsGrid.add(createStatBox("Current Streak", streak + " Days"));
+        statsGrid.add(createStatBox("Total EXP", exp + " EXP"));
+        statsGrid.add(createStatBox("League Rank", league));
+        statsGrid.add(createStatBox("Special Prizes", prizes.isEmpty() ? "None" : prizes));
+
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(profileTop);
+        centerPanel.add(Box.createVerticalStrut(40));
+        centerPanel.add(statsGrid);
+
+        p.add(centerPanel, BorderLayout.CENTER);
+        return p;
+    }
+
+    private JPanel createStatBox(String title, String value) {
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        p.setBackground(Color.WHITE);
+        p.setBorder(BorderFactory.createCompoundBorder(
+                new RoundedBorder(20, new Color(100, 100, 110), 1),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblTitle.setForeground(new Color(100, 110, 120));
+        lblTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel lblValue = new JLabel(value);
+        lblValue.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblValue.setForeground(new Color(30, 40, 60));
+        lblValue.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        p.add(lblTitle);
+        p.add(Box.createVerticalStrut(10));
+        p.add(lblValue);
+
+        return p;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/leaderboard/RankDetailFrm.java">
+package view.leaderboard;
+import javax.swing.JFrame;
+public class RankDetailFrm extends JFrame {
+    public RankDetailFrm() {
+        super("Rank Detail");
+        setSize(400, 600);
+        setVisible(true);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/leaderboard/UserStatsFrm.java">
+package view.leaderboard;
+import javax.swing.JFrame;
+public class UserStatsFrm extends JFrame {
+    public UserStatsFrm() {
+        super("User Stats");
+        setSize(400, 600);
+        setVisible(true);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/practice/PracticeSetupFrm.java">
+package view.practice;
+
+import java.awt.*;
+import javax.swing.*;
+import java.util.List;
+import java.util.ArrayList;
+
+import dao.TopicDAO;
+import dao.LessonDAO;
+import dao.QuestionDAO;
+
+class ComboBoxItem {
+    int id;
+    String label;
+    public ComboBoxItem(int id, String label) { this.id = id; this.label = label; }
+    @Override public String toString() { return label; }
+}
+
+public class PracticeSetupFrm extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private JComboBox<String> cbxMode;
+    private JComboBox<ComboBoxItem> cbxTopic;
+    private JComboBox<ComboBoxItem> cbxLesson;
+    private JButton btnStart;
+
+    private List<Object[]> questions;
+    private int currentQuestionIndex = 0;
+    
+    // Quiz UI components
+    private JLabel lblQuestion;
+    private JPanel quizOptionsPanel;
+    private JButton btnCheck;
+
+    public PracticeSetupFrm() {
+        setLayout(new BorderLayout());
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        JPanel setupCard = createSetupPanel();
+        JPanel quizCard = createQuizPanel();
+
+        mainPanel.add(setupCard, "Setup");
+        mainPanel.add(quizCard, "Quiz");
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    private JPanel createSetupPanel() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+        JLabel lblTitle = new JLabel("Practice Setup", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        lblTitle.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+        p.add(lblTitle, BorderLayout.NORTH);
+
+        JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        center.setBackground(Color.WHITE);
+        center.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
+        
+        cbxMode = new JComboBox<>(new String[]{"Skill", "Vocabulary", "Grammar"});
+        
+        cbxTopic = new JComboBox<>();
+        cbxTopic.addItem(new ComboBoxItem(0, "Topic"));
+        
+        cbxLesson = new JComboBox<>();
+        cbxLesson.addItem(new ComboBoxItem(0, "Lesson"));
+
+        JComboBox[] cbxs = {cbxMode, cbxTopic, cbxLesson};
+        for(JComboBox cbx : cbxs) {
+            cbx.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            cbx.setForeground(new Color(100, 110, 120));
+            cbx.setBackground(Color.WHITE);
+            cbx.setPreferredSize(new Dimension(150, 40));
+            ((JComponent)cbx.getRenderer()).setBorder(new javax.swing.border.EmptyBorder(0, 10, 0, 10));
+        }
+
+        cbxTopic.setEnabled(false);
+        cbxLesson.setEnabled(false);
+
+        cbxMode.addActionListener(e -> {
+            if (cbxMode.getSelectedIndex() > 0) {
+                cbxTopic.setEnabled(true);
+                loadTopics();
+            } else {
+                cbxTopic.removeAllItems();
+                cbxTopic.addItem(new ComboBoxItem(0, "Topic"));
+                cbxTopic.setEnabled(false);
+                cbxLesson.removeAllItems();
+                cbxLesson.addItem(new ComboBoxItem(0, "Lesson"));
+                cbxLesson.setEnabled(false);
+            }
+        });
+
+        cbxTopic.addActionListener(e -> {
+            ComboBoxItem selectedTopic = (ComboBoxItem) cbxTopic.getSelectedItem();
+            if (selectedTopic != null && selectedTopic.id > 0) {
+                cbxLesson.setEnabled(true);
+                loadLessons(selectedTopic.id);
+            } else {
+                cbxLesson.removeAllItems();
+                cbxLesson.addItem(new ComboBoxItem(0, "Lesson"));
+                cbxLesson.setEnabled(false);
+            }
+        });
+        
+        btnStart = new JButton("Start");
+        btnStart.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btnStart.setForeground(new Color(100, 110, 120));
+        btnStart.setBackground(Color.WHITE);
+        btnStart.setFocusPainted(false);
+        btnStart.setContentAreaFilled(false);
+        btnStart.setOpaque(true);
+        btnStart.setPreferredSize(new Dimension(100, 35));
+        btnStart.setBorder(new view.admin.RoundedBorder(15, new Color(100, 100, 110), 1));
+        btnStart.setEnabled(false);
+        
+        cbxLesson.addActionListener(e -> {
+            ComboBoxItem selectedLesson = (ComboBoxItem) cbxLesson.getSelectedItem();
+            boolean enabled = selectedLesson != null && selectedLesson.id > 0;
+            btnStart.setEnabled(enabled);
+            if(enabled) {
+                btnStart.setForeground(new Color(30, 40, 60));
+                btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            } else {
+                btnStart.setForeground(new Color(100, 110, 120));
+                btnStart.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        center.add(cbxMode);
+        center.add(cbxTopic);
+        center.add(cbxLesson);
+        p.add(center, BorderLayout.CENTER);
+
+        btnStart.addActionListener(e -> startPractice());
+        JPanel bot = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 20));
+        bot.setBackground(Color.WHITE);
+        bot.add(btnStart);
+        p.add(bot, BorderLayout.SOUTH);
+        return p;
+    }
+
+    private void loadTopics() {
+        cbxTopic.removeAllItems();
+        cbxTopic.addItem(new ComboBoxItem(0, "Topic"));
+        TopicDAO dao = new TopicDAO();
+        List<Object[]> topics = dao.getAllTopics();
+        for(Object[] row : topics) {
+            cbxTopic.addItem(new ComboBoxItem((Integer)row[0], (String)row[1]));
+        }
+    }
+
+    private void loadLessons(int topicID) {
+        cbxLesson.removeAllItems();
+        cbxLesson.addItem(new ComboBoxItem(0, "Lesson"));
+        LessonDAO dao = new LessonDAO();
+        List<Object[]> lessons = dao.getLessonsByTopic(topicID);
+        for(Object[] row : lessons) {
+            cbxLesson.addItem(new ComboBoxItem((Integer)row[0], (String)row[1]));
+        }
+    }
+
+    private void startPractice() {
+        ComboBoxItem lesson = (ComboBoxItem) cbxLesson.getSelectedItem();
+        if(lesson == null || lesson.id == 0) return;
+        
+        QuestionDAO dao = new QuestionDAO();
+        questions = dao.getQuestionsByLesson(lesson.id);
+        
+        if(questions.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có câu hỏi nào cho bài học này!");
+            return;
+        }
+        
+        currentQuestionIndex = 0;
+        loadQuestionData();
+        cardLayout.show(mainPanel, "Quiz");
+    }
+
+    private JPanel createQuizPanel() {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(Color.WHITE);
+        p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        lblQuestion = new JLabel("", SwingConstants.CENTER);
+        lblQuestion.setFont(new Font("SansSerif", Font.BOLD, 20));
+        p.add(lblQuestion, BorderLayout.NORTH);
+
+        quizOptionsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        quizOptionsPanel.setBackground(Color.WHITE);
+        p.add(quizOptionsPanel, BorderLayout.CENTER);
+
+        btnCheck = new JButton("Next Question");
+        btnCheck.addActionListener(e -> {
+            // Note: In a real app we check if answer is correct before moving next.
+            // For simplicity here, we just move to the next question.
+            currentQuestionIndex++;
+            if(currentQuestionIndex >= questions.size()) {
+                JOptionPane.showMessageDialog(this, "Practice Completed Successfully!");
+                cbxMode.setSelectedIndex(0);
+                cardLayout.show(mainPanel, "Setup");
+            } else {
+                loadQuestionData();
+            }
+        });
+        JPanel bot = new JPanel(); 
+        bot.setBackground(Color.WHITE);
+        bot.add(btnCheck);
+        p.add(bot, BorderLayout.SOUTH);
+        
+        return p;
+    }
+
+    private void loadQuestionData() {
+        if(questions == null || currentQuestionIndex >= questions.size()) return;
+        Object[] q = questions.get(currentQuestionIndex);
+        lblQuestion.setText("Q" + (currentQuestionIndex+1) + ": " + (String)q[1]);
+        String qType = (String)q[2];
+        String optionsStr = (String)q[3];
+        
+        quizOptionsPanel.removeAll();
+        
+        if("MULTIPLE_CHOICE".equals(qType) || "WORD_ORDER".equals(qType)) {
+            quizOptionsPanel.setLayout(new GridLayout(2, 2, 10, 10));
+            if(optionsStr != null && optionsStr.length() > 4) {
+                // simple json array parser: ["A","B","C"]
+                String clean = optionsStr.substring(2, optionsStr.length()-2); // remove [" and "]
+                String[] opts = clean.split("\",\"");
+                for(String opt : opts) {
+                    JButton btn = new JButton(opt);
+                    btn.setBackground(new Color(245, 248, 250));
+                    btn.setBorder(new view.admin.RoundedBorder(10, new Color(200, 200, 200), 1));
+                    quizOptionsPanel.add(btn);
+                }
+            }
+        } else {
+            quizOptionsPanel.setLayout(new FlowLayout());
+            JTextArea txt = new JTextArea(3, 20);
+            txt.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            txt.setFont(new Font("SansSerif", Font.PLAIN, 16));
+            quizOptionsPanel.add(txt);
+        }
+        
+        quizOptionsPanel.revalidate();
+        quizOptionsPanel.repaint();
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/practice/QuizMultipleChoiceFrm.java">
+package view.practice;
+import javax.swing.JFrame;
+public class QuizMultipleChoiceFrm extends JFrame {
+    public QuizMultipleChoiceFrm() {
+        super("Quiz - Multiple Choice");
+        setSize(400, 600);
+        setVisible(true);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/practice/QuizOpenEndedFrm.java">
+package view.practice;
+import javax.swing.JFrame;
+public class QuizOpenEndedFrm extends JFrame {
+    public QuizOpenEndedFrm() {
+        super("Quiz - Open Ended");
+        setSize(400, 600);
+        setVisible(true);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/profile/DailyMissionFrm.java">
+package view.profile;
+
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class DailyMissionFrm extends JPanel {
+    public DailyMissionFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+
+        JLabel lblTitle = new JLabel("DAILY MISSIONS", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        lblTitle.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        add(lblTitle, BorderLayout.NORTH);
+
+        JPanel center = new JPanel();
+        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
+        center.setBackground(Color.WHITE);
+
+        dao.DailyMissionDAO dao = new dao.DailyMissionDAO();
+        java.util.List<Object[]> dbMissions = dao.getMissions();
+        if (dbMissions != null && !dbMissions.isEmpty()) {
+            java.util.Random rand = new java.util.Random();
+            for (int i = 0; i < dbMissions.size(); i++) {
+                Object[] row = dbMissions.get(i);
+                int target = (Integer) row[3];
+                int current = rand.nextInt(target + 1);
+                boolean isClaimable = (current == target);
+                
+                center.add(createMissionCard((i+1) + ". " + row[0], (String)row[2], row[1] + " EXP", current, target, isClaimable));
+                center.add(Box.createVerticalStrut(20));
+            }
+        } else {
+            // Fallback mock
+            center.add(createMissionCard("1. Hoàn thành 2 bài học", "Học ít nhất 2 bài", "50 EXP", 1, 2, false));
+            center.add(Box.createVerticalStrut(20));
+            center.add(createMissionCard("2. Đạt 100% bài kiểm tra", "Đạt điểm tối đa", "20 Coins", 1, 1, true));
+            center.add(Box.createVerticalStrut(20));
+            center.add(createMissionCard("3. Luyện tập 10 phút", "Thời gian học > 10m", "1 Heart", 1, 1, true));
+        }
+
+        JScrollPane scroll = new JScrollPane(center);
+        scroll.setBorder(null);
+        scroll.setBackground(Color.WHITE);
+        scroll.getViewport().setBackground(Color.WHITE);
+        
+        JPanel paddingPanel = new JPanel(new BorderLayout());
+        paddingPanel.setBackground(Color.WHITE);
+        paddingPanel.setBorder(new EmptyBorder(0, 40, 40, 40));
+        paddingPanel.add(scroll, BorderLayout.CENTER);
+        
+        add(paddingPanel, BorderLayout.CENTER);
+    }
+
+    private JPanel createMissionCard(String title, String desc, String exp, int current, int target, boolean isClaimable) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            new RoundedBorder(20, new Color(100, 100, 110), 1),
+            BorderFactory.createEmptyBorder(20, 20, 20, 20)
+        ));
+        panel.setMaximumSize(new Dimension(800, 140));
+
+        JPanel info = new JPanel();
+        info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
+        info.setBackground(Color.WHITE);
+        
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        
+        JLabel lblDesc = new JLabel(desc);
+        lblDesc.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblDesc.setForeground(new Color(80, 90, 100));
+        
+        JPanel detailRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        detailRow.setBackground(Color.WHITE);
+        
+        JLabel lblProgress = new JLabel("Progress: " + current + "/" + target + "   ");
+        lblProgress.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblProgress.setForeground(new Color(100, 110, 120));
+        
+        JLabel lblExp = new JLabel("Reward: " + exp);
+        lblExp.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblExp.setForeground(new Color(100, 110, 120));
+        
+        detailRow.add(lblProgress);
+        detailRow.add(Box.createHorizontalStrut(20));
+        detailRow.add(lblExp);
+        
+        info.add(lblTitle);
+        info.add(Box.createVerticalStrut(5));
+        info.add(lblDesc);
+        info.add(Box.createVerticalStrut(15));
+        info.add(detailRow);
+        
+        panel.add(info, BorderLayout.CENTER);
+
+        JPanel actionPanel = new JPanel(new BorderLayout());
+        actionPanel.setBackground(Color.WHITE);
+        actionPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
+        
+        if (isClaimable) {
+            JButton btn = new JButton("[ Claim Reward ]");
+            btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            btn.setForeground(new Color(50, 60, 80));
+            btn.setBackground(Color.WHITE);
+            btn.setFocusPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(true);
+            btn.setBorder(new RoundedBorder(15, new Color(100, 100, 110), 1));
+            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btn.setPreferredSize(new Dimension(150, 35));
+            btn.addActionListener(e -> {
+                int confirm = JOptionPane.showConfirmDialog(this, "Confirm claim reward?", "Claim Reward", JOptionPane.OK_CANCEL_OPTION);
+                if (confirm == JOptionPane.OK_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Congratulation!\nReward Received", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    btn.setText("[ Claimed ]");
+                    btn.setEnabled(false);
+                }
+            });
+            actionPanel.add(btn, BorderLayout.EAST);
+        } else {
+            JLabel lblStatus = new JLabel("Status: In Progress");
+            lblStatus.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            lblStatus.setForeground(new Color(100, 110, 120));
+            actionPanel.add(lblStatus, BorderLayout.EAST);
+        }
+        
+        panel.add(actionPanel, BorderLayout.EAST);
+        return panel;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/profile/PersonalSettingFrm.java">
+package view.profile;
+
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class PersonalSettingFrm extends JPanel {
+    public PersonalSettingFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+
+        JLabel lblTitle = new JLabel("Personal Setting", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        lblTitle.setBorder(new EmptyBorder(30, 10, 30, 10));
+        add(lblTitle, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setBorder(new EmptyBorder(0, 50, 50, 50));
+
+        centerPanel.add(createSettingRow("Ngôn ngữ:", new String[]{"Tiếng Thanh Hóa", "Tiếng Anh", "Tiếng Việt"}));
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(createSettingRow("Thời gian học mỗi ngày:", new String[]{"10 phút", "20 phút", "30 phút", "45 phút", "60 phút"}));
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(createSettingRow("Dark Mode:", new String[]{"Tắt", "Bật"}));
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(createSettingRow("Thông báo:", new String[]{"Tắt", "Bật"}));
+
+        add(centerPanel, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.WHITE);
+        bottomPanel.setBorder(new EmptyBorder(20, 10, 50, 10));
+        
+        JButton btnSave = new JButton("Lưu thay đổi");
+        btnSave.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btnSave.setForeground(new Color(30, 40, 60));
+        btnSave.setBackground(Color.WHITE);
+        btnSave.setFocusPainted(false);
+        btnSave.setContentAreaFilled(false);
+        btnSave.setOpaque(true);
+        btnSave.setPreferredSize(new Dimension(150, 40));
+        btnSave.setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+        btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnSave.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Cài đặt đã được lưu thành công!");
+        });
+        
+        bottomPanel.add(btnSave);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel createSettingRow(String labelText, String[] options) {
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        wrapper.setBackground(Color.WHITE);
+
+        JPanel row = new JPanel(new BorderLayout());
+        row.setBackground(Color.WHITE);
+        row.setPreferredSize(new Dimension(500, 50));
+        row.setBorder(BorderFactory.createCompoundBorder(
+            new RoundedBorder(25, new Color(100, 100, 110), 1),
+            new EmptyBorder(2, 20, 2, 10)
+        ));
+
+        JLabel lbl = new JLabel(labelText);
+        lbl.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        lbl.setForeground(new Color(30, 40, 60));
+        row.add(lbl, BorderLayout.WEST);
+
+        JComboBox<String> cbx = new JComboBox<>(options);
+        cbx.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        cbx.setForeground(new Color(50, 60, 80));
+        cbx.setBackground(Color.WHITE);
+        cbx.setPreferredSize(new Dimension(150, 30));
+        
+        // Remove nested RoundedBorder from combobox to prevent double clipping
+        cbx.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 160), 1));
+        
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.add(cbx);
+        
+        row.add(rightPanel, BorderLayout.EAST);
+
+        wrapper.add(row);
+        return wrapper;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/profile/ProfileFrm.java">
+package view.profile;
+
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicProgressBarUI;
+
+public class ProfileFrm extends JPanel {
+    private JLabel lblName;
+
+    public ProfileFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+
+        JLabel lblTitle = new JLabel("Profile", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitle.setForeground(new Color(100, 110, 120));
+        lblTitle.setBorder(new EmptyBorder(30, 10, 30, 10));
+        add(lblTitle, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBackground(Color.WHITE);
+
+        String dName = "Trường Đức Tùng";
+        int dLevel = 18;
+        int dTotalEXP = 1836;
+        int dStreak = 36;
+        
+        dao.ProfileDAO dao = new dao.ProfileDAO();
+        Object[] dbProfile = dao.getProfileByUserId(1); 
+        if (dbProfile != null) {
+            dName = (String) dbProfile[0];
+            dLevel = (Integer) dbProfile[2];
+            dTotalEXP = (Integer) dbProfile[3];
+            dStreak = (Integer) dbProfile[4];
+        }
+
+        JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10));
+        topInfoPanel.setBackground(Color.WHITE);
+
+        // Avatar
+        JLabel lblAvatar = new JLabel("👤", SwingConstants.CENTER);
+        lblAvatar.setFont(new Font("SansSerif", Font.PLAIN, 40));
+        lblAvatar.setForeground(new Color(150, 160, 170));
+        lblAvatar.setPreferredSize(new Dimension(100, 100));
+        
+        JPanel avatarWrapper = new JPanel(new BorderLayout());
+        avatarWrapper.setBackground(new Color(230, 235, 240));
+        avatarWrapper.setBorder(new RoundedBorder(50, new Color(150, 160, 170), 1));
+        avatarWrapper.setPreferredSize(new Dimension(100, 100));
+        avatarWrapper.add(lblAvatar, BorderLayout.CENTER);
+
+        // Name and Streak
+        JPanel nameStreakPanel = new JPanel();
+        nameStreakPanel.setLayout(new BoxLayout(nameStreakPanel, BoxLayout.Y_AXIS));
+        nameStreakPanel.setBackground(Color.WHITE);
+
+        lblName = new JLabel(dName != null ? dName : "User");
+        lblName.setFont(new Font("SansSerif", Font.BOLD, 22));
+        lblName.setForeground(new Color(30, 40, 60));
+        lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblStreakNum = new JLabel(String.valueOf(dStreak));
+        lblStreakNum.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblStreakNum.setForeground(new Color(30, 40, 60));
+        lblStreakNum.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblStreakTxt = new JLabel("streak");
+        lblStreakTxt.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblStreakTxt.setForeground(new Color(100, 110, 120));
+        lblStreakTxt.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        nameStreakPanel.add(lblName);
+        nameStreakPanel.add(Box.createVerticalStrut(10));
+        nameStreakPanel.add(lblStreakNum);
+        nameStreakPanel.add(lblStreakTxt);
+
+        topInfoPanel.add(avatarWrapper);
+        topInfoPanel.add(nameStreakPanel);
+
+        // Progress Bar
+        int maxExp = ((dTotalEXP / 2000) + 1) * 2000;
+        JProgressBar progressBar = new JProgressBar(0, maxExp);
+        progressBar.setValue(dTotalEXP);
+        progressBar.setStringPainted(true);
+        progressBar.setString("Level " + dLevel);
+        progressBar.setFont(new Font("SansSerif", Font.BOLD, 14));
+        progressBar.setForeground(new Color(30, 40, 60));
+        progressBar.setBackground(Color.WHITE);
+        progressBar.setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+        progressBar.setPreferredSize(new Dimension(400, 30));
+        progressBar.setMaximumSize(new Dimension(400, 30));
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        // Custom color for progress bar
+        progressBar.setUI(new BasicProgressBarUI() {
+            protected Color getSelectionBackground() { return new Color(30, 40, 60); }
+            protected Color getSelectionForeground() { return new Color(30, 40, 60); }
+            public void paintDeterminate(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                Insets b = progressBar.getInsets();
+                int w = progressBar.getWidth() - b.right - b.left;
+                int h = progressBar.getHeight() - b.top - b.bottom;
+                int amountFull = getAmountFull(b, w, h);
+                g2.setColor(new Color(120, 240, 160)); // Green progress
+                g2.fillRoundRect(b.left, b.top, amountFull, h, 20, 20);
+                super.paintString(g, b.left, b.top, w, h, amountFull, b);
+            }
+        });
+
+        JLabel lblProgress = new JLabel(dTotalEXP + "/" + maxExp);
+        lblProgress.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblProgress.setForeground(new Color(100, 110, 120));
+        lblProgress.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton btnEdit = new JButton("Edit");
+        btnEdit.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        btnEdit.setForeground(new Color(30, 40, 60));
+        btnEdit.setBackground(Color.WHITE);
+        btnEdit.setFocusPainted(false);
+        btnEdit.setContentAreaFilled(false);
+        btnEdit.setOpaque(true);
+        btnEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnEdit.setMaximumSize(new Dimension(100, 35));
+        btnEdit.setBorder(new RoundedBorder(15, new Color(100, 100, 110), 1));
+        btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        btnEdit.addActionListener(e -> {
+            JPanel editPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+            JTextField txtName = new JTextField(lblName.getText());
+            JButton btnUpload = new JButton("Upload Avatar...");
+            btnUpload.addActionListener(ev -> {
+                JFileChooser fileChooser = new JFileChooser();
+                int res = fileChooser.showOpenDialog(this);
+                if (res == JFileChooser.APPROVE_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Selected file: " + fileChooser.getSelectedFile().getName());
+                }
+            });
+            
+            editPanel.add(new JLabel("Edit Name:"));
+            editPanel.add(txtName);
+            editPanel.add(btnUpload);
+            
+            int result = JOptionPane.showConfirmDialog(this, editPanel, "Edit Profile", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                lblName.setText(txtName.getText());
+                JOptionPane.showMessageDialog(this, "Profile updated!");
+            }
+        });
+
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(topInfoPanel);
+        centerPanel.add(Box.createVerticalStrut(40));
+        centerPanel.add(progressBar);
+        centerPanel.add(Box.createVerticalStrut(10));
+        centerPanel.add(lblProgress);
+        centerPanel.add(Box.createVerticalStrut(50));
+        centerPanel.add(btnEdit);
+
+        add(centerPanel, BorderLayout.CENTER);
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/study/AlphabetFrm.java">
+package view.study;
+
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class AlphabetFrm extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+
+    public AlphabetFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        mainPanel.setBackground(Color.WHITE);
+
+        JPanel gridCard = new JPanel(new BorderLayout());
+        gridCard.setBackground(Color.WHITE);
+        
+        JLabel lblTitle = new JLabel("Alphabet Learning", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        lblTitle.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+        gridCard.add(lblTitle, BorderLayout.NORTH);
+
+        JPanel centerGrid = new JPanel(new GridLayout(0, 7, 15, 15));
+        centerGrid.setBackground(Color.WHITE);
+        centerGrid.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        
+        dao.AlphabetDAO dao = new dao.AlphabetDAO();
+        java.util.List<Object[]> dbLetters = dao.getAllLetters();
+        
+        if (dbLetters != null && !dbLetters.isEmpty()) {
+            for (Object[] row : dbLetters) {
+                String cStr = (String) row[0];
+                if (cStr == null || cStr.isEmpty()) continue;
+                char c = cStr.charAt(0);
+                JButton btnLetter = createAlphabetBtn(c);
+                btnLetter.addActionListener(e -> showLetterDetails(c, (String)row[1], (String)row[2]));
+                centerGrid.add(btnLetter);
+            }
+        } else {
+            // Fallback
+            char[] alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+            for (char c : alphabets) {
+                JButton btnLetter = createAlphabetBtn(c);
+                btnLetter.addActionListener(e -> showLetterDetails(c, "/a/", "Apple"));
+                centerGrid.add(btnLetter);
+            }
+        }
+        
+        JPanel outerGridWrapper = new JPanel(new BorderLayout());
+        outerGridWrapper.setBackground(Color.WHITE);
+        outerGridWrapper.setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+        outerGridWrapper.add(centerGrid, BorderLayout.CENTER);
+
+        JPanel gridWrapperAlignTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        gridWrapperAlignTop.setBackground(Color.WHITE);
+        gridWrapperAlignTop.add(outerGridWrapper);
+
+        JPanel paddingPanel = new JPanel(new BorderLayout());
+        paddingPanel.setBackground(Color.WHITE);
+        paddingPanel.setBorder(new EmptyBorder(0, 20, 20, 20));
+        paddingPanel.add(gridWrapperAlignTop, BorderLayout.NORTH);
+
+        gridCard.add(paddingPanel, BorderLayout.CENTER);
+
+        JPanel detailsCard = new JPanel(new BorderLayout());
+        detailsCard.setBackground(Color.WHITE);
+
+        mainPanel.add(gridCard, "Grid");
+        mainPanel.add(detailsCard, "Details");
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    private JButton createAlphabetBtn(char c) {
+        JButton btn = new JButton(String.valueOf(c));
+        btn.setFont(new Font("SansSerif", Font.BOLD, 22));
+        btn.setForeground(new Color(30, 40, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setOpaque(true);
+        btn.setPreferredSize(new Dimension(60, 60));
+        btn.setBorder(new RoundedBorder(15, new Color(100, 100, 110), 1));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
+    }
+
+    private void showLetterDetails(char c, String pron, String ex) {
+        JPanel detailsCard = new JPanel(new BorderLayout());
+        detailsCard.setBackground(Color.WHITE);
+        detailsCard.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.WHITE);
+
+        JLabel lblLetter = new JLabel("Letter: " + c);
+        lblLetter.setFont(new Font("SansSerif", Font.BOLD, 30));
+        lblLetter.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblType = new JLabel("Type: " + (pron != null ? pron : "N/A"));
+        lblType.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblExample = new JLabel("Example: " + (ex != null ? ex : "N/A"));
+        lblExample.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        lblExample.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton btnPronounce = new JButton("Pronounce");
+        btnPronounce.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnPronounce.addActionListener(e -> {
+            btnPronounce.setText("Playing...");
+            btnPronounce.setEnabled(false);
+            Timer timer = new Timer(1000, evt -> {
+                btnPronounce.setText("Pronounce");
+                btnPronounce.setEnabled(true);
+            });
+            timer.setRepeats(false);
+            timer.start();
+        });
+
+        infoPanel.add(lblLetter);
+        infoPanel.add(Box.createVerticalStrut(20));
+        infoPanel.add(lblType);
+        infoPanel.add(Box.createVerticalStrut(20));
+        infoPanel.add(lblExample);
+        infoPanel.add(Box.createVerticalStrut(40));
+        infoPanel.add(btnPronounce);
+
+        JButton btnClose = new JButton("Close");
+        btnClose.addActionListener(e -> cardLayout.show(mainPanel, "Grid"));
+        
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.WHITE);
+        bottomPanel.add(btnClose);
+
+        detailsCard.add(infoPanel, BorderLayout.CENTER);
+        detailsCard.add(bottomPanel, BorderLayout.SOUTH);
+
+        mainPanel.add(detailsCard, "Details");
+        cardLayout.show(mainPanel, "Details");
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/study/LessonQuizFrm.java">
+package view.study;
+
+import dao.ProfileDAO;
+import dao.QuestionDAO;
+import dao.StudyProgressDAO;
+import view.admin.RoundedBorder;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.util.List;
+
+public class LessonQuizFrm extends JDialog {
+    private List<Object[]> questions;
+    private int currentIndex = 0;
+    private int correctCount = 0;
+    private int heartsLost = 0;
+    private int lessonId;
+    
+    // Giao diện
+    private JLabel lblQuestion;
+    private JPanel optionsPanel;
+    private ButtonGroup btnGroup;
+    private JButton btnCheck;
+
+    public LessonQuizFrm(Frame parent, int lessonId, String lessonName) {
+        super(parent, "Đang học: " + lessonName, true); // Modal Dialog
+        this.lessonId = lessonId;
+        setSize(500, 450);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(Color.WHITE);
+
+        // Fetch Data from DB
+        QuestionDAO qDao = new QuestionDAO();
+        questions = qDao.getQuestionsByLesson(lessonId);
+
+        if (questions == null || questions.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bài học này hiện chưa có câu hỏi trong ngân hàng dữ liệu!");
+            dispose();
+            return;
+        }
+
+        buildUI();
+        loadQuestionData();
+    }
+
+    private void buildUI() {
+        JPanel pnlCenter = new JPanel(new BorderLayout(0, 20));
+        pnlCenter.setBackground(Color.WHITE);
+        pnlCenter.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        lblQuestion = new JLabel("Câu hỏi", SwingConstants.CENTER);
+        lblQuestion.setFont(new Font("SansSerif", Font.BOLD, 18));
+        lblQuestion.setForeground(new Color(30, 40, 60));
+        pnlCenter.add(lblQuestion, BorderLayout.NORTH);
+
+        optionsPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        optionsPanel.setBackground(Color.WHITE);
+        pnlCenter.add(optionsPanel, BorderLayout.CENTER);
+
+        add(pnlCenter, BorderLayout.CENTER);
+
+        JPanel pnlBot = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 20));
+        pnlBot.setBackground(Color.WHITE);
+        btnCheck = new JButton("Kiểm tra (Check)");
+        btnCheck.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnCheck.setPreferredSize(new Dimension(150, 40));
+        btnCheck.setBackground(new Color(120, 240, 160));
+        btnCheck.setBorder(new RoundedBorder(20, new Color(100, 200, 140), 1));
+        btnCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        btnCheck.addActionListener(e -> checkAnswer());
+        pnlBot.add(btnCheck);
+        add(pnlBot, BorderLayout.SOUTH);
+    }
+
+    private void loadQuestionData() {
+        if (currentIndex >= questions.size()) {
+            finishLesson();
+            return;
+        }
+
+        Object[] q = questions.get(currentIndex);
+        lblQuestion.setText("Q" + (currentIndex + 1) + ": " + (String) q[1]);
+        String optionsStr = (String) q[3];
+
+        optionsPanel.removeAll();
+        btnGroup = new ButtonGroup();
+
+        // Parse JSON String ["A", "B", "C", "D"] from database
+        if (optionsStr != null && optionsStr.length() > 4) {
+            String clean = optionsStr.substring(2, optionsStr.length() - 2);
+            String[] opts = clean.split("\",\"");
+            for (String opt : opts) {
+                JRadioButton radio = new JRadioButton(opt);
+                radio.setFont(new Font("SansSerif", Font.PLAIN, 16));
+                radio.setBackground(Color.WHITE);
+                btnGroup.add(radio);
+                optionsPanel.add(radio);
+            }
+        }
+        optionsPanel.revalidate();
+        optionsPanel.repaint();
+    }
+
+    private void checkAnswer() {
+        String selectedAnswer = null;
+        for (Component c : optionsPanel.getComponents()) {
+            if (c instanceof JRadioButton) {
+                JRadioButton rb = (JRadioButton) c;
+                if (rb.isSelected()) selectedAnswer = rb.getText();
+            }
+        }
+
+        if (selectedAnswer == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một đáp án!");
+            return;
+        }
+
+        Object[] q = questions.get(currentIndex);
+        String correctAnswer = (String) q[4];
+
+        if (selectedAnswer.equals(correctAnswer)) {
+            JOptionPane.showMessageDialog(this, "Chính xác! (+EXP)");
+            correctCount++;
+        } else {
+            JOptionPane.showMessageDialog(this, "Sai rồi! Đáp án đúng là: " + correctAnswer);
+            heartsLost++;
+            if (heartsLost >= 5) {
+                JOptionPane.showMessageDialog(this, "Bạn đã hết Tim! Hãy quay lại sau.");
+                dispose();
+                return;
+            }
+        }
+
+        currentIndex++;
+        loadQuestionData();
+    }
+
+    private void finishLesson() {
+        int earnedExp = correctCount * 10;
+        if (correctCount == questions.size()) earnedExp += 5; // Thưởng Combo hoàn hảo
+
+        // Cập nhật CSDL (giả sử userId đang đăng nhập là 1 theo code gốc)
+        int userId = 1; 
+        
+        ProfileDAO pDao = new ProfileDAO();
+        pDao.updateLearningStats(userId, earnedExp, heartsLost);
+        
+        StudyProgressDAO spDao = new StudyProgressDAO();
+        spDao.saveProgress(1, lessonId); // profileId = 1, lessonId
+
+        JOptionPane.showMessageDialog(this, 
+            "BÀI HỌC HOÀN TẤT!\nKinh nghiệm: +" + earnedExp + " EXP\nTim mất: " + heartsLost, 
+            "Hoàn thành", JOptionPane.INFORMATION_MESSAGE);
+        
+        dispose(); // Đóng popup học, quay về màn Cây kỹ năng
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/study/StudyFrm.java">
+package view.study;
+
+import dao.LessonDAO;
+import dao.TopicDAO;
+import view.admin.RoundedBorder;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.util.List;
+
+public class StudyFrm extends JPanel {
+    private JPanel roadmapPanel;
+
+    public StudyFrm() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        topPanel.setBackground(Color.WHITE);
+        
+        JLabel lblTitle = new JLabel("Lộ trình học tập (Skill Tree)", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 22));
+        lblTitle.setForeground(new Color(30, 40, 60));
+        lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblTitle.setBorder(new EmptyBorder(20, 0, 20, 0));
+        topPanel.add(lblTitle);
+
+        add(topPanel, BorderLayout.NORTH);
+
+        roadmapPanel = new JPanel();
+        roadmapPanel.setLayout(new BoxLayout(roadmapPanel, BoxLayout.Y_AXIS));
+        roadmapPanel.setBackground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(roadmapPanel);
+        scrollPane.setBorder(new RoundedBorder(20, new Color(200, 200, 200), 1));
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Scroll nhanh hơn
+
+        JPanel outerWrapper = new JPanel(new BorderLayout());
+        outerWrapper.setBackground(Color.WHITE);
+        outerWrapper.setBorder(new EmptyBorder(0, 40, 20, 40));
+        outerWrapper.add(scrollPane, BorderLayout.CENTER);
+
+        add(outerWrapper, BorderLayout.CENTER);
+
+        // Nạp dữ liệu thực tế từ Database
+        loadDataFromDatabase();
+    }
+
+    public void loadDataFromDatabase() {
+        roadmapPanel.removeAll();
+        TopicDAO tDao = new TopicDAO();
+        LessonDAO lDao = new LessonDAO();
+
+        List<Object[]> topics = tDao.getAllTopics(); // Lấy Chủ đề
+
+        for (Object[] topicRow : topics) {
+            int topicId = (Integer) topicRow[0];
+            String topicName = (String) topicRow[1];
+
+            // Render Tên Topic
+            JLabel lblTopic = new JLabel("  " + topicName.toUpperCase() + "  ", SwingConstants.CENTER);
+            lblTopic.setFont(new Font("SansSerif", Font.BOLD, 14));
+            lblTopic.setForeground(new Color(50, 50, 60));
+            lblTopic.setBorder(new RoundedBorder(15, new Color(100, 100, 110)));
+            lblTopic.setAlignmentX(Component.CENTER_ALIGNMENT);
+            
+            roadmapPanel.add(Box.createVerticalStrut(30));
+            roadmapPanel.add(lblTopic);
+            roadmapPanel.add(Box.createVerticalStrut(20));
+
+            // Lấy các bài học (Lessons) thuộc Topic này
+            List<Object[]> lessons = lDao.getLessonsByTopic(topicId);
+            int xOffset = 60; // Tạo hiệu ứng ZigZag giống Duolingo
+            
+            for (int i = 0; i < lessons.size(); i++) {
+                Object[] lessonRow = lessons.get(i);
+                int lessonId = (Integer) lessonRow[0];
+                String lessonName = (String) lessonRow[1];
+
+                roadmapPanel.add(createNode(lessonId, lessonName, (i % 2 == 0) ? xOffset : -xOffset));
+                roadmapPanel.add(Box.createVerticalStrut(20));
+            }
+        }
+        roadmapPanel.revalidate();
+        roadmapPanel.repaint();
+    }
+
+    private JPanel createNode(int lessonId, String lessonName, int xOffset) {
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        wrapper.setBackground(Color.WHITE);
+        
+        if (xOffset > 0) wrapper.add(Box.createHorizontalStrut(xOffset));
+
+        JButton btn = new JButton("★");
+        btn.setToolTipText(lessonName);
+        btn.setPreferredSize(new Dimension(65, 65));
+        btn.setFont(new Font("SansSerif", Font.BOLD, 20));
+        btn.setForeground(new Color(30, 40, 60));
+        btn.setBackground(new Color(245, 245, 250)); // Màu bài học chưa học
+        btn.setFocusPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setOpaque(true);
+        btn.setBorder(new RoundedBorder(35, new Color(100, 100, 110), 2));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Khi bấm vào bài học sẽ mở Cửa sổ Quiz
+        btn.addActionListener(e -> {
+            Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+            LessonQuizFrm quizFrm = new LessonQuizFrm(parentFrame, lessonId, lessonName);
+            quizFrm.setVisible(true); // Luồng sẽ dừng ở đây cho đến khi User đóng popup
+            
+            // Đổi màu nút thành Đã học (Màu vàng) sau khi popup đóng lại
+            btn.setBackground(new Color(255, 215, 0));
+            btn.setForeground(Color.WHITE);
+            btn.setBorder(new RoundedBorder(35, new Color(218, 165, 32), 2));
+        });
+
+        wrapper.add(btn);
+        if (xOffset < 0) wrapper.add(Box.createHorizontalStrut(-xOffset));
+
+        return wrapper;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/user/AdminHomeFrm.java">
+package view.user;
+
+import view.admin.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AdminHomeFrm extends JFrame {
+    private JPanel centerPanel;
+    private JPanel sidebar;
+    private Map<String, JButton> tabButtons;
+    private String currentTab = "";
+
+    public AdminHomeFrm() {
+        super("SmartEng - Admin");
+        setSize(1000, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(245, 248, 250));
+
+        // Main Wrapper to give rounded look (simulated with border)
+        JPanel mainWrapper = new JPanel(new BorderLayout());
+        mainWrapper.setBackground(new Color(245, 248, 250));
+        mainWrapper.setBorder(new EmptyBorder(30, 30, 30, 30));
+        
+        JPanel innerPanel = new JPanel(new BorderLayout());
+        innerPanel.setBackground(Color.WHITE);
+        innerPanel.setBorder(new LineBorder(new Color(50, 50, 60), 2, true));
+
+        // Sidebar
+        sidebar = new JPanel();
+        sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
+        sidebar.setBackground(Color.WHITE);
+        sidebar.setPreferredSize(new Dimension(250, 700));
+        sidebar.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(50, 50, 60)),
+            new EmptyBorder(30, 20, 30, 20)
+        ));
+
+        JLabel titleLbl = new JLabel("SmartEng Admin");
+        titleLbl.setFont(new Font("SansSerif", Font.BOLD, 22));
+        titleLbl.setForeground(new Color(30, 40, 60));
+        titleLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        sidebar.add(titleLbl);
+        sidebar.add(Box.createVerticalStrut(40));
+
+        tabButtons = new HashMap<>();
+        String[] tabs = {"Lesson", "Vocabulary", "Question Bank", "Statistic"};
+        
+        for (String t : tabs) {
+            JButton btn = createSidebarButton(t);
+            tabButtons.put(t, btn);
+            sidebar.add(btn);
+            sidebar.add(Box.createVerticalStrut(15));
+        }
+
+        innerPanel.add(sidebar, BorderLayout.WEST);
+
+        centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBackground(Color.WHITE);
+        innerPanel.add(centerPanel, BorderLayout.CENTER);
+        
+        mainWrapper.add(innerPanel, BorderLayout.CENTER);
+        add(mainWrapper, BorderLayout.CENTER);
+
+        // Initially no tab selected, show Welcome Admin
+        showWelcomeAdmin();
+    }
+
+    private JButton createSidebarButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btn.setForeground(new Color(50, 50, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btn.setMaximumSize(new Dimension(200, 40));
+        btn.setFocusPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setOpaque(true);
+        btn.setBorder(new RoundedBorder(20, new Color(100, 100, 110)));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        btn.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (!currentTab.equals(text)) btn.setBackground(new Color(245, 245, 250));
+            }
+            public void mouseExited(MouseEvent e) {
+                if (!currentTab.equals(text)) btn.setBackground(Color.WHITE);
+            }
+        });
+
+        btn.addActionListener(e -> switchTab(text));
+        return btn;
+    }
+
+    private void switchTab(String tabName) {
+        currentTab = tabName;
+        for (Map.Entry<String, JButton> entry : tabButtons.entrySet()) {
+            if (entry.getKey().equals(tabName)) {
+                entry.getValue().setBackground(new Color(225, 230, 235));
+                entry.getValue().setBorder(new RoundedBorder(20, new Color(50, 50, 60), 2));
+            } else {
+                entry.getValue().setBackground(Color.WHITE);
+                entry.getValue().setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+            }
+        }
+
+        centerPanel.removeAll();
+        JPanel viewPanel = null;
+        switch (tabName) {
+            case "Lesson": viewPanel = new LessonAdminFrm(); break;
+            case "Vocabulary": viewPanel = new VocabularyAdminFrm(); break;
+            case "Question Bank": viewPanel = new QuestionBankAdminFrm(); break;
+            case "Statistic": viewPanel = new StatisticAdminFrm(); break;
+        }
+        centerPanel.add(viewPanel, BorderLayout.CENTER);
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+
+    private void showWelcomeAdmin() {
+        centerPanel.removeAll();
+        JPanel welcomePanel = new JPanel(new GridBagLayout());
+        welcomePanel.setBackground(Color.WHITE);
+        JLabel lbl = new JLabel("Welcome Admin");
+        lbl.setFont(new Font("SansSerif", Font.BOLD, 36));
+        lbl.setForeground(new Color(30, 40, 60));
+        welcomePanel.add(lbl);
+        centerPanel.add(welcomePanel, BorderLayout.CENTER);
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+}
+
+class RoundedBorder extends javax.swing.border.AbstractBorder {
+    private int radius;
+    private Color color;
+    private int thickness;
+
+    RoundedBorder(int radius, Color color) {
+        this(radius, color, 1);
+    }
+
+    RoundedBorder(int radius, Color color, int thickness) {
+        this.radius = radius;
+        this.color = color;
+        this.thickness = thickness;
+    }
+
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(thickness));
+        g2.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        g2.dispose();
+    }
+
+    public Insets getBorderInsets(Component c) {
+        return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
+    }
+    public Insets getBorderInsets(Component c, Insets insets) {
+        insets.left = insets.top = insets.right = insets.bottom = 10;
+        return insets;
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/user/LearnerHomeFrm.java">
+package view.user;
+
+import view.profile.*;
+import view.study.*;
+import view.practice.*;
+import view.leaderboard.*;
+import view.admin.RoundedBorder; // Reusing the same rounded border class
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LearnerHomeFrm extends JFrame {
+    private JPanel centerPanel;
+    private JPanel sidebar;
+    private Map<String, JButton> tabButtons;
+    private String currentTab = "";
+
+    public LearnerHomeFrm() {
+        super("SmartEng");
+        setSize(1000, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(245, 248, 250));
+
+        // Main Wrapper to give rounded look
+        JPanel mainWrapper = new JPanel(new BorderLayout());
+        mainWrapper.setBackground(new Color(245, 248, 250));
+        mainWrapper.setBorder(new EmptyBorder(30, 30, 30, 30));
+        
+        JPanel innerPanel = new JPanel(new BorderLayout());
+        innerPanel.setBackground(Color.WHITE);
+        innerPanel.setBorder(new LineBorder(new Color(50, 50, 60), 2, true));
+
+        // Sidebar
+        sidebar = new JPanel();
+        sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
+        sidebar.setBackground(Color.WHITE);
+        sidebar.setPreferredSize(new Dimension(250, 700));
+        sidebar.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(50, 50, 60)),
+            new EmptyBorder(30, 20, 30, 20)
+        ));
+
+        JLabel titleLbl = new JLabel("SmartEng");
+        titleLbl.setFont(new Font("SansSerif", Font.BOLD, 22));
+        titleLbl.setForeground(new Color(30, 40, 60));
+        titleLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        sidebar.add(titleLbl);
+        sidebar.add(Box.createVerticalStrut(40));
+
+        tabButtons = new HashMap<>();
+        String[] tabs = {"Study", "Alphabet", "Practice", "Leaderboard", "Daily Mission", "Profile", "Personal Setting"};
+        
+        for (String t : tabs) {
+            JButton btn = createSidebarButton(t);
+            tabButtons.put(t, btn);
+            sidebar.add(btn);
+            sidebar.add(Box.createVerticalStrut(15));
+        }
+
+        innerPanel.add(sidebar, BorderLayout.WEST);
+
+        centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBackground(Color.WHITE);
+        innerPanel.add(centerPanel, BorderLayout.CENTER);
+        
+        mainWrapper.add(innerPanel, BorderLayout.CENTER);
+        add(mainWrapper, BorderLayout.CENTER);
+
+        // Switch to default tab
+        switchTab("Study");
+    }
+
+    private JButton createSidebarButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btn.setForeground(new Color(50, 50, 60));
+        btn.setBackground(Color.WHITE);
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btn.setMaximumSize(new Dimension(200, 40));
+        btn.setFocusPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setOpaque(true);
+        btn.setBorder(new RoundedBorder(20, new Color(100, 100, 110)));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        btn.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (!currentTab.equals(text)) btn.setBackground(new Color(245, 245, 250));
+            }
+            public void mouseExited(MouseEvent e) {
+                if (!currentTab.equals(text)) btn.setBackground(Color.WHITE);
+            }
+        });
+
+        btn.addActionListener(e -> switchTab(text));
+        return btn;
+    }
+
+    private void switchTab(String tabName) {
+        currentTab = tabName;
+        for (Map.Entry<String, JButton> entry : tabButtons.entrySet()) {
+            if (entry.getKey().equals(tabName)) {
+                entry.getValue().setBackground(new Color(225, 230, 235));
+                entry.getValue().setBorder(new RoundedBorder(20, new Color(50, 50, 60), 2));
+            } else {
+                entry.getValue().setBackground(Color.WHITE);
+                entry.getValue().setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
+            }
+        }
+
+        centerPanel.removeAll();
+        JPanel viewPanel = null;
+        switch (tabName) {
+            case "Study": viewPanel = new StudyFrm(); break;
+            case "Alphabet": viewPanel = new AlphabetFrm(); break;
+            case "Practice": viewPanel = new PracticeSetupFrm(); break;
+            case "Daily Mission": viewPanel = new DailyMissionFrm(); break;
+            case "Leaderboard": viewPanel = new LeaderboardFrm(); break;
+            case "Profile": viewPanel = new ProfileFrm(); break;
+            case "Personal Setting": viewPanel = new PersonalSettingFrm(); break;
+            default: viewPanel = new JPanel(); break;
+        }
+        centerPanel.add(viewPanel, BorderLayout.CENTER);
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+}
+</file>
+
+<file path="SmartEng-main/src/view/user/LoginFrm.java">
+package view.user;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
+public class LoginFrm extends JFrame {
+    public LoginFrm() {
+        super("SmartEng - Log In");
+        setSize(800, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        JPanel sidebar = new JPanel(new BorderLayout());
+        sidebar.setPreferredSize(new Dimension(220, 500));
+        sidebar.setBackground(Color.WHITE);
+        sidebar.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
+        
+        JLabel lblLogo = new JLabel("SmartEng", SwingConstants.LEFT);
+        lblLogo.setFont(new Font("SansSerif", Font.BOLD, 22));
+        lblLogo.setBorder(new EmptyBorder(30, 20, 0, 0));
+        sidebar.add(lblLogo, BorderLayout.NORTH);
+
+        JPanel mainArea = new JPanel(new GridBagLayout());
+        mainArea.setBackground(Color.WHITE);
+
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setBackground(Color.WHITE);
+
+        JLabel lblTitle = new JLabel("Log In", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 26));
+        lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextField txtUser = new JTextField();
+        txtUser.setMaximumSize(new Dimension(280, 40));
+        txtUser.setPreferredSize(new Dimension(280, 40));
+        txtUser.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        txtUser.setHorizontalAlignment(JTextField.CENTER);
+        txtUser.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.DARK_GRAY, 1, true),
+            new EmptyBorder(5, 5, 5, 5)
+        ));
+
+        JPasswordField txtPass = new JPasswordField();
+        txtPass.setMaximumSize(new Dimension(280, 40));
+        txtPass.setPreferredSize(new Dimension(280, 40));
+        txtPass.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        txtPass.setHorizontalAlignment(JTextField.CENTER);
+        txtPass.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.DARK_GRAY, 1, true),
+            new EmptyBorder(5, 5, 5, 5)
+        ));
+
+        JButton btnLogin = new JButton("Log In");
+        btnLogin.setMaximumSize(new Dimension(150, 40));
+        btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnLogin.setBackground(Color.WHITE);
+        btnLogin.setFocusPainted(false);
+        btnLogin.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+        btnLogin.addActionListener(e -> {
+            String uname = txtUser.getText().trim();
+            String pass = new String(txtPass.getPassword());
+            
+            model.User user = new model.User();
+            user.setUsername(uname);
+            user.setPassword(pass);
+            
+            dao.UserDAO userDAO = new dao.UserDAO();
+            if (userDAO.checkLogin(user)) {
+                if ("Admin".equalsIgnoreCase(user.getPosition()) || "admin".equalsIgnoreCase(uname)) {
+                    new AdminHomeFrm().setVisible(true);
+                } else {
+                    new LearnerHomeFrm().setVisible(true);
+                }
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!");
+            }
+        });
+
+        formPanel.add(lblTitle);
+        formPanel.add(Box.createVerticalStrut(40));
+        
+        JLabel lblU = new JLabel("Username");
+        lblU.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblU.setForeground(Color.GRAY);
+        formPanel.add(lblU);
+        formPanel.add(Box.createVerticalStrut(5));
+        formPanel.add(txtUser);
+        
+        formPanel.add(Box.createVerticalStrut(20));
+        
+        JLabel lblP = new JLabel("Password");
+        lblP.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblP.setForeground(Color.GRAY);
+        formPanel.add(lblP);
+        formPanel.add(Box.createVerticalStrut(5));
+        formPanel.add(txtPass);
+        
+        formPanel.add(Box.createVerticalStrut(40));
+        formPanel.add(btnLogin);
+
+        mainArea.add(formPanel);
+
+        add(sidebar, BorderLayout.WEST);
+        add(mainArea, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new LoginFrm().setVisible(true));
+    }
+}
+</file>
+
+</files>

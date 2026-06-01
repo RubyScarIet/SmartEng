@@ -1,7 +1,5 @@
 package view.user;
-
 import view.admin.*;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -10,13 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 public class AdminHomeFrm extends JFrame {
     private JPanel centerPanel;
     private JPanel sidebar;
     private Map<String, JButton> tabButtons;
     private String currentTab = "";
-
     public AdminHomeFrm() {
         super("SmartEng - Admin");
         setSize(1000, 700);
@@ -24,17 +20,12 @@ public class AdminHomeFrm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(245, 248, 250));
-
-        // Main Wrapper to give rounded look (simulated with border)
         JPanel mainWrapper = new JPanel(new BorderLayout());
         mainWrapper.setBackground(new Color(245, 248, 250));
         mainWrapper.setBorder(new EmptyBorder(30, 30, 30, 30));
-        
         JPanel innerPanel = new JPanel(new BorderLayout());
         innerPanel.setBackground(Color.WHITE);
         innerPanel.setBorder(new LineBorder(new Color(50, 50, 60), 2, true));
-
-        // Sidebar
         sidebar = new JPanel();
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
         sidebar.setBackground(Color.WHITE);
@@ -43,37 +34,28 @@ public class AdminHomeFrm extends JFrame {
             BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(50, 50, 60)),
             new EmptyBorder(30, 20, 30, 20)
         ));
-
         JLabel titleLbl = new JLabel("SmartEng Admin");
         titleLbl.setFont(new Font("SansSerif", Font.BOLD, 22));
         titleLbl.setForeground(new Color(30, 40, 60));
         titleLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         sidebar.add(titleLbl);
         sidebar.add(Box.createVerticalStrut(40));
-
         tabButtons = new HashMap<>();
         String[] tabs = {"Lesson", "Vocabulary", "Question Bank", "Statistic"};
-        
         for (String t : tabs) {
             JButton btn = createSidebarButton(t);
             tabButtons.put(t, btn);
             sidebar.add(btn);
             sidebar.add(Box.createVerticalStrut(15));
         }
-
         innerPanel.add(sidebar, BorderLayout.WEST);
-
         centerPanel = new JPanel(new BorderLayout());
         centerPanel.setBackground(Color.WHITE);
         innerPanel.add(centerPanel, BorderLayout.CENTER);
-        
         mainWrapper.add(innerPanel, BorderLayout.CENTER);
         add(mainWrapper, BorderLayout.CENTER);
-
-        // Initially no tab selected, show Welcome Admin
         showWelcomeAdmin();
     }
-
     private JButton createSidebarButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -86,7 +68,6 @@ public class AdminHomeFrm extends JFrame {
         btn.setOpaque(true);
         btn.setBorder(new RoundedBorder(20, new Color(100, 100, 110)));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         btn.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 if (!currentTab.equals(text)) btn.setBackground(new Color(245, 245, 250));
@@ -95,11 +76,9 @@ public class AdminHomeFrm extends JFrame {
                 if (!currentTab.equals(text)) btn.setBackground(Color.WHITE);
             }
         });
-
         btn.addActionListener(e -> switchTab(text));
         return btn;
     }
-
     private void switchTab(String tabName) {
         currentTab = tabName;
         for (Map.Entry<String, JButton> entry : tabButtons.entrySet()) {
@@ -111,7 +90,6 @@ public class AdminHomeFrm extends JFrame {
                 entry.getValue().setBorder(new RoundedBorder(20, new Color(100, 100, 110), 1));
             }
         }
-
         centerPanel.removeAll();
         JPanel viewPanel = null;
         switch (tabName) {
@@ -124,7 +102,6 @@ public class AdminHomeFrm extends JFrame {
         centerPanel.revalidate();
         centerPanel.repaint();
     }
-
     private void showWelcomeAdmin() {
         centerPanel.removeAll();
         JPanel welcomePanel = new JPanel(new GridBagLayout());
@@ -138,22 +115,18 @@ public class AdminHomeFrm extends JFrame {
         centerPanel.repaint();
     }
 }
-
 class RoundedBorder extends javax.swing.border.AbstractBorder {
     private int radius;
     private Color color;
     private int thickness;
-
     RoundedBorder(int radius, Color color) {
         this(radius, color, 1);
     }
-
     RoundedBorder(int radius, Color color, int thickness) {
         this.radius = radius;
         this.color = color;
         this.thickness = thickness;
     }
-
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -162,7 +135,6 @@ class RoundedBorder extends javax.swing.border.AbstractBorder {
         g2.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
         g2.dispose();
     }
-
     public Insets getBorderInsets(Component c) {
         return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
     }

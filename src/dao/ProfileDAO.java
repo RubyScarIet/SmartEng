@@ -1,11 +1,8 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 public class ProfileDAO extends DAO {
     public ProfileDAO() { super(); }
-
     public Object[] getProfileByUserId(int userId) {
         if(con == null) return null;
         try {
@@ -27,20 +24,17 @@ public class ProfileDAO extends DAO {
         }
         return null;
     }
-
     public boolean updateProfile(int userId, String displayName, String avatarURL) {
         if (con == null) return false;
         try {
-            // Check if name already exists for another user (duplicate check for TC_UC1_04)
             String checkSql = "SELECT ID FROM tblProfile WHERE displayName = ? AND userID != ?";
             PreparedStatement psCheck = con.prepareStatement(checkSql);
             psCheck.setString(1, displayName);
             psCheck.setInt(2, userId);
             ResultSet rs = psCheck.executeQuery();
             if (rs.next()) {
-                return false; // Name already exists
+                return false; 
             }
-
             String sql = "UPDATE tblProfile SET displayName = ?, avatarURL = ? WHERE userID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, displayName);

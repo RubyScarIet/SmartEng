@@ -1,13 +1,10 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 public class DailyMissionDAO extends DAO {
     public DailyMissionDAO() { super(); }
-
     public List<Object[]> getMissions() {
         List<Object[]> missions = new ArrayList<>();
         if (con == null) return missions;

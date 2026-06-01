@@ -1,13 +1,10 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 public class LeaderboardDAO extends DAO {
     public LeaderboardDAO() { super(); }
-
     public Object[][] getTopUsersByLeague(String leagueName) {
         if(con == null) return null;
         try {
@@ -31,7 +28,6 @@ public class LeaderboardDAO extends DAO {
             return null;
         }
     }
-
     public List<String> getAllLeagues() {
         List<String> leagues = new ArrayList<>();
         if (con == null) return leagues;
@@ -47,7 +43,6 @@ public class LeaderboardDAO extends DAO {
         }
         return leagues;
     }
-
     public Object[] getUserStats(String displayName) {
         if(con == null) return null;
         try {

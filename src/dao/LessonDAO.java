@@ -1,13 +1,10 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 public class LessonDAO extends DAO {
     public LessonDAO() { super(); }
-
     public List<Object[]> getLessonsByTopic(int topicID) {
         List<Object[]> list = new ArrayList<>();
         if(con == null) return list;
@@ -24,7 +21,6 @@ public class LessonDAO extends DAO {
         }
         return list;
     }
-
     public List<Object[]> searchLessons(String name, String code) {
         List<Object[]> list = new ArrayList<>();
         if(con == null) return list;
@@ -59,7 +55,6 @@ public class LessonDAO extends DAO {
         }
         return list;
     }
-
     public boolean updateLesson(int id, String name, String code, String description, String des) {
         if(con == null) return false;
         try {

@@ -1,13 +1,10 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 public class QuestionDAO extends DAO {
     public QuestionDAO() { super(); }
-
     public List<Object[]> getQuestionsByLesson(int lessonID) {
         List<Object[]> list = new ArrayList<>();
         if(con == null) return list;

@@ -1,13 +1,10 @@
 package dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 public class AlphabetDAO extends DAO {
     public AlphabetDAO() { super(); }
-
     public List<Object[]> getAllLetters() {
         List<Object[]> letters = new ArrayList<>();
         if (con == null) return letters;
@@ -18,7 +15,7 @@ public class AlphabetDAO extends DAO {
             while(rs.next()) {
                 letters.add(new Object[] {
                     rs.getString("character"),
-                    rs.getString("type"), // could be pronunciation
+                    rs.getString("type"), 
                     rs.getString("exampleWord")
                 });
             }

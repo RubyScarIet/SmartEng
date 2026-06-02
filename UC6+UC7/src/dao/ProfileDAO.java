@@ -45,10 +45,15 @@ public class ProfileDAO extends DAO {
     public boolean updateHeart(int profileId, int heartDelta) {
         if(con == null) return false;
         try {
-            String sql = "UPDATE tblProfile SET heartCount = heartCount + ? WHERE ID = ?";
+            String sql = "UPDATE tblProfile SET heartCount = CASE " +
+                         "WHEN heartCount + ? > 5 THEN 5 " +
+                         "WHEN heartCount + ? < 0 THEN 0 " +
+                         "ELSE heartCount + ? END WHERE ID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, heartDelta);
-            ps.setInt(2, profileId);
+            ps.setInt(2, heartDelta);
+            ps.setInt(3, heartDelta);
+            ps.setInt(4, profileId);
             return ps.executeUpdate() > 0;
         } catch(Exception e) {
             e.printStackTrace();

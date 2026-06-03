@@ -1,0 +1,61 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run UC03 - DailyMission Model Tests",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": "UC03_DailyMissionTest",
+            "classPaths": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/test",
+                "${workspaceFolder}/lib/junit-4.13.2.jar",
+                "${workspaceFolder}/lib/hamcrest-core-1.3.jar",
+                "${workspaceFolder}/lib/mssql-jdbc.jar"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Run UC03 - DailyMission View Tests",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": "UC03_DailyMissionViewTest",
+            "classPaths": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/test",
+                "${workspaceFolder}/lib/junit-4.13.2.jar",
+                "${workspaceFolder}/lib/hamcrest-core-1.3.jar",
+                "${workspaceFolder}/lib/mssql-jdbc.jar"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Run UC04 - Alphabet Model Tests",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": "UC04_AlphabetTest",
+            "classPaths": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/test",
+                "${workspaceFolder}/lib/junit-4.13.2.jar",
+                "${workspaceFolder}/lib/hamcrest-core-1.3.jar",
+                "${workspaceFolder}/lib/mssql-jdbc.jar"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Run UC04 - Alphabet View Tests",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": "UC04_AlphabetViewTest",
+            "classPaths": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/test",
+                "${workspaceFolder}/lib/junit-4.13.2.jar",
+                "${workspaceFolder}/lib/hamcrest-core-1.3.jar",
+                "${workspaceFolder}/lib/mssql-jdbc.jar"
+            ]
+        }
+    ]
+}

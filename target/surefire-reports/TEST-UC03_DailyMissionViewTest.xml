@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="UC03_DailyMissionViewTest" time="146.284" tests="20" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\SmartEng-main Quyen\SmartEng-main\target\test-classes;D:\SmartEng-main Quyen\SmartEng-main\target\classes;C:\Users\OS\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\OS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\OS\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\9.4.0.jre11\mssql-jdbc-9.4.0.jre11.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Bangkok"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="D:\Apache NetBeans\jdk\bin"/>
+    <property name="sun.java.command" value="C:\Users\OS\AppData\Local\Temp\surefire5348967198724934836\surefirebooter-20260603171830257_3.jar C:\Users\OS\AppData\Local\Temp\surefire5348967198724934836 2026-06-03T17-18-30_068-jvmRun1 surefire-20260603171830257_1tmp surefire_0-20260603171830257_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\SmartEng-main Quyen\SmartEng-main\target\test-classes;D:\SmartEng-main Quyen\SmartEng-main\target\classes;C:\Users\OS\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\OS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\OS\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\9.4.0.jre11\mssql-jdbc-9.4.0.jre11.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\OS"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="D:\Apache NetBeans\jdk"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\SmartEng-main Quyen\SmartEng-main"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\OS\AppData\Local\Temp\surefire5348967198724934836\surefirebooter-20260603171830257_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="OS"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="maven.ext.class.path" value="D:\Apache NetBeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="localRepository" value="C:\Users\OS\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\OS\AppData\Local\Temp\"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="D:\SmartEng-main Quyen\SmartEng-main"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="D:\Apache NetBeans\jdk\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Python314\Scripts\;C:\Python314\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-24\bin;C:\Program Files\PuTTY\;C:\Program Files (x86)\mingw64\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files (x86)\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\Program Files\MongoDB\mongosh-2.6.0-win32-x64\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Users\OS\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\OS\AppData\Local\Programs\Python\Python313\;C:\Users\OS\AppData\Local\Programs\Python\Launcher\;C:\Users\OS\AppData\Local\Microsoft\WindowsApps;C:\Users\OS\AppData\Local\Microsoft VS Code\bin;C:\Program Files (x86)\Nmap;C:\Users\OS\AppData\Roaming\npm;C:\Users\OS\AppData\Local\Programs\Antigravity\bin;C:\Users\OS\AppData\Local\Programs\Antigravity IDE\bin;D:\Apache NetBeans\bin\;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="Cp1252"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testDailyMissionFrmHasTitleLabel" classname="UC03_DailyMissionViewTest" time="14.894">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testProgressLessThanTarget_NotClaimable" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testMissionCardNotCompleted_ShowsInProgress" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testDailyMissionFrmLayoutIsBorderLayout" classname="UC03_DailyMissionViewTest" time="14.534">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testTitleLabelFontIsBold" classname="UC03_DailyMissionViewTest" time="14.545">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testTitleLabelFontSize" classname="UC03_DailyMissionViewTest" time="14.66">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testTitleLabelAlignmentIsCenter" classname="UC03_DailyMissionViewTest" time="14.634">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testDailyMissionFrmIsJPanel" classname="UC03_DailyMissionViewTest" time="14.675">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testDailyMissionFrmHasComponents" classname="UC03_DailyMissionViewTest" time="14.656">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testProgressLabelFormat" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testDailyMissionFrmBackgroundIsWhite" classname="UC03_DailyMissionViewTest" time="14.605">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testMissionCardCompleted_IsClaimable" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testFallbackMission1TitleNotEmpty" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testDailyMissionFrmInstantiation" classname="UC03_DailyMissionViewTest" time="14.534">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testMissionTitleNumbering" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testFallbackMission1IsNotClaimable" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testZeroTargetIsClaimable" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testRewardLabelFormat" classname="UC03_DailyMissionViewTest" time="0.0"/>
+  <testcase name="testDailyMissionFrmHasCenterPanel" classname="UC03_DailyMissionViewTest" time="14.538">
+    <system-out><![CDATA[Chưa kết nối được CSDL (Có thể thiếu thư viện mssql-jdbc.jar hoặc sai pass sa): The connection to the host localhost, named instance MSSQLSERVER02 failed. Error: "java.net.SocketTimeoutException: Receive timed out". Verify the server and instance names and check that no firewall is blocking UDP traffic to port 1434. For SQL Server 2005 or later, verify that the SQL Server Browser Service is running on the host.
+]]></system-out>
+  </testcase>
+  <testcase name="testFallbackMission2IsClaimable" classname="UC03_DailyMissionViewTest" time="0.0"/>
+</testsuite>

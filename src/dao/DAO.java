@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 public class DAO {
     protected Connection con;
     public DAO() {
-        String dbUrl = "jdbc:sqlserver:
+        String dbUrl = "jdbc:sqlserver://localhost:1433;databaseName=SmartEngDB;encrypt=false;";
         String dbClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         try {
             Class.forName(dbClass);

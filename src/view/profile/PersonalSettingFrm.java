@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 public class PersonalSettingFrm extends JPanel {
-    private JComboBox<String> cbxLanguage;
     private JComboBox<String> cbxTimeGoal;
     private int userId;
     public PersonalSettingFrm(int userId) {
@@ -20,17 +19,25 @@ public class PersonalSettingFrm extends JPanel {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setBorder(new EmptyBorder(0, 50, 50, 50));
-        JPanel pnlLang = createSettingRow("Ngôn ngữ:", new String[]{"Tiếng Thanh Hóa", "Tiếng Anh", "Tiếng Việt"});
-        cbxLanguage = (JComboBox<String>) ((JPanel) ((JPanel) pnlLang.getComponent(0)).getComponent(1)).getComponent(0);
-        centerPanel.add(pnlLang);
-        centerPanel.add(Box.createVerticalStrut(20));
+        
         JPanel pnlTime = createSettingRow("Thời gian học mỗi ngày:", new String[]{"10 phút", "20 phút", "30 phút", "45 phút", "60 phút"});
         cbxTimeGoal = (JComboBox<String>) ((JPanel) ((JPanel) pnlTime.getComponent(0)).getComponent(1)).getComponent(0);
         centerPanel.add(pnlTime);
         centerPanel.add(Box.createVerticalStrut(20));
-        centerPanel.add(createSettingRow("Dark Mode:", new String[]{"Tắt", "Bật"}));
+        JPanel pnlDark = createSettingRow("Dark Mode:", new String[]{"Tắt", "Bật"});
+        JComboBox<String> cbxDarkMode = (JComboBox<String>) ((JPanel) ((JPanel) pnlDark.getComponent(0)).getComponent(1)).getComponent(0);
+        centerPanel.add(pnlDark);
         centerPanel.add(Box.createVerticalStrut(20));
-        centerPanel.add(createSettingRow("Thông báo:", new String[]{"Tắt", "Bật"}));
+
+        JPanel pnlNotif = createSettingRow("Thông báo:", new String[]{"Tắt", "Bật"});
+        JComboBox<String> cbxNotification = (JComboBox<String>) ((JPanel) ((JPanel) pnlNotif.getComponent(0)).getComponent(1)).getComponent(0);
+        centerPanel.add(pnlNotif);
+        centerPanel.add(Box.createVerticalStrut(20));
+
+        JPanel pnlSound = createSettingRow("Âm thanh:", new String[]{"Tắt", "Bật"});
+        JComboBox<String> cbxSound = (JComboBox<String>) ((JPanel) ((JPanel) pnlSound.getComponent(0)).getComponent(1)).getComponent(0);
+        centerPanel.add(pnlSound);
+
         dao.PersonalSettingDAO dao = new dao.PersonalSettingDAO();
         Object[] existingSettings = dao.getSettingByUserId(userId);
         if (existingSettings != null) {
@@ -41,11 +48,14 @@ public class PersonalSettingFrm extends JPanel {
                     timeGoal = Integer.parseInt(timeGoalStr.replace(" minutes", "").trim());
                 } catch(Exception e){}
             }
-            int langId = (Integer) existingSettings[1];
+            boolean isDarkMode = (Boolean) existingSettings[1];
+            boolean isNotificationEnabled = (Boolean) existingSettings[2];
+            boolean isSoundEnabled = (Boolean) existingSettings[3];
+
             cbxTimeGoal.setSelectedItem(timeGoal + " phút");
-            if (langId == 1) cbxLanguage.setSelectedItem("Tiếng Anh");
-            else if (langId == 2) cbxLanguage.setSelectedItem("Tiếng Việt");
-            else cbxLanguage.setSelectedItem("Tiếng Thanh Hóa");
+            cbxDarkMode.setSelectedItem(isDarkMode ? "Bật" : "Tắt");
+            cbxNotification.setSelectedItem(isNotificationEnabled ? "Bật" : "Tắt");
+            cbxSound.setSelectedItem(isSoundEnabled ? "Bật" : "Tắt");
         }
         add(centerPanel, BorderLayout.CENTER);
         JPanel bottomPanel = new JPanel();
@@ -65,14 +75,17 @@ public class PersonalSettingFrm extends JPanel {
             try {
                 String timeStr = cbxTimeGoal.getSelectedItem().toString().replace(" phút", "");
                 int timeGoal = Integer.parseInt(timeStr);
-                String langStr = cbxLanguage.getSelectedItem().toString();
-                int langId = langStr.equals("Tiếng Anh") ? 1 : (langStr.equals("Tiếng Việt") ? 2 : 3);
+                
+                boolean isDark = cbxDarkMode.getSelectedItem().toString().equals("Bật");
+                boolean isNotif = cbxNotification.getSelectedItem().toString().equals("Bật");
+                boolean isSound = cbxSound.getSelectedItem().toString().equals("Bật");
+
                 if (timeGoal < 0) {
                     JOptionPane.showMessageDialog(this, "Thời gian không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 dao.PersonalSettingDAO updateDao = new dao.PersonalSettingDAO();
-                boolean success = updateDao.updateSettings(userId, timeGoal, langId);
+                boolean success = updateDao.updateSettings(userId, timeGoal, isDark, isNotif, isSound);
                 if (success) {
                     JOptionPane.showMessageDialog(this, "Cài đặt đã được lưu thành công!");
                 } else {
